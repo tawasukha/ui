@@ -5,16 +5,8 @@ import { Provider } from "../src/components/provider"
 
 const withThemeProvider = (Story, context) => {
   const theme = context.globals.theme;
-  React.useEffect(() => {
-    const html = document.querySelector("html")
-    if (html) {
-      html.setAttribute("data-theme", theme)
-      html.classList.add("bg-slate-900")
-
-    }
-  }, [theme])
   return (
-    <Provider>
+    <Provider theme={theme}>
       <Story />
     </Provider>
   );

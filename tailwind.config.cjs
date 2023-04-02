@@ -12,11 +12,13 @@ module.exports = {
       },
       colors: {
         "default": "var(--color-default)",
-        "default-1": "var(--color-default-1)",
-        "default-2": "var(--color-default-2)",
-        "default-3": "var(--color-default-3)",
-        "default-4": "var(--color-default-4)",
-        "default-5": "var(--color-default-5)",
+        "offset": "var(--color-offset)",
+
+        "base-1": "var(--color-base-1)",
+        "base-2": "var(--color-base-2)",
+        "base-3": "var(--color-base-3)",
+        "base-4": "var(--color-base-4)",
+        "base-5": "var(--color-base-5)",
 
         "primary-1": "var(--color-primary-1)",
         "primary-2": "var(--color-primary-2)",

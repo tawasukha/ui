@@ -2,7 +2,7 @@ import { cva, VariantProps } from "cva"
 import { Icon } from "./icon"
 import { DivProps } from "react-html-props"
 
-const _box = cva(["overflow-hidden rounded-full ring ring-default-3 text-default-3 flex justify-center items-center bg-default-2"], {
+const _box = cva(["overflow-hidden rounded-full ring ring-base-3 text-base-3 flex justify-center items-center bg-base-2"], {
     variants: {
         size: {
             sm: ["w-8 h-8"],
@@ -13,7 +13,7 @@ const _box = cva(["overflow-hidden rounded-full ring ring-default-3 text-default
     }
 })
 
-const _icon = cva(["bg-default-2 text-default-3"], {
+const _icon = cva(["bg-base-2 text-base-3"], {
     variants: {
         size: {
             sm: ["w-6 h-6"],
@@ -36,7 +36,7 @@ const _text = cva([], {
 })
 
 
-const _status = cva(["rounded-full absolute right-0 ring-1 ring-default-2 bottom-0"], {
+const _status = cva(["rounded-full absolute right-0 ring-1 ring-base-2 bottom-0"], {
     variants: {
         mode: {
             primary: ["bg-primary-3"],

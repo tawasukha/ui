@@ -3,9 +3,10 @@ import { StyledIcon, Icon } from "./icon"
 import { DivProps } from "react-html-props"
 import { type MouseEventHandler } from "react"
 
-const _boxicon = cva(["flex items-center justify-center w-12"], {
+const _boxicon = cva(["flex items-center justify-center w-12 rounded-l-lg"], {
     variants: {
         mode: {
+            base: ["bg-base-1"],
             primary: ["bg-primary-1"],
             secondary: ["bg-secondary-1"],
             success: ["bg-success-1"],
@@ -18,17 +19,23 @@ const _boxicon = cva(["flex items-center justify-center w-12"], {
 const _title = cva(["font-semibold"], {
     variants: {
         mode: {
+            base: ["text-base-5"],
             primary: ["text-primary-5"],
             secondary: ["text-secondary-5"],
             success: ["text-success-5"],
             warning: ["text-warning-5"],
             error: ["text-error-5"],
         }
+    },
+    defaultVariants: {
+        mode: "base"
     }
 })
 
 
-export interface AlertProps extends DivProps, VariantProps<typeof _boxicon> {
+type Props = VariantProps<typeof _boxicon>
+
+export interface AlertProps extends DivProps, Omit<Props, "mode">, Created<{ mode: NonNullable<Props["mode"]> }> {
     title: string;
     children: string;
     onDismiss?: MouseEventHandler<HTMLButtonElement>
@@ -43,19 +50,19 @@ const iconName = {
 }
 
 
-export function Alert({ mode, title, children, onDismiss }: AlertProps) {
-    return <div className="flex max-w-sm bg-default-1 rounded-lg shadow-md">
-        {mode && <div className={_boxicon({ mode })}>
+export function Alert({ mode = "base", title, children, onDismiss }: AlertProps) {
+    return <div className="flex max-w-sm bg-base-1 rounded-lg shadow-md shadow-offset">
+        {mode !== "base" && <div className={_boxicon({ mode })}>
             <StyledIcon mode={mode} name={iconName[mode]} className="h-10 w-10" />
         </div>}
 
         <div className="px-4 py-2 -mx-3 flex flex-1 flex-row">
             <div className="flex flex-1 flex-col mx-3">
                 <span className={_title({ mode })}>{title}</span>
-                <p className="text-sm text-default-5">{children}</p>
+                <p className="text-sm text-base-5">{children}</p>
             </div>
 
-            {onDismiss && <button className="text-default-5 hover:text-default-4 self-start" onClick={onDismiss}>
+            {onDismiss && <button className="text-base-5 hover:text-base-4 self-start" onClick={onDismiss}>
                 <span className="sr-only">Dismiss</span>
                 <Icon name="XMarkIcon" className="h-6 w-6" />
             </button>}

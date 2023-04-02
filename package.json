@@ -19,9 +19,11 @@
   "scripts": {
     "build": "vite build && npm run build:css",
     "build:css": "tailwindcss -m -i ./src/styles/entry.css -o ./dist/styles.css",
-    "prepublishOnly": "npm run build",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "storybook": "concurrently \"npm run storybook:css\" \"storybook dev -p 6006\"",
+    "storybook:css": "tailwindcss -w -i ./src/styles/entry.css -o ./src/styles/index.css",
+    "build-storybook": "concurrently \"npm run build-storybook:css\" \"storybook build\"",
+    "build-storybook:css": "tailwindcss -m -i ./src/styles/entry.css -o ./src/styles/index.css",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
