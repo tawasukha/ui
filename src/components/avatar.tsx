@@ -2,7 +2,7 @@ import { cva, VariantProps } from "cva"
 import { Icon } from "./icon"
 import { DivProps } from "react-html-props"
 
-const _box = cva(["overflow-hidden rounded-full ring ring-base-3 text-base-3 flex justify-center items-center bg-base-2"], {
+const _box = cva(["overflow-hidden rounded-full ring ring-base-4 text-base-4 flex justify-center items-center bg-base-1"], {
     variants: {
         size: {
             sm: ["w-8 h-8"],
@@ -36,7 +36,7 @@ const _text = cva([], {
 })
 
 
-const _status = cva(["rounded-full absolute right-0 ring-1 ring-base-2 bottom-0"], {
+const _status = cva(["rounded-full absolute right-0 ring-1 ring-base-2"], {
     variants: {
         mode: {
             primary: ["bg-primary-3"],
@@ -46,16 +46,15 @@ const _status = cva(["rounded-full absolute right-0 ring-1 ring-base-2 bottom-0"
             error: ["bg-error-3"],
         },
         size: {
-            sm: ["w-2 h-2"],
-            md: ["w-2.5 h-2.5"],
-            lg: ["w-2.5 h-2.5"],
-            xl: ["w-3 h-3"],
+            sm: ["w-2 h-2 bottom-0"],
+            md: ["w-2.5 h-2.5 bottom-0"],
+            lg: ["w-2.5 h-2.5 bottom-0.5"],
+            xl: ["w-3 h-3 bottom-1"],
         }
     }
 })
 
-
-export interface AvatarProps extends DivProps, VariantProps<typeof _box>, VariantProps<typeof _status> {
+export interface AvatarProps extends DivProps, Required<{ size: NonNullable<VariantProps<typeof _box>["size"]> }>, Omit<VariantProps<typeof _status>, "size"> {
     image?: string
     icon?: string
 }

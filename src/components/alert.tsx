@@ -35,7 +35,7 @@ const _title = cva(["font-semibold"], {
 
 type Props = VariantProps<typeof _boxicon>
 
-export interface AlertProps extends DivProps, Omit<Props, "mode">, Created<{ mode: NonNullable<Props["mode"]> }> {
+export interface AlertProps extends DivProps, Omit<Props, "mode">, Required<{ mode: NonNullable<Props["mode"]> }> {
     title: string;
     children: string;
     onDismiss?: MouseEventHandler<HTMLButtonElement>
