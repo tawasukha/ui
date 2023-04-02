@@ -11,6 +11,7 @@ module.exports = {
         sans: ["ABeeZee", ...defaultTheme.fontFamily.sans],
       },
       colors: {
+        "default": "var(--color-default)",
         "default-1": "var(--color-default-1)",
         "default-2": "var(--color-default-2)",
         "default-3": "var(--color-default-3)",

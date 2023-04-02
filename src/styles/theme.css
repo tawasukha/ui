@@ -10,7 +10,8 @@
 */
 
 [data-theme="light"] {
-    --color-default-1: theme("colors.white");
+    --color-default: theme("colors.white");
+    --color-default-1: theme("colors.slate.50");
     --color-default-2: theme("colors.slate.100");
     --color-default-3: theme("colors.slate.500");
     --color-default-4: theme("colors.slate.600");
@@ -48,6 +49,7 @@
 }
 
 [data-theme="dark"] {
+    --color-default: theme("colors.gray.900");
     --color-default-1: theme("colors.slate.900");
     --color-default-2: theme("colors.slate.800");
     --color-default-3: theme("colors.slate.400");
