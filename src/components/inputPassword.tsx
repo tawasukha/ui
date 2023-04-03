@@ -25,7 +25,7 @@ export function InputPassword({ mode = "base", className, ...props }: InputTextP
   const { value, toggle, eye } = useEye(mode)
 
   return <div className="relative flex items-center mt-2">
-    <button onClick={toggle} className="absolute right-3 focus:outline-none rtl:left-0 rtl:right-auto">
+    <button onClick={toggle} className="absolute right-3 focus:outline-none">
       {eye}
     </button>
 

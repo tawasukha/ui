@@ -19,9 +19,9 @@
     "declarationMap": true,
     "baseUrl": "src",
     "paths": {
-      "react-component-library": ["index.ts"]
+      "tawasuka-ui": ["index.ts"]
     },
-    "typeRoots": ["node_modules/@types", "index.d.ts"]
+    "typeRoots": ["node_modules/@types", "@types", "index.d.ts"]
   },
   "include": ["src", "@types"],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -5,8 +5,8 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/react-component-library.cjs",
-      "import": "./dist/react-component-library.es.js"
+      "require": "./dist/tawasuka-ui.cjs",
+      "import": "./dist/tawasuka-ui.es.js"
     },
     "./styles.css": {
       "require": "./dist/styles.css",

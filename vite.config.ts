@@ -16,11 +16,10 @@ export default defineConfig(() => ({
   build: {
     lib: {
       entry: resolve("src", "index.ts"),
-      name: "react-component-library",
+      name: "tawasuka-ui",
       formats: ["es", "cjs"],
       fileName: (format) =>
-        `react-component-library.${
-          format === "cjs" ? "cjs" : "es.js"
+        `tawasuka-ui.${format === "cjs" ? "cjs" : "es.js"
         }`,
     },
     optimizeDeps: {

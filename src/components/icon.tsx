@@ -24,6 +24,8 @@ const _icon = cva([], {
   }
 })
 
+type ModeProps = Required<{ mode: VariantProps<typeof _icon>["mode"] }>
+
 export function StyledIcon({ className, mode, ...rest }: React.ComponentProps<typeof Icon> & ModeProps) {
   return <Icon {...rest} className={_icon({
     mode, className
