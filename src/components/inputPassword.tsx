@@ -6,7 +6,7 @@ import { StyledIcon } from "./icon";
 
 function useEye(mode: "base" | "error") {
   const { value, toggle } = useBoolean()
-  const eye = useMemo(() => <StyledIcon mode={mode} name={value ? "EyeIcon" : "EyeSlashIcon"} className="h-6 w-6 text-base-5" />, [value])
+  const eye = useMemo(() => <StyledIcon mode={mode} name={value ? "EyeIcon" : "EyeSlashIcon"} className="h-6 w-6 text-base-5" />, [value, mode])
   return { value, toggle, eye }
 }
 

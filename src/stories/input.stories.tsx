@@ -6,11 +6,7 @@ import { InputPassword } from "components/inputPassword";
 const meta = {
   title: "Tawasukha UI/Input",
   tags: ["docsPage"],
-  argTypes: {
-    name: {
-      control: { type: "text" },
-    },
-  },
+  argTypes: {},
 } satisfies Meta<typeof InputText>;
 
 export default meta;
