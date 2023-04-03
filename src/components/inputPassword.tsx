@@ -4,7 +4,7 @@ import { cva, VariantProps } from "cva"
 import { useBoolean } from "helpers/useBoolean";
 import { StyledIcon } from "./icon";
 
-function useEye(mode) {
+function useEye(mode: "base" | "error") {
   const { value, toggle } = useBoolean()
   const eye = useMemo(() => <StyledIcon mode={mode} name={value ? "EyeIcon" : "EyeSlashIcon"} className="h-6 w-6 text-base-5" />, [value])
   return { value, toggle, eye }
@@ -19,7 +19,7 @@ const _input = cva(["block w-full placeholder-base-3 bg-base rounded-lg border p
   }
 })
 
-export interface InputTextProps extends Omit<InputProps, "type">, VariantProps<typeof _input> { }
+export interface InputTextProps extends Omit<InputProps, "type">, Required<{ mode: NonNullable<VariantProps<typeof _input>["mode"]> }> { }
 
 export function InputPassword({ mode = "base", className, ...props }: InputTextProps) {
   const { value, toggle, eye } = useEye(mode)
