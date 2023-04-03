@@ -7,7 +7,7 @@ type CardProps = {
 };
 
 
-const _box = cva(["bg-base-1", "rounded-lg", "shadow-lg", "hover:ring-1", "overflow-hidden", "sm:max-w-xs", "lg:max-w-sm", "xl:max-w-md"], {
+const _box = cva(["bg-base", "rounded-lg", "shadow-lg", "hover:ring-1", "overflow-hidden", "sm:max-w-xs", "lg:max-w-sm", "xl:max-w-md"], {
   variants: {
     mode: {
       primary: ['ring-primary-3'],

@@ -14,6 +14,7 @@ module.exports = {
         "default": "var(--color-default)",
         "offset": "var(--color-offset)",
 
+        "base": "var(--color-base)",
         "base-1": "var(--color-base-1)",
         "base-2": "var(--color-base-2)",
         "base-3": "var(--color-base-3)",
