@@ -1,7 +1,8 @@
+import React from "react"
 import type { Meta, StoryObj } from "@storybook/react";
-import { InputText } from "../components/inputText";
-import { InputTextArea } from "components/inputTextArea";
-import { InputPassword } from "components/inputPassword";
+import { InputText } from "../src/components/inputText";
+import { InputTextArea } from "../src/components/inputTextArea";
+import { InputPassword } from "../src/components/inputPassword";
 
 const meta = {
   title: "Tawasukha UI/Input",

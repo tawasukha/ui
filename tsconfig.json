@@ -17,12 +17,13 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "declarationMap": true,
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "tawasuka-ui": ["index.ts"]
+      "tawasuka-ui": ["src/index.ts"]
     },
-    "typeRoots": ["node_modules/@types", "@types", "index.d.ts"]
+    "typeRoots": ["node_modules/@types", "index.d.ts"]
   },
-  "include": ["src", "@types"],
+  "include": ["src"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

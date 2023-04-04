@@ -1,5 +1,5 @@
 import { cva, VariantProps } from "cva"
-import { dynamic } from "helpers/dynamic"
+import { dynamic } from "../helpers/dynamic"
 import React from "react";
 
 export function Icon({ name, className, outline = false }: React.SVGProps<SVGSVGElement> & { outline?: boolean, name: string }) {

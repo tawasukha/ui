@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { InputProps } from "react-html-props";
 import { cva, VariantProps } from "cva"
-import { useBoolean } from "helpers/useBoolean";
+import { useBoolean } from "../helpers/useBoolean";
 import { StyledIcon } from "./icon";
 
 function useEye(mode: "base" | "error") {
