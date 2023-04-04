@@ -1,7 +1,7 @@
 
 import { cva, VariantProps } from "cva"
-import { Icon } from "./icon"
-import { ButtonProps as HtmlButtonProps } from "react-html-props"
+import { ButtonProps as HtmlButtonProps, } from "react-html-props"
+import { type IconProps } from "./icon"
 
 const _button = cva(["flex items-center tracking-wide capitalize transition-colors duration-300 transform rounded-lg focus:outline-none focus:ring hover:opacity-90"], {
   variants: {
@@ -62,13 +62,13 @@ type ModeProps = Required<{ mode: NonNullable<Props["mode"]> }>
 type SizeProps = Required<{ size: NonNullable<Props["size"]> }>
 
 export interface ButtonProps extends HtmlButtonProps, ModeProps, SizeProps {
-  icon: string
+  icon: React.FC<IconProps>
   iconClassName?: string
 }
 
-export function Button({ icon, iconClassName, mode, size, className, children }: ButtonProps) {
+export function Button({ iconClassName, mode, size, className, children, ...props }: ButtonProps) {
   return <button className={_button({ mode, size, className })}>
-    <Icon name={icon} className={_icon({ size, mode, className: iconClassName })} />
+    <props.icon className={_icon({ size, mode, className: iconClassName })} />
     <span className="ml-1">{children}</span>
   </button>
 }

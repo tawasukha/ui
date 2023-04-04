@@ -1,17 +1,8 @@
 import { cva, VariantProps } from "cva"
-import { dynamic } from "../helpers/dynamic"
-import React from "react";
+import { useMemo } from "react";
+import { InformationCircleIcon, CheckCircleIcon, ExclamationCircleIcon, XCircleIcon } from "@heroicons/react/24/solid"
 
-export function Icon({ name, className, outline = false }: React.SVGProps<SVGSVGElement> & { outline?: boolean, name: string }) {
-  const HeroIcon = outline
-    //@ts-expect-error
-    ? dynamic(() => import("@heroicons/react/24/outline").then((mod) => ({ default: mod[name] })))
-    //@ts-expect-error
-    : dynamic(() => import("@heroicons/react/24/solid").then((mod) => ({ default: mod[name] })));
-  return <HeroIcon className={className} aria-hidden={true} />;
-};
-
-const _icon = cva([], {
+export const _icon_mode = cva([], {
   variants: {
     mode: {
       base: ["text-base-5"],
@@ -24,10 +15,28 @@ const _icon = cva([], {
   }
 })
 
-type ModeProps = Required<{ mode: VariantProps<typeof _icon>["mode"] }>
+export type IconModeProps = Required<{ mode: VariantProps<typeof _icon_mode>["mode"] }>
 
-export function StyledIcon({ className, mode, ...rest }: React.ComponentProps<typeof Icon> & ModeProps) {
-  return <Icon {...rest} className={_icon({
-    mode, className
-  })} />
+export type IconProps = React.ComponentProps<typeof InformationCircleIcon>
+
+export function useIcon(name: NonNullable<IconModeProps["mode"]>) {
+  return useMemo(() => {
+    switch (name) {
+      case "primary":
+        return InformationCircleIcon
+      case "secondary":
+        return InformationCircleIcon
+      case "success":
+        return CheckCircleIcon
+      case "warning":
+        return ExclamationCircleIcon
+      case "error":
+        return XCircleIcon
+      default:
+        return null
+    }
+  }, [name])
 }
+
+
+

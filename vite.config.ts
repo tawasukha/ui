@@ -13,13 +13,14 @@ export default defineConfig(() => ({
       include: ["src"],
     }),
   ],
+
   build: {
     lib: {
       entry: resolve("src", "index.ts"),
-      name: "tawasuka-ui",
+      name: "tawasukha-ui",
       formats: ["es", "cjs"],
       fileName: (format) =>
-        `tawasuka-ui.${format === "cjs" ? "cjs" : "es.js"
+        `tawasukha-ui.${format === "cjs" ? "cjs" : "es.js"
         }`,
     },
     optimizeDeps: {
@@ -28,5 +29,14 @@ export default defineConfig(() => ({
     esbuild: {
       minify: true,
     },
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name == 'style.css')
+            return 'tawasukha-ui-theme.css';
+          return assetInfo.name;
+        },
+      }
+    }
   },
 }));

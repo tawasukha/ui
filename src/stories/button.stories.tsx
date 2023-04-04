@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Button } from "../src/components/button";
+import { Button } from "../components/button";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 const meta = {
@@ -14,7 +14,6 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     mode: "base",
-    //@ts-ignore
     icon: PaperAirplaneIcon,
     iconClassName: "-mt-1.5 -rotate-45",
     size: "md",

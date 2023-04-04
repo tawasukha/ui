@@ -1,4 +1,5 @@
-import '../src/styles/index.css'
+import '../src/index.css'
+import "../src/theme.css"
 import type { Preview, } from "@storybook/react"
 import React from "react"
 import { Provider } from "../src/components/provider"

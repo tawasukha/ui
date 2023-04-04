@@ -2,11 +2,14 @@ import { useMemo } from "react";
 import { InputProps } from "react-html-props";
 import { cva, VariantProps } from "cva"
 import { useBoolean } from "../helpers/useBoolean";
-import { StyledIcon } from "./icon";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid"
+import { _icon_mode } from "./icon";
+
 
 function useEye(mode: "base" | "error") {
   const { value, toggle } = useBoolean()
-  const eye = useMemo(() => <StyledIcon mode={mode} name={value ? "EyeIcon" : "EyeSlashIcon"} className="h-6 w-6 text-base-5" />, [value, mode])
+  const Icon = useMemo(() => value ? EyeIcon : EyeSlashIcon, [value])
+  const eye = useMemo(() => <Icon className={_icon_mode({ mode, className: "h-6 w-6" })} />, [value, mode])
   return { value, toggle, eye }
 }
 

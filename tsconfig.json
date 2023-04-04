@@ -19,11 +19,10 @@
     "declarationMap": true,
     "baseUrl": ".",
     "paths": {
-      "tawasuka-ui": ["src/index.ts"]
+      "tawasukha-ui": ["src/index.ts"]
     },
-    "typeRoots": ["node_modules/@types", "index.d.ts"]
+    "typeRoots": ["node_modules/@types", "src/index.d.ts"]
   },
   "include": ["src"],
-  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,6 +1,7 @@
+import { XMarkIcon } from "@heroicons/react/24/solid"
 import { cva, VariantProps } from "cva"
-import { Icon } from "./icon"
-import { DivProps } from "react-html-props"
+import { DivProps, SVGProps } from "react-html-props"
+import { IconProps } from "./icon"
 
 const _box = cva(["overflow-hidden rounded-full ring ring-base-2 text-base-3 flex justify-center items-center bg-base-1"], {
   variants: {
@@ -56,22 +57,18 @@ const _status = cva(["rounded-full absolute right-0 ring-1 ring-base-2"], {
 
 export interface AvatarProps extends DivProps, Required<{ size: NonNullable<VariantProps<typeof _box>["size"]> }>, Omit<VariantProps<typeof _status>, "size"> {
   image?: string
-  icon?: string
+  icon?: React.FC<IconProps>
 }
 
-
-
-
-export function Avatar({ mode, size = "md", image, icon, children }: AvatarProps) {
+export function Avatar({ mode, size = "md", image, children, ...props }: AvatarProps) {
   return <div className="flex items-center gap-x-6">
     <div className="relative">
       <div className={_box({ size })} >
         {image && <img className="object-cover" src={image} />}
-        {icon && size && <Icon className={_icon({ size })} name={icon} />}
+        {props.icon && size && <props.icon className={_icon({ size })} />}
         {children && <span className={_text({ size })}>{children}</span>}
       </div>
       {mode && <span className={_status({ size, mode })} />}
     </div>
   </div >
 }
-

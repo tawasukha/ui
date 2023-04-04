@@ -1,7 +1,8 @@
 import { cva, VariantProps } from "cva"
-import { StyledIcon, Icon } from "./icon"
-import { DivProps } from "react-html-props"
+import { DivProps, } from "react-html-props"
 import { type MouseEventHandler } from "react"
+import { XMarkIcon } from "@heroicons/react/24/solid"
+import { _icon_mode, useIcon } from "./icon"
 
 const _boxicon = cva(["flex items-center justify-center w-12 rounded-l-lg"], {
   variants: {
@@ -41,19 +42,13 @@ export interface AlertProps extends DivProps, Omit<Props, "mode">, Required<{ mo
   onDismiss?: MouseEventHandler<HTMLButtonElement>
 }
 
-const iconName = {
-  primary: "InformationCircleIcon",
-  secondary: "InformationCircleIcon",
-  success: "CheckCircleIcon",
-  warning: "ExclamationCircleIcon",
-  error: "XCircleIcon"
-}
-
 
 export function Alert({ mode = "base", title, children, onDismiss }: AlertProps) {
+  const Icon = useIcon(mode)
+
   return <div className="flex max-w-sm bg-base rounded-lg shadow-md shadow-offset">
     {mode !== "base" && <div className={_boxicon({ mode })}>
-      <StyledIcon mode={mode} name={iconName[mode]} className="h-10 w-10" />
+      {Icon && <Icon className={_icon_mode({ mode, className: "h-10 w-10" })} />}
     </div>}
 
     <div className="px-4 py-2 -mx-3 flex flex-1 flex-row">
@@ -64,7 +59,7 @@ export function Alert({ mode = "base", title, children, onDismiss }: AlertProps)
 
       {onDismiss && <button className="text-base-5 hover:text-base-4 self-start" onClick={onDismiss}>
         <span className="sr-only">Dismiss</span>
-        <Icon name="XMarkIcon" className="h-6 w-6" />
+        <XMarkIcon className={_icon_mode({ mode: "base", className: "h-6 w-6" })} />
       </button>}
     </div>
   </div >

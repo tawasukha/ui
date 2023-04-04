@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Avatar } from "../src/components/avatar";
-import { UsersIcon } from "@heroicons/react/24/solid";
+import { Avatar } from "../components/avatar";
+import { UsersIcon } from "@heroicons/react/24/solid"
+
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
   title: "Tawasukha UI/Avatar",
@@ -31,7 +32,6 @@ export const Icon: Story = {
   args: {
     size: "xl",
     mode: "error",
-    //@ts-ignore
     icon: UsersIcon
   },
 };

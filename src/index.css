@@ -1,86 +1,5 @@
-/* Tawasukha UI Theme 
-* Author : Forte Zhuo
-*
-* 1 = bg
-* 2 = bg offset
-* 3 = border
-* 4 = text offset
-* 5 = text
-*/
-
-[data-theme="light"] {
-  --color-default: #fff;
-  --color-offset: #e5e7eb;
-  --color-base: #fff;
-  --color-base-1: #f8fafc;
-  --color-base-2: #e2e8f0;
-  --color-base-3: #64748b;
-  --color-base-4: #475569;
-  --color-base-5: #334155;
-  --color-primary-1: #f0f9ff;
-  --color-primary-2: #bae6fd;
-  --color-primary-3: #0ea5e9;
-  --color-primary-4: #0284c7;
-  --color-primary-5: #0369a1;
-  --color-secondary-1: #ecfeff;
-  --color-secondary-2: #a5f3fc;
-  --color-secondary-3: #06b6d4;
-  --color-secondary-4: #0891b2;
-  --color-secondary-5: #0e7490;
-  --color-success-1: #ecfdf5;
-  --color-success-2: #a7f3d0;
-  --color-success-3: #10b981;
-  --color-success-4: #059669;
-  --color-success-5: #047857;
-  --color-warning-1: #fffbeb;
-  --color-warning-2: #fde68a;
-  --color-warning-3: #f59e0b;
-  --color-warning-4: #d97706;
-  --color-warning-5: #b45309;
-  --color-error-1: #fff1f2;
-  --color-error-2: #fecdd3;
-  --color-error-3: #f43f5e;
-  --color-error-4: #e11d48;
-  --color-error-5: #be123c;
-}
-
-[data-theme="dark"] {
-  --color-default: #111827;
-  --color-offset: #374151;
-  --color-base: #1e293b;
-  --color-base-1: #1e293b;
-  --color-base-2: #334155;
-  --color-base-3: #64748b;
-  --color-base-4: #cbd5e1;
-  --color-base-5: #e2e8f0;
-  --color-primary-1: #075985;
-  --color-primary-2: #0369a1;
-  --color-primary-3: #0ea5e9;
-  --color-primary-4: #7dd3fc;
-  --color-primary-5: #bae6fd;
-  --color-secondary-1: #155e75;
-  --color-secondary-2: #0e7490;
-  --color-secondary-3: #06b6d4;
-  --color-secondary-4: #67e8f9;
-  --color-secondary-5: #a5f3fc;
-  --color-success-1: #065f46;
-  --color-success-2: #047857;
-  --color-success-3: #10b981;
-  --color-success-4: #6ee7b7;
-  --color-success-5: #a7f3d0;
-  --color-warning-1: #92400e;
-  --color-warning-2: #b45309;
-  --color-warning-3: #f59e0b;
-  --color-warning-4: #fcd34d;
-  --color-warning-5: #fde68a;
-  --color-error-1: #9f1239;
-  --color-error-2: #be123c;
-  --color-error-3: #f43f5e;
-  --color-error-4: #fda4af;
-  --color-error-5: #fecdd3;
-}
-
-/* ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com
+/*
+! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -676,6 +595,14 @@ video {
   margin-top: 1rem;
 }
 
+.-mt-1\.5 {
+  margin-top: -0.375rem;
+}
+
+.-mt-1 {
+  margin-top: -0.25rem;
+}
+
 .block {
   display: block;
 }
@@ -794,6 +721,11 @@ video {
 
 .flex-1 {
   flex: 1 1 0%;
+}
+
+.-rotate-45 {
+  --tw-rotate: -45deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .transform {
@@ -1159,10 +1091,6 @@ video {
 .shadow-offset {
   --tw-shadow-color: var(--color-offset);
   --tw-shadow: var(--tw-shadow-colored);
-}
-
-.outline {
-  outline-style: solid;
 }
 
 .outline-base {
