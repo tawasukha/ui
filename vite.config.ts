@@ -27,13 +27,14 @@ export default defineConfig(() => ({
       exclude: Object.keys(packageJson.peerDependencies),
     },
     esbuild: {
-      minify: true,
+      minify: false,
     },
     rollupOptions: {
+      external: ["react-textarea-autosize", "react", "react-dom"],
       output: {
         assetFileNames: (assetInfo) => {
           if (assetInfo.name == 'style.css')
-            return 'tawasukha-ui-theme.css';
+            return 'theme.css';
           return assetInfo.name;
         },
       }
