@@ -5,7 +5,7 @@ import dts from "vite-plugin-dts";
 import tsConfigPaths from "vite-tsconfig-paths";
 import * as packageJson from "./package.json";
 
-const external = ["react-textarea-autosize", "react", "react-dom", "@tawasukha/icon", "framer-motion"]
+const external = ["@fontsource/abeezee", "@tawasukha/icon", "framer-motion", "react", "react-dom", "react-textarea-autosize"]
 
 export default defineConfig(() => ({
   plugins: [

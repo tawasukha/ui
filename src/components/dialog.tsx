@@ -96,8 +96,8 @@ interface DialogPromiseProps extends Omit<DialogProps, "visible" | "onClickOK" |
   option?: "textarea" | "input"
   allowBlank?: boolean
   allowClose?: boolean
-  onResolve: any
-  onReject: any
+  onResolve: (args: React.KeyboardEvent<HTMLInputElement> | { [k: string]: string | boolean }) => void
+  onReject: (args: React.KeyboardEvent<HTMLInputElement> | { [k: string]: string | boolean }) => void
 }
 
 function useDialogInput({ option, onResolve }: Pick<DialogPromiseProps, "option" | "onResolve">) {

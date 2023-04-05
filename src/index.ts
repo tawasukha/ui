@@ -1,4 +1,6 @@
 import "./theme.css"
+import "@fontsource/abeezee"
+
 export { cva, cx, type VariantProps } from "cva";
 export { loadIcon, type ListIcon as Icons } from "@tawasukha/icon"
 
@@ -6,6 +8,7 @@ export { Alert } from "./components/alert"
 export { Avatar } from "./components/avatar"
 export { Button } from "./components/button";
 export { Card } from "./components/card"
+export { Dialog, dialog } from "./components/dialog"
 export { Label } from "./components/label"
 export { InputPassword } from "./components/inputPassword"
 export { InputText } from "./components/inputText"
