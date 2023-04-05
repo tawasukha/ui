@@ -1,6 +1,9 @@
 import { LabelProps } from "react-html-props"
+import { forwardRef } from "react"
 import { cx } from "cva"
 
-export function Label(props: LabelProps) {
-  return <label htmlFor={props.htmlFor} className={cx("block text-sm text-default-3", props.className)}>{props.children}</label>
-}
+export const Label = forwardRef<HTMLLabelElement, LabelProps>(function Label({ className, ...props }, ref) {
+  return (
+    <label {...props} className={cx("block text-sm ml-1 mb-1 text-base-3", className)} />
+  )
+})

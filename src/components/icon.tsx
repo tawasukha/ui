@@ -1,8 +1,13 @@
 import { cva, VariantProps } from "cva"
-import { useMemo } from "react";
-import { InformationCircleIcon, CheckCircleIcon, ExclamationCircleIcon, XCircleIcon } from "@heroicons/react/24/solid"
+import { loadIcon, ListIcon } from "@tawasukha/icon"
+import React from "react";
 
-export const _icon_mode = cva([], {
+export function Icon({ name, className, outline = false }: React.SVGProps<SVGSVGElement> & { outline?: boolean, name: ListIcon }) {
+  const HeroIcon = loadIcon(name, outline ? "outline" : "solid")
+  return <HeroIcon className={className} />;
+};
+
+const _icon = cva([], {
   variants: {
     mode: {
       base: ["text-base-5"],
@@ -15,28 +20,10 @@ export const _icon_mode = cva([], {
   }
 })
 
-export type IconModeProps = Required<{ mode: VariantProps<typeof _icon_mode>["mode"] }>
+export type ModeProps = Required<{ mode: VariantProps<typeof _icon>["mode"] }>
 
-export type IconProps = React.ComponentProps<typeof InformationCircleIcon>
-
-export function useIcon(name: NonNullable<IconModeProps["mode"]>) {
-  return useMemo(() => {
-    switch (name) {
-      case "primary":
-        return InformationCircleIcon
-      case "secondary":
-        return InformationCircleIcon
-      case "success":
-        return CheckCircleIcon
-      case "warning":
-        return ExclamationCircleIcon
-      case "error":
-        return XCircleIcon
-      default:
-        return null
-    }
-  }, [name])
+export function StyledIcon({ className, mode, ...rest }: React.ComponentProps<typeof Icon> & ModeProps) {
+  return <Icon {...rest} className={_icon({
+    mode, className
+  })} />
 }
-
-
-

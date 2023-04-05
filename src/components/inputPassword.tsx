@@ -1,15 +1,12 @@
-import { useMemo } from "react";
+import { forwardRef, useMemo } from "react";
 import { InputProps } from "react-html-props";
 import { cva, VariantProps } from "cva"
 import { useBoolean } from "../helpers/useBoolean";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid"
-import { _icon_mode } from "./icon";
-
+import { StyledIcon } from "./icon";
 
 function useEye(mode: "base" | "error") {
   const { value, toggle } = useBoolean()
-  const Icon = useMemo(() => value ? EyeIcon : EyeSlashIcon, [value])
-  const eye = useMemo(() => <Icon className={_icon_mode({ mode, className: "h-6 w-6" })} />, [value, mode])
+  const eye = useMemo(() => <StyledIcon mode={mode} name={value ? "EyeIcon" : "EyeSlashIcon"} className="h-6 w-6 text-base-5" />, [value, mode])
   return { value, toggle, eye }
 }
 
@@ -24,14 +21,14 @@ const _input = cva(["block w-full placeholder-base-3 bg-base rounded-lg border p
 
 export interface InputTextProps extends Omit<InputProps, "type">, Required<{ mode: NonNullable<VariantProps<typeof _input>["mode"]> }> { }
 
-export function InputPassword({ mode = "base", className, ...props }: InputTextProps) {
+export const InputPassword = forwardRef<HTMLInputElement, InputTextProps>(function InputPassword({ mode = "base", className, ...props }, ref) {
   const { value, toggle, eye } = useEye(mode)
 
-  return <div className="relative flex items-center mt-2">
+  return <div className="relative flex items-center">
     <button onClick={toggle} className="absolute right-3 focus:outline-none">
       {eye}
     </button>
 
-    <input type={value ? "text" : "password"} {...props} className={_input({ mode, className })} />
+    <input ref={ref} type={value ? "text" : "password"} {...props} className={_input({ mode, className })} />
   </div>
-}
+})

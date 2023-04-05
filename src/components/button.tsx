@@ -1,11 +1,14 @@
-
 import { cva, VariantProps } from "cva"
-import { ButtonProps as HtmlButtonProps, } from "react-html-props"
-import { type IconProps } from "./icon"
+import { Icon } from "./icon"
+import { ButtonProps as HtmlButtonProps } from "react-html-props"
+import { ListIcon } from "@tawasukha/icon"
+import { forwardRef } from "react"
 
 const _button = cva(["flex items-center tracking-wide capitalize transition-colors duration-300 transform rounded-lg focus:outline-none focus:ring hover:opacity-90"], {
   variants: {
     mode: {
+      transparent: ["text-base-5", "focus:ring-base-4", "hover:bg-base-2"],
+
       base: ["bg-base-3", "focus:ring-base-4", "text-white"],
       primary: ["bg-primary-3", "focus:ring-primary-4", "text-white"],
       secondary: ["bg-secondary-3", "focus:ring-secondary-4", "text-white"],
@@ -32,21 +35,6 @@ const _button = cva(["flex items-center tracking-wide capitalize transition-colo
 
 const _icon = cva(["ml-1"], {
   variants: {
-    mode: {
-      base: [],
-      primary: [],
-      secondary: [],
-      success: [],
-      warning: [],
-      error: [],
-      "outline-base": [],
-      "outline-primary": [],
-      "outline-secondary": [],
-      "outline-success": [],
-      "outline-warning": [],
-      "outline-error": []
-
-    },
     size: {
       sm: ["w-4 h-4"],
       md: ["w-5 h-5"],
@@ -62,13 +50,13 @@ type ModeProps = Required<{ mode: NonNullable<Props["mode"]> }>
 type SizeProps = Required<{ size: NonNullable<Props["size"]> }>
 
 export interface ButtonProps extends HtmlButtonProps, ModeProps, SizeProps {
-  icon: React.FC<IconProps>
+  icon?: ListIcon
   iconClassName?: string
 }
 
-export function Button({ iconClassName, mode, size, className, children, ...props }: ButtonProps) {
-  return <button className={_button({ mode, size, className })}>
-    <props.icon className={_icon({ size, mode, className: iconClassName })} />
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button({ icon, iconClassName, mode = "primary", size = "md", className, children, ...props }, ref) {
+  return <button ref={ref} className={_button({ mode, size, className })} {...props}>
+    {icon && <Icon name={icon} className={_icon({ size, className: iconClassName })} />}
     <span className="ml-1">{children}</span>
   </button>
-}
+})

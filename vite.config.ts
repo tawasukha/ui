@@ -5,6 +5,8 @@ import dts from "vite-plugin-dts";
 import tsConfigPaths from "vite-tsconfig-paths";
 import * as packageJson from "./package.json";
 
+const external = ["react-textarea-autosize", "react", "react-dom", "@tawasukha/icon", "framer-motion"]
+
 export default defineConfig(() => ({
   plugins: [
     react(),
@@ -13,7 +15,6 @@ export default defineConfig(() => ({
       include: ["src"],
     }),
   ],
-
   build: {
     lib: {
       entry: resolve("src", "index.ts"),
@@ -27,10 +28,10 @@ export default defineConfig(() => ({
       exclude: Object.keys(packageJson.peerDependencies),
     },
     esbuild: {
-      minify: false,
+      minify: true,
     },
     rollupOptions: {
-      external: ["react-textarea-autosize", "react", "react-dom"],
+      external,
       output: {
         assetFileNames: (assetInfo) => {
           if (assetInfo.name == 'style.css')

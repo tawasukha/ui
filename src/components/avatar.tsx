@@ -1,7 +1,8 @@
-import { XMarkIcon } from "@heroicons/react/24/solid"
 import { cva, VariantProps } from "cva"
-import { DivProps, SVGProps } from "react-html-props"
-import { IconProps } from "./icon"
+import { Icon } from "./icon"
+import { DivProps } from "react-html-props"
+import { ListIcon } from "@tawasukha/icon"
+import { forwardRef } from "react"
 
 const _box = cva(["overflow-hidden rounded-full ring ring-base-2 text-base-3 flex justify-center items-center bg-base-1"], {
   variants: {
@@ -57,18 +58,19 @@ const _status = cva(["rounded-full absolute right-0 ring-1 ring-base-2"], {
 
 export interface AvatarProps extends DivProps, Required<{ size: NonNullable<VariantProps<typeof _box>["size"]> }>, Omit<VariantProps<typeof _status>, "size"> {
   image?: string
-  icon?: React.FC<IconProps>
+  icon?: ListIcon
 }
 
-export function Avatar({ mode, size = "md", image, children, ...props }: AvatarProps) {
-  return <div className="flex items-center gap-x-6">
+
+export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar({ mode, size = "md", image, icon, children, ...props }, ref) {
+  return <div ref={ref} className="flex items-center gap-x-6" {...props}>
     <div className="relative">
       <div className={_box({ size })} >
         {image && <img className="object-cover" src={image} />}
-        {props.icon && size && <props.icon className={_icon({ size })} />}
+        {icon && size && <Icon className={_icon({ size })} name={icon} />}
         {children && <span className={_text({ size })}>{children}</span>}
       </div>
       {mode && <span className={_status({ size, mode })} />}
     </div>
   </div >
-}
+})

@@ -1,16 +1,15 @@
 import '../src/index.css'
 import "../src/theme.css"
+import { Provider } from '../src/components/provider'
 import type { Preview, } from "@storybook/react"
 import React from "react"
-import { Provider } from "../src/components/provider"
 
 const withThemeProvider = (Story, context) => {
   const theme = context.globals.theme;
-  return (
-    <Provider theme={theme}>
-      <Story />
-    </Provider>
-  );
+
+  return <Provider theme={theme} >
+    <Story />
+  </Provider>
 };
 
 
