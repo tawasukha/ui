@@ -10,12 +10,12 @@ export function Icon({ name, className, outline = false }: React.SVGProps<SVGSVG
 const _icon = cva([], {
   variants: {
     mode: {
-      base: ["text-base-5"],
-      primary: ["text-primary-5"],
-      secondary: ["text-secondary-5"],
-      success: ["text-success-5"],
-      warning: ["text-warning-5"],
-      error: ["text-error-5"],
+      base: ["text-base-3 fill-base-5"],
+      primary: ["text-primary-3 fill-primary-5"],
+      secondary: ["text-secondary-3 fill-secondary-5"],
+      success: ["text-success-3 fill-success-5"],
+      warning: ["text-warning-3 fill-warning-5"],
+      error: ["text-error-3 fill-error-5"],
     }
   }
 })

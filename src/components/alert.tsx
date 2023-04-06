@@ -1,8 +1,8 @@
-import { cva, VariantProps } from "cva"
+import { cva, type VariantProps } from "cva"
 import { StyledIcon, Icon } from "./icon"
-import { DivProps } from "react-html-props"
+import { type DivProps } from "react-html-props"
 import { forwardRef, type MouseEventHandler } from "react"
-import { ListIcon } from "@tawasukha/icon"
+import { type ListIcon } from "@tawasukha/icon"
 
 const _boxicon = cva(["flex items-center justify-center w-12 rounded-l-lg"], {
   variants: {
@@ -13,8 +13,8 @@ const _boxicon = cva(["flex items-center justify-center w-12 rounded-l-lg"], {
       success: ["bg-success-1"],
       warning: ["bg-warning-1"],
       error: ["bg-error-1"],
-    }
-  }
+    },
+  },
 })
 
 const _title = cva(["font-semibold"], {
@@ -26,11 +26,11 @@ const _title = cva(["font-semibold"], {
       success: ["text-success-5"],
       warning: ["text-warning-5"],
       error: ["text-error-5"],
-    }
+    },
   },
   defaultVariants: {
-    mode: "base"
-  }
+    mode: "base",
+  },
 })
 
 
@@ -42,12 +42,12 @@ export interface AlertProps extends DivProps, Omit<Props, "mode">, Required<{ mo
   onDismiss?: MouseEventHandler<HTMLButtonElement>
 }
 
-const iconName: { [k: string]: ListIcon } = {
+const iconName: Record<string, ListIcon> = {
   primary: "InformationCircleIcon",
   secondary: "InformationCircleIcon",
   success: "CheckCircleIcon",
   warning: "ExclamationCircleIcon",
-  error: "XCircleIcon"
+  error: "XCircleIcon",
 }
 
 

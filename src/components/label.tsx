@@ -1,9 +1,12 @@
-import { LabelProps } from "react-html-props"
+import { type LabelProps } from "react-html-props"
 import { forwardRef } from "react"
 import { cx } from "cva"
 
 export const Label = forwardRef<HTMLLabelElement, LabelProps>(function Label({ className, ...props }, ref) {
   return (
-    <label {...props} className={cx("block text-sm ml-1 mb-1 text-base-3", className)} />
+    <div className={cx("relative z-[2] inline-flex top-3 flex-col text-sm ml-3 text-base-3", className)}>
+      <label className="relative z-[2] top-4 px-1" ref={ref} {...props} />
+      <span className="relative top-1 bg-base text-xs px-1" dangerouslySetInnerHTML={{ __html: "&nbsp;" }} />
+    </div >
   )
 })

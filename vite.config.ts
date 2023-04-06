@@ -5,7 +5,7 @@ import dts from "vite-plugin-dts";
 import tsConfigPaths from "vite-tsconfig-paths";
 import * as packageJson from "./package.json";
 
-const external = ["@fontsource/abeezee", "@tawasukha/icon", "framer-motion", "react", "react-dom", "react-textarea-autosize"]
+const external = ["@fontsource/abeezee", "@rehookify/datepicker", "@tawasukha/icon", "downshift", "framer-motion", "react", "react-dom", "react-dropzone", "react-modal-promise", "react-textarea-autosize"]
 
 export default defineConfig(() => ({
   plugins: [

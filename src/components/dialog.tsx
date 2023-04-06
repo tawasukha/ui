@@ -40,8 +40,8 @@ function DialogFooter({ mode, option, captionOK, captionCancel, onClickOK, onCli
   const textCancel = React.useMemo(() => captionCancel ? captionCancel : (mode === "warning" ? "No" : "Cancel"), [])
 
   return <div className="flex justify-end mt-4 gap-x-2">
-    <Button onClick={onClickOK} mode={"outline-base"} size={"md"} className="min-w-20 justify-center">{textOK}</Button>
-    {(mode === "warning" || !!option) && <Button onClick={onClickCancel} mode={"transparent"} size={"md"} className="min-w-20 justify-center">{textCancel}</Button>}
+    <Button onClick={onClickOK} mode={"primary"} size={"md"} className="min-w-[80px] justify-center">{textOK}</Button>
+    {(mode === "warning" || !!option) && <Button onClick={onClickCancel} mode={"transparent"} size={"md"} className="min-w-[80px] justify-center">{textCancel}</Button>}
   </div>
 }
 
@@ -82,8 +82,8 @@ export function Dialog({ visible = false, type, title, description, children, ca
             <StyledIcon name={iconName} className="w-20 h-20 rounded-full ring ring-base-1 bg-base" mode={mode} />
           </div>}
 
-          <h2 className="mt-2 text-xl font-semibold text-base-5 md:mt-0">{title}</h2>
-          <p className="mt-2 text-sm text-base-5">{description}</p>
+          <h2 className="mt-2 text-xl font-semibold text-base-5">{title}</h2>
+          <p className="mt-4 text-sm text-base-5">{description}</p>
           {children ? children : <DialogFooter {...{ mode, captionCancel, captionOK, onClickOK, onClickCancel }} />}
         </motion.div>
       </>}
@@ -100,20 +100,22 @@ interface DialogPromiseProps extends Omit<DialogProps, "visible" | "onClickOK" |
   onReject: (args: React.KeyboardEvent<HTMLInputElement> | { [k: string]: string | boolean }) => void
 }
 
-function useDialogInput({ option, onResolve }: Pick<DialogPromiseProps, "option" | "onResolve">) {
+function useDialogInput({ option, onResolve, allowBlank }: Pick<DialogPromiseProps, "option" | "onResolve" | "allowBlank">) {
   const refInput = React.useRef<HTMLInputElement & HTMLTextAreaElement>(null)
   const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> =
     React.useCallback(
       (event) => {
         if (event.key === "Enter") {
-          onResolve(event)
+          if (!(refInput.current?.value === "" && !allowBlank)) {
+            onResolve(event)
+          }
         }
       },
       [onResolve],
     )
 
   const Input = React.useMemo(() => {
-    return !option ? null : option === "input" ? <InputText ref={refInput} onKeyDown={onKeyDown} /> : <InputTextArea ref={refInput} minRows={3} />
+    return !option ? null : option === "input" ? <InputText className="mt-2" ref={refInput} onKeyDown={onKeyDown} /> : <InputTextArea className="mt-2" ref={refInput} minRows={3} />
   }, [])
 
   return { Input, refInput }
@@ -121,7 +123,7 @@ function useDialogInput({ option, onResolve }: Pick<DialogPromiseProps, "option"
 
 export function DialogPromise({ isOpen: visible, option, type, allowBlank, allowClose, onResolve, onReject, title, description, captionOK, captionCancel }: DialogPromiseProps) {
   const mode = React.useMemo(() => type2Mode(type), [type])
-  const { refInput, Input } = useDialogInput({ option, onResolve })
+  const { refInput, Input } = useDialogInput({ option, onResolve, allowBlank })
 
   const onClickOK = React.useCallback((value: any) => {
     if (refInput.current) {
@@ -156,7 +158,7 @@ export function DialogPromise({ isOpen: visible, option, type, allowBlank, allow
 //@ts-expect-error
 const _dialog = create(DialogPromise)
 
-type Props = Omit<DialogPromiseProps, "onResolve" | "onReject">
+type Props = Omit<DialogPromiseProps, "onResolve" | "onReject" | "isOpen">
 
 export const dialog = {
   show: async (props: Props) => {
