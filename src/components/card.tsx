@@ -15,8 +15,8 @@ const _box = cva(["bg-base", "rounded-lg", "shadow-lg", "hover:ring-1", "overflo
       success: ['ring-success-3'],
       warning: ['ring-warning-3'],
       error: ['ring-error-3'],
-    }
-  }
+    },
+  },
 })
 
 const _box_title = cva(["px-6 py-2 font-bold text-xl"], {
@@ -27,8 +27,8 @@ const _box_title = cva(["px-6 py-2 font-bold text-xl"], {
       success: ["bg-success-1", "text-success-5"],
       warning: ["bg-warning-1", "text-warning-5"],
       error: ["bg-error-1", "text-error-5"],
-    }
-  }
+    },
+  },
 })
 
 export const Card = ({ title, description, mode, className }: CardProps & VariantProps<typeof _box>) => {
