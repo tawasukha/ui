@@ -34,6 +34,8 @@ export const Password: StoryObj<typeof InputPassword> = {
     return <>
       <Label>Label</Label>
       <InputPassword {...args} />
+      <Label>Label</Label>
+      <InputPassword {...args} />
     </>
   },
 };
