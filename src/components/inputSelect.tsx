@@ -1,5 +1,5 @@
 import { cva, cx, type VariantProps } from "cva"
-import { forwardRef, useCallback, useEffect, useMemo, useState } from "react"
+import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { type InputProps } from "react-html-props"
 import { Menu, MenuItem } from "./menu"
 import {
@@ -39,6 +39,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
   multiple = false, keyLabel = "label", keyValue = "value", renderItem,
   mode = "base", className, options, value, onChange = () => { }, loadOptions,
 }: InputSelectProps<T>, ref: React.ForwardedRef<HTMLInputElement>) {
+  const refInput = useRef(null)
   const [items, setItems] = useState(options)
   const [values, setValues] = useState(value ? (multiple ? Array.isArray(value) ? value : [value] : undefined) : undefined)
 
@@ -46,12 +47,15 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
     setValues((values) => {
       return !values ? undefined : values.filter((value) => (JSON.stringify(value) !== JSON.stringify(item)))
     })
-  }, [values])
+  }, [values, setValues])
 
   const onSelectedItemChange = useCallback(({ selectedItem }: UseComboboxStateChange<T>) => {
     if (multiple) {
       setValues((values) => selectedItem ? (values || []).concat(selectedItem) : values)
-
+      // @ts-expect-error
+      refInput.current.blur()
+      // @ts-expect-error
+      refInput.current.focus()
     } else {
       onChange(selectedItem)
     }
@@ -97,7 +101,15 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
     if (multiple) {
       onChange(values)
     }
-  }, [multiple])
+  }, [multiple, values])
+
+  useEffect(() => {
+    setItems(options
+      .filter((opt) => {
+        // @ts-expect-error
+        return !(values || []).some(val => val[keyValue] === opt[keyValue] && val[keyLabel] === opt[keyLabel])
+      }))
+  }, [options, values])
 
   const {
     isOpen,
@@ -145,7 +157,9 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
       <input
         placeholder="Select ..."
         className="place-base-3 bg-base focus:outline-none w-full tex-md"
-        {...getInputProps()}
+        {...getInputProps({
+          ref: refInput,
+        })}
       />
       <StyledIcon mode={mode} name="ChevronDownIcon" className={cx("absolute right-8 transition ease-out h-6 w-6", isOpen ? "rotate-180" : "")} />
     </div >
