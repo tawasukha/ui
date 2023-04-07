@@ -22,7 +22,6 @@ const _input = cva(["w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr
   },
 })
 
-
 export interface InputSelectProps<T> extends Omit<InputProps, "value" | "onChange">,
   Required<{ mode: NonNullable<VariantProps<typeof _input>["mode"]> }> {
   options: T[]
@@ -159,6 +158,11 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
         className="place-base-3 bg-base focus:outline-none w-full tex-md"
         {...getInputProps({
           ref: refInput,
+          onKeyDown: (e) => {
+            if (e.key === "Backspace" && multiple && values && (values || []).length > 0) {
+              onDismiss(values[values.length - 1])
+            }
+          },
         })}
       />
       <StyledIcon mode={mode} name="ChevronDownIcon" className={cx("absolute right-8 transition ease-out h-6 w-6", isOpen ? "rotate-180" : "")} />
