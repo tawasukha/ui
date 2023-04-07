@@ -1,5 +1,5 @@
 import { cva, cx, type VariantProps } from "cva"
-import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { forwardRef, useCallback, useEffect, useMemo, useState } from "react"
 import { type InputProps } from "react-html-props"
 import { Menu, MenuItem } from "./menu"
 import { useCombobox, type UseComboboxStateChange } from "downshift"
@@ -36,7 +36,6 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
   multiple = false, keyLabel = "label", keyValue = "value", renderItem,
   mode = "base", className, options, value, onChange = () => { }, loadOptions,
 }: InputSelectProps<T>, ref: React.ForwardedRef<HTMLInputElement>) {
-  const refInput = useRef(null)
   const [items, setItems] = useState(options)
   const [values, setValues] = useState(value ? (multiple ? Array.isArray(value) ? value : [value] : undefined) : undefined)
 
@@ -49,10 +48,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
   const onSelectedItemChange = useCallback(({ selectedItem }: UseComboboxStateChange<T>) => {
     if (multiple) {
       setValues((values) => selectedItem ? (values || []).concat(selectedItem) : values)
-      if (refInput.current) {
-        console.log(refInput.current)
-        refInput.current.value = ""
-      }
+
     } else {
       onChange(selectedItem)
     }
@@ -73,6 +69,26 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
       }}>{val}</XChip>
     })
   }, [values, multiple])
+
+  const stateReducer = useCallback((state, actionAndChanges) => {
+    const { type, changes } = actionAndChanges
+    // returning an uppercased version of the item string.
+    switch (type) {
+      case useCombobox.stateChangeTypes.InputChange:
+      case useCombobox.stateChangeTypes.ItemClick:
+      case useCombobox.stateChangeTypes.InputKeyDownEnter:
+      case useCombobox.stateChangeTypes.InputBlur:
+        return multiple ? {
+          ...changes,
+          ...(changes.selectedItem && {
+            inputValue: "",
+          }),
+        } : changes
+      default:
+        return changes // otherwise business as usual.
+    }
+  }, [])
+
 
   useEffect(() => {
     if (multiple) {
@@ -111,6 +127,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
       // @ts-expect-error
       return item ? item[keyLabel] : ''
     },
+    stateReducer,
   })
 
 
@@ -118,7 +135,6 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
     <div ref={ref} className={_input({ mode, className })}>
       {multipleValue}
       <input
-        ref={refInput}
         placeholder="Select ..."
         className="place-base-3 bg-base focus:outline-none w-full tex-md"
         {...getInputProps()}
@@ -128,9 +144,9 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
     <div {...getMenuProps()} className="absolute w-full z-10">
       <AnimatePresence>
         {isOpen && <MotionMenu className="w-full h-40" transition={{ duration: 0.2 }}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         >
           {items.length === 0 ? <MenuItem disabled>- Not Found -</MenuItem> : items.map((item, index) => (
             // @ts-expect-error
