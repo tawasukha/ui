@@ -9,6 +9,7 @@ import {
 import { StyledIcon } from "./icon"
 import { XChip } from "./chip"
 import { AnimatePresence, motion } from "framer-motion"
+import { debouncePromise } from "src/helpers/debouncePromise"
 
 const MotionMenu = motion(Menu)
 
@@ -25,7 +26,8 @@ const _input = cva(["w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr
 export interface InputSelectProps<T> extends Omit<InputProps, "value" | "onChange">,
   Required<{ mode: NonNullable<VariantProps<typeof _input>["mode"]> }> {
   options: T[]
-  loadOptions?: (inputValue?: string) => T[]
+  loadOptions?: (inputValue?: string) => Promise<T[]>
+  milis?: number
   multiple?: boolean
   keyLabel?: string
   keyValue?: string
@@ -35,9 +37,10 @@ export interface InputSelectProps<T> extends Omit<InputProps, "value" | "onChang
 }
 
 export const InputSelect = forwardRef(function InputSelect<T extends object>({
-  multiple = false, keyLabel = "label", keyValue = "value", renderItem,
-  mode = "base", className, options, value, onChange = () => { }, loadOptions,
+  multiple = false, keyLabel = "label", keyValue = "value", renderItem, milis = 300,
+  mode = "base", className, options, value, onChange = () => { }, loadOptions: _loadOptions,
 }: InputSelectProps<T>, ref: React.ForwardedRef<HTMLInputElement>) {
+  const loadOptions = useMemo(() => _loadOptions ? debouncePromise(_loadOptions, milis, "Aborted") : undefined, [_loadOptions])
   const refInput = useRef(null)
   const [items, setItems] = useState(options)
   const [values, setValues] = useState(value ? (multiple ? Array.isArray(value) ? value : [value] : undefined) : undefined)
@@ -103,7 +106,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
   }, [multiple, values])
 
   useEffect(() => {
-    setItems(options
+    setItems((options || [])
       .filter((opt) => {
         // @ts-expect-error
         return !(values || []).some(val => val[keyValue] === opt[keyValue] && val[keyLabel] === opt[keyLabel])
@@ -120,9 +123,9 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
   } = useCombobox({
     selectedItem,
     onSelectedItemChange,
-    onInputValueChange({ inputValue }) {
+    async onInputValueChange({ inputValue }) {
       if (loadOptions) {
-        setItems(loadOptions(inputValue))
+        setItems(await loadOptions(inputValue))
       } else {
         setItems(options
           .filter((opt) => {

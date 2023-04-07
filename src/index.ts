@@ -19,5 +19,4 @@ export { InputSelect } from "./components/inputSelect"
 export { dynamic } from "./helpers/dynamic"
 export { useBoolean } from "./helpers/useBoolean"
 export { useTheme } from "./helpers/useTheme"
-export { useDebounce } from "./helpers/useDebounce"
-
+export { debouncePromise } from "./helpers/debouncePromise"

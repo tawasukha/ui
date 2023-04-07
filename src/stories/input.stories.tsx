@@ -82,6 +82,31 @@ export const Select: StoryObj<typeof InputSelect> = {
   },
 };
 
+export const AsyncSelect: StoryObj<typeof InputSelect> = {
+  args: {
+    mode: "error",
+    keyLabel: "name",
+    keyValue: "mal_id",
+    renderItem: (item: any) => <div className="flex flex-col">
+      <span>{item.name}</span>
+      <span className="text-sm">{item.mal_id}</span>
+    </div>,
+    loadOptions: async (inputValue) => {
+      const response = await fetch(`https://api.jikan.moe/v4/people?q=${inputValue}`)
+      const jsonData = await response.json();
+      return jsonData.data
+    },
+  },
+  render(args) {
+    return <>
+      <Label>Label</Label>
+      <InputSelect {...args} />
+      <Label>Label</Label>
+      <InputSelect {...args} />
+    </>
+  },
+};
+
 export const MultiSelect: StoryObj<typeof InputSelect> = {
   args: {
     mode: "base",
@@ -105,6 +130,36 @@ export const MultiSelect: StoryObj<typeof InputSelect> = {
   },
   render(args) {
     return <>
+      <Label>Label</Label>
+      <InputSelect {...args} />
+    </>
+  },
+};
+
+export const MultiAsyncSelect: StoryObj<typeof InputSelect> = {
+  args: {
+    mode: "error",
+    multiple: true,
+    keyLabel: "name",
+    keyValue: "mal_id",
+    renderItem: (item: any) => <div className="flex flex-col">
+      <span>{item.name}</span>
+      <span className="text-sm">{item.mal_id}</span>
+    </div>,
+    loadOptions: async (inputValue) => {
+      try {
+        const response = await fetch(`https://api.jikan.moe/v4/people?q=${inputValue}`)
+        const jsonData = await response.json();
+        return jsonData.data
+      } catch (err) {
+        return []
+      }
+    },
+  },
+  render(args) {
+    return <>
+      <Label>Label</Label>
+      <InputSelect {...args} />
       <Label>Label</Label>
       <InputSelect {...args} />
     </>
