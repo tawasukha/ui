@@ -41,14 +41,15 @@ export const Chip = forwardRef<HTMLSpanElement, ChipProps>(function Chip({ mode 
   return <span ref={ref} className={_chip({ mode, size, className })}>{children}</span>
 })
 
+
 export type XChipProps = Omit<ChipProps, "ref"> & {
-  onDismiss: SpanProps["onClick"]
+  onDismiss?: (T: Record<any, any>) => void
 }
 
-export const XChip = forwardRef<HTMLSpanElement, XChipProps>(function XChip({ onDismiss, children, className, ...props }: XChipProps, ref) {
-  return <Chip ref={ref} className="cursor-pointer" onClick={onDismiss} {...props}>
+export const XChip = forwardRef<HTMLSpanElement, XChipProps>(function XChip({ onDismiss, children, className, size = "sm", ...props }: XChipProps, ref) {
+  return <Chip ref={ref} className="cursor-pointer" size={size} onClick={onDismiss} {...props}>
     <>
-      <Icon name="XMarkIcon" className={_icon({ size: props.size })} />
+      <Icon name="XMarkIcon" className={_icon({ size })} />
       <span>{children}</span>
     </>
   </Chip>

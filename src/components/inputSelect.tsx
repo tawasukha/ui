@@ -1,11 +1,13 @@
 import { cva, cx, type VariantProps } from "cva"
-import { forwardRef, useState } from "react"
+import { forwardRef, useCallback, useEffect, useMemo, useState } from "react"
 import { type InputProps } from "react-html-props"
 import { Menu, MenuItem } from "./menu"
-import { useCombobox, type UseComboboxProps } from "downshift"
+import { useCombobox, type UseComboboxStateChange } from "downshift"
 import { StyledIcon } from "./icon"
+import { XChip } from "./chip"
 
-const _input = cva(["block w-full placeholder-base-3 bg-base rounded-lg border px-4 pt-3 py-2 focus:outline-none focus:shadow-md"], {
+const _input = cva(["w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr-8 pt-3 py-2",
+  "flex flex-row gap-1 overflow-hidden flex-wrap focus:outline-none focus:shadow-md"], {
   variants: {
     mode: {
       base: ["border-base-2 text-base-5 focus:shadow-base-1"],
@@ -14,16 +16,59 @@ const _input = cva(["block w-full placeholder-base-3 bg-base rounded-lg border p
   },
 })
 
-export interface InputSelectProps<T> extends Omit<InputProps, "value" | "onChange">, Required<{ mode: NonNullable<VariantProps<typeof _input>["mode"]> }> {
+
+export interface InputSelectProps<T> extends Omit<InputProps, "value" | "onChange">,
+  Required<{ mode: NonNullable<VariantProps<typeof _input>["mode"]> }> {
   options: T[]
+  loadOptions?: (inputValue?: string) => T[]
+  multiple?: boolean
   keyLabel?: string
   keyValue?: string
-  value: UseComboboxProps<T>["selectedItem"],
-  onChange: UseComboboxProps<T>["onSelectedItemChange"]
+  value: T | T[],
+  onChange: (value?: T | T[] | null) => void
+  renderItem?: (item: T) => JSX.Element
 }
 
-export const InputSelect = forwardRef(function InputSelect<T extends object>({ keyLabel = "label", keyValue = "value", mode = "base", className, options, value, onChange }: InputSelectProps<T>, ref: React.ForwardedRef<HTMLInputElement>) {
+export const InputSelect = forwardRef(function InputSelect<T extends object>({
+  multiple = false, keyLabel = "label", keyValue = "value", renderItem,
+  mode = "base", className, options, value, onChange = () => { }, loadOptions,
+}: InputSelectProps<T>, ref: React.ForwardedRef<HTMLInputElement>) {
   const [items, setItems] = useState(options)
+  const [values, setValues] = useState(value ? (multiple ? Array.isArray(value) ? value : [value] : undefined) : undefined)
+
+  const onDismiss = useCallback((item: T) => {
+    setValues((values) => {
+      return !values ? undefined : values.filter((value) => (JSON.stringify(value) !== JSON.stringify(item)))
+    })
+  }, [values])
+
+  const onSelectedItemChange = useCallback(({ selectedItem }: UseComboboxStateChange<T>) => {
+    multiple
+      ? setValues((values) => selectedItem ? (values || []).concat(selectedItem) : values)
+      : onChange(selectedItem);
+  }, [multiple, onChange, setValues])
+
+  const selectedItem = useMemo(() => {
+    return multiple || Array.isArray(value) ? null : value
+  }, [value])
+
+  const multipleValue = useMemo(() => {
+    return !multiple ? undefined : (values || []).map((value, i) => {
+      // @ts-expect-error
+      const val = value[keyValue] ? value[keyValue] : value
+      return <XChip key={`${val}${i}`} {...{
+        size: "sm",
+        mode: "base",
+        onDismiss,
+      }}>{val}</XChip>
+    })
+  }, [values, multiple])
+
+  useEffect(() => {
+    if (multiple) {
+      onChange(values)
+    }
+  }, [multiple])
 
   const {
     isOpen,
@@ -31,47 +76,52 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({ k
     getInputProps,
     highlightedIndex,
     getItemProps,
-    selectedItem,
+    selectedItem: selected,
   } = useCombobox({
-    selectedItem: value,
-    onSelectedItemChange: onChange,
+    selectedItem,
+    onSelectedItemChange,
     onInputValueChange({ inputValue }) {
-      setItems(options.filter((opt) => {
-        const lowered = inputValue?.toLowerCase()
-        return (
-          !inputValue ||
-          // @ts-expect-error
-          opt[keyLabel].toLowerCase().includes(lowered) ||
-          // @ts-expect-error
-          opt[keyValue].toLowerCase().includes(lowered)
-        )
-      }))
+      if (loadOptions) {
+        setItems(loadOptions(inputValue))
+      } else {
+        setItems(options.filter((opt) => {
+          const lowered = inputValue?.toLowerCase()
+          return (
+            !inputValue ||
+            // @ts-expect-error
+            opt[keyLabel].toLowerCase().includes(lowered) ||
+            // @ts-expect-error
+            opt[keyValue].toLowerCase().includes(lowered)
+          )
+        }))
+      }
     },
     items,
     itemToString(item) {
       // @ts-expect-error
-      return item ? item[keyLabel] : 'Not Found'
+      return item ? item[keyLabel] : ''
     },
   })
 
   return <>
-    <div ref={ref} className={_input({ mode, className: "flex flex-row" })} >
+    <div ref={ref} className={_input({ mode, className })}>
+      {multipleValue}
       <input
         placeholder="Select ..."
         className="place-base-3 bg-base focus:outline-none w-full tex-md"
         {...getInputProps()}
       />
-      <StyledIcon mode={mode} name="ChevronDownIcon" className={cx("transition ease-out h-6 w-6", isOpen ? "rotate-180" : "")} />
+      <StyledIcon mode={mode} name="ChevronDownIcon" className={cx("absolute right-8 transition ease-out h-6 w-6", isOpen ? "rotate-180" : "")} />
     </div >
     {isOpen && <Menu className="w-full h-40" {...getMenuProps()}>
       {items.length === 0 ? <MenuItem disabled>- Not Found -</MenuItem> : items.map((item, index) => (
         // @ts-expect-error
         <MenuItem key={`${item[keyValue]}${index}`}
           hover={highlightedIndex === index}
-          active={selectedItem === item}
+          active={selected === item}
           {...getItemProps({ item, index })}
         // @ts-expect-error
-        >{item[keyLabel]}</MenuItem>
+        >{renderItem ? renderItem(item) : item[keyLabel]}</MenuItem>
       ))}
     </Menu>}
   </>
