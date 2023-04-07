@@ -584,16 +584,16 @@ video {
   top: 0.75rem;
 }
 
+.z-10 {
+  z-index: 10;
+}
+
 .z-\[1\] {
   z-index: 1;
 }
 
 .z-\[2\] {
   z-index: 2;
-}
-
-.z-10 {
-  z-index: 10;
 }
 
 .-mx-3 {
@@ -800,10 +800,6 @@ video {
 
 .min-w-\[80px\] {
   min-width: 80px;
-}
-
-.min-w-full {
-  min-width: 100%;
 }
 
 .max-w-md {

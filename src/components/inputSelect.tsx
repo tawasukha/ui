@@ -114,7 +114,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
   })
 
 
-  return <>
+  return <div className="relative">
     <div ref={ref} className={_input({ mode, className })}>
       {multipleValue}
       <input
@@ -125,9 +125,9 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
       />
       <StyledIcon mode={mode} name="ChevronDownIcon" className={cx("absolute right-8 transition ease-out h-6 w-6", isOpen ? "rotate-180" : "")} />
     </div >
-    <div {...getMenuProps()} className="relative z-10">
+    <div {...getMenuProps()} className="absolute w-full z-10">
       <AnimatePresence>
-        {true && <MotionMenu className="w-full h-40 absolute" transition={{ duration: 0.2 }}
+        {isOpen && <MotionMenu className="w-full h-40" transition={{ duration: 0.2 }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0 }}
@@ -144,5 +144,5 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
         </MotionMenu>}
       </AnimatePresence>
     </div>
-  </>
+  </div>
 })
