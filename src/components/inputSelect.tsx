@@ -71,7 +71,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
       return <XChip key={`${val}${i}`} {...{
         size: "sm",
         mode: "base",
-        onDismiss: () => { onDismiss(value) },
+        onDismiss: () => { onDismiss(value); },
       }}>{val}</XChip>
     })
   }, [values, multiple])
