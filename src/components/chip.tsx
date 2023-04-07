@@ -37,13 +37,13 @@ type Props = VariantProps<typeof _chip>
 
 export type ChipProps = SpanProps & Required<{ mode: NonNullable<Props["mode"]>, size: NonNullable<Props["size"]> }>
 
-export const Chip = forwardRef<HTMLSpanElement, ChipProps>(function Chip({ mode = "base", size = "sm", className, children }, ref) {
-  return <span ref={ref} className={_chip({ mode, size, className })}>{children}</span>
+export const Chip = forwardRef<HTMLSpanElement, ChipProps>(function Chip({ mode = "base", size = "sm", className, children, ...props }, ref) {
+  return <span ref={ref} className={_chip({ mode, size, className })} {...props}>{children}</span>
 })
 
 
 export type XChipProps = Omit<ChipProps, "ref"> & {
-  onDismiss?: (T: Record<any, any>) => void
+  onDismiss?: (T?: Record<any, any>) => void
 }
 
 export const XChip = forwardRef<HTMLSpanElement, XChipProps>(function XChip({ onDismiss, children, className, size = "sm", ...props }: XChipProps, ref) {

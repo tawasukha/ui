@@ -2,7 +2,10 @@ import { cva, cx, type VariantProps } from "cva"
 import { forwardRef, useCallback, useEffect, useMemo, useState } from "react"
 import { type InputProps } from "react-html-props"
 import { Menu, MenuItem } from "./menu"
-import { useCombobox, type UseComboboxStateChange } from "downshift"
+import {
+  useCombobox, type UseComboboxState, type UseComboboxStateChangeOptions,
+  type UseComboboxStateChange,
+} from "downshift"
 import { StyledIcon } from "./icon"
 import { XChip } from "./chip"
 import { AnimatePresence, motion } from "framer-motion"
@@ -65,12 +68,12 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
       return <XChip key={`${val}${i}`} {...{
         size: "sm",
         mode: "base",
-        onDismiss,
+        onDismiss: () => { onDismiss(value) },
       }}>{val}</XChip>
     })
   }, [values, multiple])
 
-  const stateReducer = useCallback((state, actionAndChanges) => {
+  const stateReducer = useCallback((state: UseComboboxState<T>, actionAndChanges: UseComboboxStateChangeOptions<T>) => {
     const { type, changes } = actionAndChanges
     // returning an uppercased version of the item string.
     switch (type) {
@@ -85,7 +88,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
           }),
         } : changes
       default:
-        return changes // otherwise business as usual.
+        return changes
     }
   }, [])
 
@@ -110,16 +113,21 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
       if (loadOptions) {
         setItems(loadOptions(inputValue))
       } else {
-        setItems(options.filter((opt) => {
-          const lowered = inputValue?.toLowerCase()
-          return (
-            !inputValue ||
+        setItems(options
+          .filter((opt) => {
             // @ts-expect-error
-            opt[keyLabel].toLowerCase().includes(lowered) ||
-            // @ts-expect-error
-            opt[keyValue].toLowerCase().includes(lowered)
-          )
-        }))
+            return !(values || []).some(val => val[keyValue] === opt[keyValue] && val[keyLabel] === opt[keyLabel])
+          })
+          .filter((opt) => {
+            const lowered = inputValue?.toLowerCase()
+            return (
+              !inputValue ||
+              // @ts-expect-error
+              opt[keyLabel].toLowerCase().includes(lowered) ||
+              // @ts-expect-error
+              opt[keyValue].toLowerCase().includes(lowered)
+            )
+          }))
       }
     },
     items,
