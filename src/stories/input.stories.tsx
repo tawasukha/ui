@@ -76,6 +76,8 @@ export const Select: StoryObj<typeof InputSelect> = {
     return <>
       <Label>Label</Label>
       <InputSelect {...args} />
+      <Label>Label</Label>
+      <InputSelect {...args} />
     </>
   },
 };

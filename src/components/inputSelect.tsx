@@ -1,10 +1,13 @@
 import { cva, cx, type VariantProps } from "cva"
-import { forwardRef, useCallback, useEffect, useMemo, useState } from "react"
+import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { type InputProps } from "react-html-props"
 import { Menu, MenuItem } from "./menu"
 import { useCombobox, type UseComboboxStateChange } from "downshift"
 import { StyledIcon } from "./icon"
 import { XChip } from "./chip"
+import { AnimatePresence, motion } from "framer-motion"
+
+const MotionMenu = motion(Menu)
 
 const _input = cva(["w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr-8 pt-3 py-2",
   "flex flex-row gap-1 overflow-hidden flex-wrap focus:outline-none focus:shadow-md"], {
@@ -33,6 +36,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
   multiple = false, keyLabel = "label", keyValue = "value", renderItem,
   mode = "base", className, options, value, onChange = () => { }, loadOptions,
 }: InputSelectProps<T>, ref: React.ForwardedRef<HTMLInputElement>) {
+  const refInput = useRef(null)
   const [items, setItems] = useState(options)
   const [values, setValues] = useState(value ? (multiple ? Array.isArray(value) ? value : [value] : undefined) : undefined)
 
@@ -43,9 +47,15 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
   }, [values])
 
   const onSelectedItemChange = useCallback(({ selectedItem }: UseComboboxStateChange<T>) => {
-    multiple
-      ? setValues((values) => selectedItem ? (values || []).concat(selectedItem) : values)
-      : onChange(selectedItem);
+    if (multiple) {
+      setValues((values) => selectedItem ? (values || []).concat(selectedItem) : values)
+      if (refInput.current) {
+        console.log(refInput.current)
+        refInput.current.value = ""
+      }
+    } else {
+      onChange(selectedItem)
+    }
   }, [multiple, onChange, setValues])
 
   const selectedItem = useMemo(() => {
@@ -55,7 +65,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
   const multipleValue = useMemo(() => {
     return !multiple ? undefined : (values || []).map((value, i) => {
       // @ts-expect-error
-      const val = value[keyValue] ? value[keyValue] : value
+      const val = value[keyLabel] ? value[keyLabel] : value
       return <XChip key={`${val}${i}`} {...{
         size: "sm",
         mode: "base",
@@ -103,26 +113,36 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
     },
   })
 
+
   return <>
     <div ref={ref} className={_input({ mode, className })}>
       {multipleValue}
       <input
+        ref={refInput}
         placeholder="Select ..."
         className="place-base-3 bg-base focus:outline-none w-full tex-md"
         {...getInputProps()}
       />
       <StyledIcon mode={mode} name="ChevronDownIcon" className={cx("absolute right-8 transition ease-out h-6 w-6", isOpen ? "rotate-180" : "")} />
     </div >
-    {isOpen && <Menu className="w-full h-40" {...getMenuProps()}>
-      {items.length === 0 ? <MenuItem disabled>- Not Found -</MenuItem> : items.map((item, index) => (
-        // @ts-expect-error
-        <MenuItem key={`${item[keyValue]}${index}`}
-          hover={highlightedIndex === index}
-          active={selected === item}
-          {...getItemProps({ item, index })}
-        // @ts-expect-error
-        >{renderItem ? renderItem(item) : item[keyLabel]}</MenuItem>
-      ))}
-    </Menu>}
+    <div {...getMenuProps()} className="relative z-10">
+      <AnimatePresence>
+        {true && <MotionMenu className="w-full h-40 absolute" transition={{ duration: 0.2 }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0 }}
+        >
+          {items.length === 0 ? <MenuItem disabled>- Not Found -</MenuItem> : items.map((item, index) => (
+            // @ts-expect-error
+            <MenuItem key={`${item[keyValue]}${index}`}
+              hover={highlightedIndex === index}
+              active={selected === item}
+              {...getItemProps({ item, index })}
+            // @ts-expect-error
+            >{renderItem ? renderItem(item) : item[keyLabel]}</MenuItem>
+          ))}
+        </MotionMenu>}
+      </AnimatePresence>
+    </div>
   </>
 })
