@@ -109,14 +109,17 @@ export const AsyncSelect: StoryObj<typeof InputSelect> = {
 
 export const MultiSelect: StoryObj<typeof InputSelect> = {
   args: {
+    creatable: true,
     mode: "base",
     multiple: true,
     keyLabel: "title",
     keyValue: "author",
+    /*
     renderItem: (item: any) => <div className="flex flex-col">
       <span>{item.title}</span>
       <span className="text-sm">{item.author}</span>
     </div>,
+    */
     options: [{ author: 'Harper Lee', title: 'To Kill a Mockingbird' },
     { author: 'Lev Tolstoy', title: 'War and Peace' },
     { author: 'Fyodor Dostoyevsy', title: 'The Idiot' },

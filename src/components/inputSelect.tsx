@@ -7,7 +7,7 @@ import {
   type UseComboboxStateChange,
 } from "downshift"
 import { StyledIcon } from "./icon"
-import { XChip } from "./chip"
+import { Chip, XChip } from "./chip"
 import { AnimatePresence, motion } from "framer-motion"
 import { debouncePromise } from "src/helpers/debouncePromise"
 
@@ -25,8 +25,9 @@ const _input = cva(["w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr
 
 export interface InputSelectProps<T> extends Omit<InputProps, "value" | "onChange">,
   Required<{ mode: NonNullable<VariantProps<typeof _input>["mode"]> }> {
+  creatable?: boolean
   options: T[]
-  loadOptions?: (inputValue?: string) => Promise<T[]>
+  loadOptions?: (inputValue?: string) => Promise<T[]>,
   milis?: number
   multiple?: boolean
   keyLabel?: string
@@ -37,8 +38,8 @@ export interface InputSelectProps<T> extends Omit<InputProps, "value" | "onChang
 }
 
 export const InputSelect = forwardRef(function InputSelect<T extends object>({
-  multiple = false, keyLabel = "label", keyValue = "value", renderItem, milis = 300,
-  mode = "base", className, options, value, onChange = () => { }, loadOptions: _loadOptions,
+  creatable = false, multiple = false, keyLabel = "label", keyValue = "value", renderItem,
+  milis = 300, mode = "base", className, options, value, onChange = () => { }, loadOptions: _loadOptions,
 }: InputSelectProps<T>, ref: React.ForwardedRef<HTMLInputElement>) {
   const loadOptions = useMemo(() => _loadOptions ? debouncePromise(_loadOptions, milis, "Aborted") : undefined, [_loadOptions])
   const refInput = useRef(null)
@@ -127,7 +128,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
       if (loadOptions) {
         setItems(await loadOptions(inputValue))
       } else {
-        setItems(options
+        const filteredOptions = options
           .filter((opt) => {
             // @ts-expect-error
             return !(values || []).some(val => val[keyValue] === opt[keyValue] && val[keyLabel] === opt[keyLabel])
@@ -141,7 +142,16 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
               // @ts-expect-error
               opt[keyValue].toLowerCase().includes(lowered)
             )
-          }))
+          })
+
+        if (creatable && !!inputValue) {
+          filteredOptions.push({
+            [keyValue]: inputValue, [keyLabel]: inputValue,
+            __new__: true,
+          } as T)
+        }
+
+        setItems(filteredOptions)
       }
     },
     items,
@@ -151,7 +161,6 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
     },
     stateReducer,
   })
-
 
   return <div className="relative">
     <div ref={ref} className={_input({ mode, className })}>
@@ -183,8 +192,13 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
               hover={highlightedIndex === index}
               active={selected === item}
               {...getItemProps({ item, index })}
-            // @ts-expect-error
-            >{renderItem ? renderItem(item) : item[keyLabel]}</MenuItem>
+            >{renderItem
+              ? renderItem(item)
+              // @ts-expect-error
+              : (<span className="flex flex-1">{item[keyLabel]}</span>)}
+              {// @ts-expect-error
+                item.__new__ && <Chip mode="error" size="sm" className="self-center">New</Chip>}
+            </MenuItem>
           ))}
         </MotionMenu>}
       </AnimatePresence>

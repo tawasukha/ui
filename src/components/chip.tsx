@@ -14,7 +14,7 @@ const _chip = cva(["inline-flex items-center tracking-wide capitalize rounded-lg
       error: ["bg-error-2", "text-error-5", "focus:shadow-error-1"],
     },
     size: {
-      sm: ["px-2 py-1 text-sm"],
+      sm: ["px-2 py-1 text-xs"],
       md: ["px-3 py-2 text-md"],
       lg: ["px-4 py-2 text-lg"],
       xl: ["px-4 py-2 text-lg"],
