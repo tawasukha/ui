@@ -107,19 +107,47 @@ export const AsyncSelect: StoryObj<typeof InputSelect> = {
   },
 };
 
-export const MultiSelect: StoryObj<typeof InputSelect> = {
+export const CreatableSelect: StoryObj<typeof InputSelect> = {
   args: {
     creatable: true,
-    mode: "base",
-    multiple: true,
+    mode: "error",
     keyLabel: "title",
     keyValue: "author",
-    /*
     renderItem: (item: any) => <div className="flex flex-col">
       <span>{item.title}</span>
       <span className="text-sm">{item.author}</span>
     </div>,
-    */
+    options: [{ author: 'Harper Lee', title: 'To Kill a Mockingbird' },
+    { author: 'Lev Tolstoy', title: 'War and Peace' },
+    { author: 'Fyodor Dostoyevsy', title: 'The Idiot' },
+    { author: 'Oscar Wilde', title: 'A Picture of Dorian Gray' },
+    { author: 'George Orwell', title: '1984' },
+    { author: 'Jane Austen', title: 'Pride and Prejudice' },
+    { author: 'Marcus Aurelius', title: 'Meditations' },
+    { author: 'Fyodor Dostoevsky', title: 'The Brothers Karamazov' },
+    { author: 'Lev Tolstoy', title: 'Anna Karenina' },
+    { author: 'Fyodor Dostoevsky', title: 'Crime and Punishment' }],
+  },
+  render(args) {
+    return <>
+      <Label>Label</Label>
+      <InputSelect {...args} />
+      <Label>Label</Label>
+      <InputSelect {...args} />
+    </>
+  },
+};
+
+export const MultiSelect: StoryObj<typeof InputSelect> = {
+  args: {
+    mode: "base",
+    multiple: true,
+    keyLabel: "title",
+    keyValue: "author",
+    renderItem: (item: any) => <div className="flex flex-col">
+      <span>{item.title}</span>
+      <span className="text-sm">{item.author}</span>
+    </div>,
     options: [{ author: 'Harper Lee', title: 'To Kill a Mockingbird' },
     { author: 'Lev Tolstoy', title: 'War and Peace' },
     { author: 'Fyodor Dostoyevsy', title: 'The Idiot' },
@@ -138,6 +166,37 @@ export const MultiSelect: StoryObj<typeof InputSelect> = {
     </>
   },
 };
+
+export const MultiCreatableSelect: StoryObj<typeof InputSelect> = {
+  args: {
+    mode: "base",
+    creatable: true,
+    multiple: true,
+    keyLabel: "title",
+    keyValue: "author",
+    renderItem: (item: any) => <div className="flex flex-col">
+      <span>{item.title}</span>
+      <span className="text-sm">{item.author}</span>
+    </div>,
+    options: [{ author: 'Harper Lee', title: 'To Kill a Mockingbird' },
+    { author: 'Lev Tolstoy', title: 'War and Peace' },
+    { author: 'Fyodor Dostoyevsy', title: 'The Idiot' },
+    { author: 'Oscar Wilde', title: 'A Picture of Dorian Gray' },
+    { author: 'George Orwell', title: '1984' },
+    { author: 'Jane Austen', title: 'Pride and Prejudice' },
+    { author: 'Marcus Aurelius', title: 'Meditations' },
+    { author: 'Fyodor Dostoevsky', title: 'The Brothers Karamazov' },
+    { author: 'Lev Tolstoy', title: 'Anna Karenina' },
+    { author: 'Fyodor Dostoevsky', title: 'Crime and Punishment' }],
+  },
+  render(args) {
+    return <>
+      <Label>Label</Label>
+      <InputSelect {...args} />
+    </>
+  },
+};
+
 
 export const MultiAsyncSelect: StoryObj<typeof InputSelect> = {
   args: {

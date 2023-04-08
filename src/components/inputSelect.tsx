@@ -43,7 +43,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
 }: InputSelectProps<T>, ref: React.ForwardedRef<HTMLInputElement>) {
   const loadOptions = useMemo(() => _loadOptions ? debouncePromise(_loadOptions, milis, "Aborted") : undefined, [_loadOptions])
   const refInput = useRef(null)
-  const [items, setItems] = useState(options)
+  const [items, setItems] = useState(options || [])
   const [values, setValues] = useState(value ? (multiple ? Array.isArray(value) ? value : [value] : undefined) : undefined)
 
   const onDismiss = useCallback((item: T) => {
@@ -126,7 +126,11 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
     onSelectedItemChange,
     async onInputValueChange({ inputValue }) {
       if (loadOptions) {
-        setItems(await loadOptions(inputValue))
+        try {
+          setItems(await loadOptions(inputValue))
+        } catch (err) {
+          setItems([])
+        }
       } else {
         const filteredOptions = options
           .filter((opt) => {
@@ -172,7 +176,10 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
           ref: refInput,
           onKeyDown: (e) => {
             if (e.key === "Backspace" && multiple && values && (values || []).length > 0) {
-              onDismiss(values[values.length - 1])
+              // @ts-expect-error
+              if (e.target.value === "") {
+                onDismiss(values[values.length - 1])
+              }
             }
           },
         })}
