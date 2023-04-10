@@ -19,6 +19,7 @@ export { InputDate } from "./components/inputDate"
 export { Menu, MenuItem } from "./components/menu"
 export { Navbar, NavbarMenu } from "./components/navbar"
 
+export * from "date-fns"
 export { dynamic } from "./helpers/dynamic"
 export { useBoolean } from "./helpers/useBoolean"
 export { useTheme } from "./helpers/useTheme"

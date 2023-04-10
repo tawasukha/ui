@@ -55,7 +55,7 @@ export const Menu: StoryObj<typeof Navbar> = {
         <MenuItem icon="ArchiveBoxIcon">Archive</MenuItem>
         <MenuItem icon="Battery0Icon">Battery</MenuItem>
       </NavbarMenu>
-      <NavbarMenu icon="InboxIcon" label="Menu 3" last>
+      <NavbarMenu icon="InboxIcon" label="Menu 3">
         <MenuItem icon="AcademicCapIcon">Academic</MenuItem>
         <MenuItem icon="AdjustmentsHorizontalIcon">Adjustment</MenuItem>
         <MenuItem icon="ArchiveBoxIcon">Archive</MenuItem>
@@ -64,6 +64,13 @@ export const Menu: StoryObj<typeof Navbar> = {
         <MenuItem icon="AdjustmentsHorizontalIcon">Adjustment</MenuItem>
         <MenuItem icon="ArchiveBoxIcon">Archive</MenuItem>
         <MenuItem icon="Battery0Icon">Battery</MenuItem>
+        <MenuItem icon="AcademicCapIcon">Academic</MenuItem>
+        <MenuItem icon="AdjustmentsHorizontalIcon">Adjustment</MenuItem>
+        <MenuItem icon="ArchiveBoxIcon">Archive</MenuItem>
+        <MenuItem icon="Battery0Icon">Battery</MenuItem>
+      </NavbarMenu>
+      <NavbarMenu icon="UserCircleIcon" iconOnly last>
+        <div className="px-4 py-2 bg-base-2 text-base-3 text-sm font-semibold opacity-80">Logged User</div>
         <MenuItem icon="AcademicCapIcon">Academic</MenuItem>
         <MenuItem icon="AdjustmentsHorizontalIcon">Adjustment</MenuItem>
         <MenuItem icon="ArchiveBoxIcon">Archive</MenuItem>
