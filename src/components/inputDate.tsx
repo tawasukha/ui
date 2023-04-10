@@ -1,4 +1,4 @@
-import { forwardRef, useState, useEffect, useMemo, useRef } from 'react';
+import { forwardRef, useState, useMemo, useRef, useEffect } from 'react';
 import { useDatePicker } from '@rehookify/datepicker';
 import { type InputProps } from 'react-html-props';
 import { cva, cx, type VariantProps } from 'cva';
@@ -19,11 +19,13 @@ const _input = cva(["w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr
 })
 
 export interface InputDateProps extends Omit<InputProps, "value" | "onChange">, Required<{
-  mode:
-  VariantProps<typeof _input>["mode"]
-}> { }
+  mode: NonNullable<VariantProps<typeof _input>["mode"]>
+}> {
+  value: Date | undefined,
+  onChange: (date: Date | null) => void
+}
 
-export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function InputDate({ mode, className }, ref) {
+export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function InputDate({ mode, className, value, onChange }, ref) {
   const { value: isOpen, setTrue, setFalse } = useBoolean()
   const [selectedDates, onDatesChange] = useState<Date[]>([]);
   const refDropdown = useRef(null)
@@ -38,24 +40,34 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function I
       previousMonthButton,
     },
   } = useDatePicker({
-    selectedDates,
+    selectedDates: value ? [value] : undefined,
     onDatesChange,
     dates: { toggle: true, mode: 'single' },
   });
 
   const { month, year, days } = calendars[0];
 
-  const value = useMemo(() => selectedDates && selectedDates.length !== 0 ? format(selectedDates[0], "dd MMM yyyy") : null, [selectedDates])
+  const selectedDate = useMemo(() => selectedDates && selectedDates.length !== 0 ? format(selectedDates[0], "dd MMM yyyy") : "", [selectedDates])
+
+  useEffect(() => {
+    onChange(selectedDates ? selectedDates[0] : null)
+  }, [selectedDates])
+
 
   return (
     <div className="relative">
       <div className={_input({ mode, className })} onClick={setTrue}>
-        <input className='outline-none' type="text" value={value} readOnly onChange={onDatesChange} />
+        <input ref={ref} className='outline-none' type="text" value={selectedDate} readOnly />
         <StyledIcon mode={mode} name="CalendarDaysIcon" className={"absolute right-4 h-6 w-6 opacity-50"} />
       </div>
-      <div ref={refDropdown} className="relative z-10 w-72">
+      <div ref={refDropdown} className="absolute z-10 w-72">
         <AnimatePresence>
-          {isOpen && <div className="flex flex-col flex-1 bg-base shadow-md shadow-offset mt-2 rounded-lg">
+          {isOpen && <motion.div
+            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex flex-col flex-1 bg-base shadow-md shadow-offset mt-2 rounded-lg">
             <div className='flex flex-row justify-between gap gap-x-2 bg-base-2 rounded-t-lg text-md font-semibold text-base-3'>
               <div className='flex flex-1'>
                 <button className='p-2' {...previousMonthButton()}>
@@ -91,13 +103,13 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function I
               {days.map((day, i) => {
                 const sun = [0, 7, 14, 21, 28, 35]
                 return (
-                  <li className={cx("flex justify-center items-center hover:bg-base-2 rounded text-md", sun.includes(i) ? "text-error-5" : "text-base-5")} key={`${month}-${day.inCurrentMonth}-${day.day}`}>
+                  <li className={cx("flex justify-center items-center hover:bg-base-2 rounded text-md", sun.includes(i) ? "text-error-3" : "text-base-3")} key={`${month}-${day.inCurrentMonth}-${day.day}`}>
                     <button className='h-8 w-8' {...dayButton(day)}>{day.day}</button>
                   </li>
                 )
               })}
             </ul>
-          </div>}
+          </motion.div>}
         </AnimatePresence>
       </div >
     </div >

@@ -55,9 +55,15 @@ export const TextArea: StoryObj<typeof InputTextArea> = {
 
 export const Date: StoryObj<typeof InputDate> = {
   args: {
+    mode: "base",
+    value: undefined,
+    onChange: () => { },
   },
-  render() {
-    return <InputDate />
+  render(args) {
+    return <>
+      <Label>Label</Label>
+      <InputDate  {...args} />
+    </>
   },
 }
 

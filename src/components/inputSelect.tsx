@@ -8,10 +8,8 @@ import {
 } from "downshift"
 import { StyledIcon } from "./icon"
 import { Chip, XChip } from "./chip"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence } from "framer-motion"
 import { debouncePromise } from "../helpers/debouncePromise"
-
-const MotionMenu = motion(Menu)
 
 const _input = cva(["w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr-8 pt-3 py-2",
   "flex flex-row gap-1 overflow-hidden flex-wrap focus:outline-none focus:shadow-md"], {
@@ -194,7 +192,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
     </div >
     <div {...getMenuProps()} className="absolute w-full z-10">
       <AnimatePresence>
-        {isOpen && <MotionMenu className="w-full h-40" transition={{ duration: 0.2 }}
+        {isOpen && <Menu className="w-full h-40" transition={{ duration: 0.2 }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -213,7 +211,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
                 item.__new__ && <Chip mode="error" size="sm" className="self-center">New</Chip>}
             </MenuItem>
           ))}
-        </MotionMenu>}
+        </Menu>}
       </AnimatePresence>
     </div>
   </div>

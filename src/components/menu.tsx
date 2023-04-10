@@ -1,18 +1,30 @@
 import { type ULProps, type LIProps } from "react-html-props"
 import { cx } from "cva"
 import { forwardRef } from "react"
+import { motion } from "framer-motion"
+import { Icon } from "../components/icon"
+import { type ListIcon } from "@tawasukha/icon"
 
 type MenuItemProps = LIProps & {
+  icon?: ListIcon
   disabled?: boolean
   hover?: boolean
   active?: boolean
 }
 
-export const MenuItem = forwardRef<HTMLLIElement, MenuItemProps>(function MenuItem({ disabled, active, hover, className, ...props }, ref) {
-  return <li ref={ref} className={cx("flex flex-row text-md w-full px-4 py-1.5", disabled ? "cursor-not-allowed text-gray-400" : "hover:bg-base-2 cursor-pointer", hover ? "bg-base-2" : "bg-base", active ? "text-primary-5 bg-base-2" : "text-base-5", className)} {...props} />
+export const MenuItem = forwardRef<HTMLLIElement, MenuItemProps>(function MenuItem({ icon, disabled, active, hover, className, children, ...props }, ref) {
+  return <li ref={ref}
+    className={cx("flex flex-row text-md w-full px-4 py-1.5 items-center",
+      disabled ? "cursor-not-allowed text-gray-400" : "hover:bg-base-2 cursor-pointer",
+      hover ? "bg-base-2" : "bg-base", active ? "text-primary-3 bg-base-2" : "text-base-3",
+      className)} {...props}>
+    {icon && <Icon name={icon} className="w-4 h-4 mr-2" />}
+    {children}
+  </li>
 })
 
-export const Menu = forwardRef<HTMLUListElement, ULProps>(function Menu({ className, ...props }, ref) {
-  return <ul ref={ref} className={cx("relative mt-1 flex flex-col overflow-x-hidden overflow-y-scroll w-full bg-base rounded-lg shadow-offset shadow-md", className)} {...props} />
+const _Menu = forwardRef<HTMLUListElement, ULProps>(function Menu({ className, ...props }, ref) {
+  return <ul ref={ref} className={cx("relative mt-1 flex flex-col overflow-hidden w-full bg-base rounded-lg shadow-offset shadow-md", className)} {...props} />
 })
 
+export const Menu = motion(_Menu)

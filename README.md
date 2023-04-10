@@ -2,20 +2,20 @@
 
 ## Tawasukha UI
 
-A React Component Library based on Meraki UI / TailwindCSS
+A React Component Library based on TailwindCSS
 
-# Setup
+### Setup
 
 `pnpm install`
 
-# Start
+### Start
 
 `pnpm storybook`
 
-# Build/Bundle Component Library
+### Build/Bundle Component Library
 
 `pnpm build`
 
-# Build/Bundle Storybook For Deployment
+### Build/Bundle Storybook For Deployment
 
 `pnpm build-storybook`
