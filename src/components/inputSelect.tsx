@@ -9,7 +9,7 @@ import {
 import { StyledIcon } from "./icon"
 import { Chip, XChip } from "./chip"
 import { AnimatePresence, motion } from "framer-motion"
-import { debouncePromise } from "src/helpers/debouncePromise"
+import { debouncePromise } from "../helpers/debouncePromise"
 
 const MotionMenu = motion(Menu)
 
@@ -42,7 +42,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
   milis = 300, mode = "base", className, options, value, onChange = () => { }, loadOptions: _loadOptions,
 }: InputSelectProps<T>, ref: React.ForwardedRef<HTMLInputElement>) {
   const loadOptions = useMemo(() => _loadOptions ? debouncePromise(_loadOptions, milis, "Aborted") : undefined, [_loadOptions])
-  const refInput = useRef(null)
+  const refInput = useRef<HTMLInputElement | null>(null)
   const [items, setItems] = useState(options || [])
   const [values, setValues] = useState(value ? (multiple ? Array.isArray(value) ? value : [value] : undefined) : undefined)
 
@@ -126,11 +126,11 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
     onSelectedItemChange,
     async onInputValueChange({ inputValue }) {
       if (loadOptions) {
+        let asyncOptions: T[] = []
         try {
-          setItems(await loadOptions(inputValue))
-        } catch (err) {
-          setItems([])
-        }
+          asyncOptions = await loadOptions(inputValue)
+        } catch (err) { }
+        setItems(asyncOptions)
       } else {
         const filteredOptions = options
           .filter((opt) => {
@@ -166,12 +166,18 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
     stateReducer,
   })
 
-  return <div className="relative">
+  const inputFocus = useCallback(() => {
+    if (refInput.current) {
+      refInput.current.focus()
+    }
+  }, [])
+
+  return <div className="relative" onClick={inputFocus}>
     <div ref={ref} className={_input({ mode, className })}>
       {multipleValue}
       <input
         placeholder="Select ..."
-        className="place-base-3 bg-base focus:outline-none w-full tex-md"
+        className="place-base-3 bg-base focus:outline-none tex-md"
         {...getInputProps({
           ref: refInput,
           onKeyDown: (e) => {
@@ -193,7 +199,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          {items.length === 0 ? <MenuItem disabled>- Not Found -</MenuItem> : items.map((item, index) => (
+          {items.length === 0 ? <MenuItem disabled>{loadOptions ? "Type for search ..." : "- Not Found -"}</MenuItem> : items.map((item, index) => (
             // @ts-expect-error
             <MenuItem key={`${item[keyValue]}${index}`}
               hover={highlightedIndex === index}

@@ -4,6 +4,7 @@ import { InputText } from "../components/inputText";
 import { InputTextArea } from "../components/inputTextArea";
 import { InputPassword } from "../components/inputPassword";
 import { InputSelect } from "../components/inputSelect";
+import { InputDate } from "../components/inputDate";
 
 const meta = {
   title: "Tawasukha UI/Input",
@@ -51,6 +52,14 @@ export const TextArea: StoryObj<typeof InputTextArea> = {
     </>
   },
 };
+
+export const Date: StoryObj<typeof InputDate> = {
+  args: {
+  },
+  render() {
+    return <InputDate />
+  },
+}
 
 export const Select: StoryObj<typeof InputSelect> = {
   args: {

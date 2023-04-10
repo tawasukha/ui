@@ -1,9 +1,9 @@
-import React, { MouseEventHandler } from "react"
-import { StyledIcon, ModeProps } from "./icon"
+import React, { type MouseEventHandler } from "react"
+import { StyledIcon, type ModeProps } from "./icon"
 import { Button } from "./button"
 import { InputText } from "./inputText"
 import { InputTextArea } from "./inputTextArea"
-import { ListIcon as Icons } from "@tawasukha/icon"
+import { type ListIcon as Icons } from "@tawasukha/icon"
 import { AnimatePresence, motion } from "framer-motion"
 import { create } from "react-modal-promise"
 
@@ -23,7 +23,7 @@ const listIcon: ListIcon = {
   primary: "InformationCircleIcon",
   warning: "ExclamationCircleIcon",
   error: "XCircleIcon",
-  success: "CheckCircleIcon"
+  success: "CheckCircleIcon",
 }
 
 type FooterProps = {
@@ -36,8 +36,8 @@ type FooterProps = {
 }
 
 function DialogFooter({ mode, option, captionOK, captionCancel, onClickOK, onClickCancel }: FooterProps) {
-  const textOK = React.useMemo(() => captionOK ? captionOK : (mode === "warning" ? "Yes" : "OK"), [])
-  const textCancel = React.useMemo(() => captionCancel ? captionCancel : (mode === "warning" ? "No" : "Cancel"), [])
+  const textOK = React.useMemo(() => captionOK || (mode === "warning" ? "Yes" : "OK"), [])
+  const textCancel = React.useMemo(() => captionCancel || (mode === "warning" ? "No" : "Cancel"), [])
 
   return <div className="flex justify-end mt-4 gap-x-2">
     <Button onClick={onClickOK} mode={"primary"} size={"md"} className="min-w-[80px] justify-center">{textOK}</Button>
@@ -66,7 +66,7 @@ interface DialogProps extends Omit<FooterProps, "mode">, BackDropProps, Required
 
 export function Dialog({ visible = false, type, title, description, children, captionCancel, captionOK, onClickOK, onClickCancel, onClickBackDrop }: DialogProps) {
   const mode = React.useMemo(() => type2Mode(type), [type])
-  const iconName = React.useMemo(() => mode == "base" ? null : listIcon[mode], [mode])
+  const iconName = React.useMemo(() => mode === "base" ? null : listIcon[mode], [mode])
 
   return (
     <AnimatePresence>
@@ -84,7 +84,7 @@ export function Dialog({ visible = false, type, title, description, children, ca
 
           <h2 className="mt-2 text-xl font-semibold text-base-5">{title}</h2>
           <p className="mt-4 text-sm text-base-5">{description}</p>
-          {children ? children : <DialogFooter {...{ mode, captionCancel, captionOK, onClickOK, onClickCancel }} />}
+          {children || <DialogFooter {...{ mode, captionCancel, captionOK, onClickOK, onClickCancel }} />}
         </motion.div>
       </>}
     </AnimatePresence>
@@ -96,8 +96,8 @@ interface DialogPromiseProps extends Omit<DialogProps, "visible" | "onClickOK" |
   option?: "textarea" | "input"
   allowBlank?: boolean
   allowClose?: boolean
-  onResolve: (args: React.KeyboardEvent<HTMLInputElement> | { [k: string]: string | boolean }) => void
-  onReject: (args: React.KeyboardEvent<HTMLInputElement> | { [k: string]: string | boolean }) => void
+  onResolve: (args: React.KeyboardEvent<HTMLInputElement> | Record<string, string | boolean>) => void
+  onReject: (args: React.KeyboardEvent<HTMLInputElement> | Record<string, string | boolean>) => void
 }
 
 function useDialogInput({ option, onResolve, allowBlank }: Pick<DialogPromiseProps, "option" | "onResolve" | "allowBlank">) {
@@ -145,7 +145,8 @@ export function DialogPromise({ isOpen: visible, option, type, allowBlank, allow
   }, [onReject])
 
   const onClickBackDrop = React.useCallback(() => {
-    return allowClose ? onClickCancel() : () => { }
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    allowClose ? onClickCancel() : () => { };
   }, [onClickCancel])
 
   return <Dialog  {...{ visible, type, onClickCancel, onClickOK, onClickBackDrop, title, description }}>
@@ -155,7 +156,7 @@ export function DialogPromise({ isOpen: visible, option, type, allowBlank, allow
   </Dialog>
 }
 
-//@ts-expect-error
+// @ts-expect-error
 const _dialog = create(DialogPromise)
 
 type Props = Omit<DialogPromiseProps, "onResolve" | "onReject" | "isOpen">
@@ -163,21 +164,21 @@ type Props = Omit<DialogPromiseProps, "onResolve" | "onReject" | "isOpen">
 export const dialog = {
   show: async (props: Props) => {
     try {
-      return _dialog({ ...props })
+      return await _dialog({ ...props })
     } catch (e) {
       return { ok: false }
     }
   },
   input: async (props: Props) => {
     try {
-      return _dialog({ ...props, option: "input" } as Props)
+      return await _dialog({ ...props, option: "input" } as Props)
     } catch (e) {
       return { ok: false }
     }
   },
   textarea: async (props: Props) => {
     try {
-      return _dialog({ ...props, option: "textarea" } as Props)
+      return await _dialog({ ...props, option: "textarea" } as Props)
     } catch (e) {
       return { ok: false }
     }

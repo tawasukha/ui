@@ -1,0 +1,112 @@
+import { forwardRef, useState, useEffect, useMemo, useRef } from 'react';
+import { useDatePicker } from '@rehookify/datepicker';
+import { type InputProps } from 'react-html-props';
+import { cva, cx, type VariantProps } from 'cva';
+import { useBoolean } from '../helpers/useBoolean';
+import { motion, AnimatePresence } from "framer-motion"
+import { Icon, StyledIcon } from "./icon"
+import { format } from "date-fns"
+import { useOnClickOutside } from 'src/helpers/useOnClickOutside';
+
+const _input = cva(["w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr-8 pt-3 py-2",
+  "flex flex-row gap-1 overflow-hidden flex-wrap focus:outline-none focus:shadow-md"], {
+  variants: {
+    mode: {
+      base: ["border-base-2 text-base-5 focus:shadow-base-1"],
+      error: ["border-error-2 text-error-5 focus:shadow-error-1"],
+    },
+  },
+})
+
+export interface InputDateProps extends Omit<InputProps, "value" | "onChange">, Required<{
+  mode:
+  VariantProps<typeof _input>["mode"]
+}> { }
+
+export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function InputDate({ mode, className }, ref) {
+  const { value: isOpen, setTrue, setFalse } = useBoolean()
+  const [selectedDates, onDatesChange] = useState<Date[]>([]);
+  const refDropdown = useRef(null)
+
+  useOnClickOutside(refDropdown, setFalse)
+
+  const {
+    data: { calendars, weekDays },
+    propGetters: {
+      dayButton,
+      nextMonthButton,
+      previousMonthButton,
+    },
+  } = useDatePicker({
+    selectedDates,
+    onDatesChange,
+    dates: { toggle: true, mode: 'single' },
+  });
+
+  const { month, year, days } = calendars[0];
+
+  const value = useMemo(() => selectedDates && selectedDates.length !== 0 ? format(selectedDates[0], "dd MMM yyyy") : null, [selectedDates])
+
+  return (
+    <div className="relative">
+      <div className={_input({ mode, className })} onClick={setTrue}>
+        <input className='outline-none' type="text" value={value} readOnly onChange={onDatesChange} />
+        <StyledIcon mode={mode} name="CalendarDaysIcon" className={"absolute right-4 h-6 w-6 opacity-50"} />
+      </div>
+      <div ref={refDropdown} className="relative z-10 w-72">
+        <AnimatePresence>
+          {isOpen && <div className="flex flex-col flex-1 bg-base shadow-md shadow-offset mt-2 rounded-lg">
+            <div className='flex flex-row justify-between gap gap-x-2 bg-base-2 rounded-t-lg text-md font-semibold text-base-3'>
+              <div className='flex flex-1'>
+                <button className='p-2' {...previousMonthButton()}>
+                  <Icon name="ChevronLeftIcon" className='h-4 w-4' />
+                </button>
+                <span className='w-20 py-2'>
+                  {month}
+                </span>
+                <button className='p-2' {...nextMonthButton()}>
+                  <Icon name="ChevronRightIcon" className='h-4 w-4' />
+                </button>
+              </div>
+              <div className='flex'>
+                <button className='p-2'  {...previousMonthButton({ step: 12 })}>
+                  <Icon name="ChevronUpIcon" className='h-4 w-4' />
+                </button>
+                <span className='py-2'>
+                  {year}
+                </span>
+                <button className='p-2'  {...nextMonthButton({ step: 12 })}>
+                  <Icon name="ChevronDownIcon" className='h-4 w-4' />
+                </button>
+              </div>
+            </div>
+            <ul className='grid grid-cols-7 gap-y-2 items-center h-8 p-2 pt-1 pb-3 bg-base-2'>
+              {weekDays.map((day, i) => {
+                return (
+                  <li className={cx('text-md font-semibold text-center', i === 0 ? "text-error-3" : "text-base-3")} key={`${month}-${day}`}>{day}</li>
+                )
+              })}
+            </ul >
+            <ul className="grid grid-cols-7 gap-y-2 items-center p-2">
+              {days.map((day, i) => {
+                const sun = [0, 7, 14, 21, 28, 35]
+                return (
+                  <li className={cx("flex justify-center items-center hover:bg-base-2 rounded text-md", sun.includes(i) ? "text-error-5" : "text-base-5")} key={`${month}-${day.inCurrentMonth}-${day.day}`}>
+                    <button className='h-8 w-8' {...dayButton(day)}>{day.day}</button>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>}
+        </AnimatePresence>
+      </div >
+    </div >
+  );
+})
+
+/*
+            <>
+
+            </>
+
+          */

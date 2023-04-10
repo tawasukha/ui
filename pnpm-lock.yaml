@@ -13,6 +13,9 @@ dependencies:
   cva:
     specifier: npm:class-variance-authority@^0.4.0
     version: /class-variance-authority@0.4.0(typescript@5.0.3)
+  date-fns:
+    specifier: ^2.29.3
+    version: 2.29.3
   downshift:
     specifier: ^7.6.0
     version: 7.6.0(react@18.2.0)
@@ -4356,7 +4359,6 @@ packages:
   /date-fns@2.29.3:
     resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
     engines: {node: '>=0.11'}
-    dev: true
 
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
