@@ -1,5 +1,4 @@
 import "./theme.css"
-import "@fontsource/abeezee"
 
 export { cva, cx, type VariantProps } from "cva";
 export { loadIcon, type ListIcon as Icons } from "@tawasukha/icon"
@@ -18,6 +17,8 @@ export { InputSelect } from "./components/inputSelect"
 export { InputDate } from "./components/inputDate"
 export { Menu, MenuItem } from "./components/menu"
 export { Navbar, NavbarMenu } from "./components/navbar"
+export { Provider as UIProvider } from "./components/provider"
+export { Sidebar, SidebarMenu } from "./components/sidebar"
 
 export * from "date-fns"
 export { dynamic } from "./helpers/dynamic"

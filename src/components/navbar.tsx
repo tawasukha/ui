@@ -43,18 +43,18 @@ export const NavbarMenu = forwardRef<HTMLAnchorElement, NavbarMenuProps>(functio
 
   return <div className="relative">
     <a ref={ref} className={cx("flex flex-row my-2 text-base-3 transition-colors",
-      "duration-300 transform hover:text-primary-3 mx-4 cursor-pointer",
+      "duration-300 transform hover:text-primary-3 mx-4 items-center cursor-pointer",
       className)}
       {...props}>
-      {icon && <Icon className={iconOnly ? "w-8 h-8 -mt-2" : "w-5 h-5 mr-2"} name={icon} />}
+      {icon && <Icon className={iconOnly ? "w-8 h-8 -mt-1" : "w-5 h-5 mr-2"} name={icon} />}
       {label}
     </a>
     <div ref={refDropdown} className={cx("absolute z-10", last ? "right-0" : "")}>
       <AnimatePresence>
         {isOpen && <Menu className="min-w-[180px] ml-2 w-full" transition={{ duration: 0.2 }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          initial={{ opacity: 0, height: "0" }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: "0" }}
         >
           {children}
         </Menu>})

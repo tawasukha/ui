@@ -5,19 +5,7 @@ import dts from "vite-plugin-dts";
 import tsConfigPaths from "vite-tsconfig-paths";
 import * as packageJson from "./package.json";
 
-const external = [
-  "@fontsource/abeezee",
-  "@rehookify/datepicker",
-  "@tawasukha/icon",
-  "downshift",
-  "framer-motion",
-  "react",
-  "react-dom",
-  "react-dropzone",
-  "react-modal-promise",
-  "react-textarea-autosize",
-  "date-fns"
-]
+const external = Object.keys(packageJson.dependencies).concat(Object.keys(packageJson.peerDependencies))
 
 export default defineConfig(() => ({
   plugins: [
@@ -37,8 +25,9 @@ export default defineConfig(() => ({
         }`,
     },
     optimizeDeps: {
-      exclude: Object.keys(packageJson.peerDependencies),
+      exclude: external,
     },
+    cssMinify: true,
     esbuild: {
       minify: true,
     },

@@ -1,3 +1,4 @@
+import "./storybook.css"
 import '../src/index.css'
 import "../src/theme.css"
 import { Provider } from '../src/components/provider'
