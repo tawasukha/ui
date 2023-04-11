@@ -24,6 +24,7 @@ export const Basic: StoryObj<typeof Navbar> = {
       <a className="my-2 text-base-4 transition-colors duration-300 transform hover:text-primary-3 mx-4" href="#">Shop</a>
       <a className="my-2 text-base-4 transition-colors duration-300 transform hover:text-primary-3 mx-4" href="#">Contact</a>
       <a className="my-2 text-base-4 transition-colors duration-300 transform hover:text-primary-3 mx-4" href="#">About</a>
+      <ThemeToggle />
     </div>,
   },
   render(args) {
