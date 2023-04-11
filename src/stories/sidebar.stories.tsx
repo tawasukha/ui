@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Sidebar, SidebarMenu } from "../components/sidebar";
 import { MenuItem } from "../components/menu";
-import logo from "../assets/forte.png"
+
 const meta = {
   title: "Tawasukha UI/Sidebar",
   component: Sidebar,

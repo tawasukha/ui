@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Navbar, NavbarMenu } from "../components/navbar";
 import { MenuItem } from "../components/menu";
 import logo from "../assets/forte.png"
+import { ThemeToggle } from "src/components/theme";
 const meta = {
   title: "Tawasukha UI/Navbar",
   component: Navbar,
@@ -76,6 +77,7 @@ export const Menu: StoryObj<typeof Navbar> = {
         <MenuItem icon="ArchiveBoxIcon">Archive</MenuItem>
         <MenuItem icon="Battery0Icon">Battery</MenuItem>
       </NavbarMenu>
+      <ThemeToggle />
     </div>,
   },
   render(args) {
