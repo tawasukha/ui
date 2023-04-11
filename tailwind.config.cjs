@@ -51,7 +51,7 @@ module.exports = {
         "error-4": "var(--color-error-4)",
         "error-5": "var(--color-error-5)",
       },
-    }
+    },
   },
   plugins: [],
 }

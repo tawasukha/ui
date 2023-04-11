@@ -19,10 +19,10 @@ export const Basic: StoryObj<typeof Navbar> = {
       <img className="w-auto h-6 sm:h-7" src={logo} />
     </a>,
     right: <div className="flex flex-row">
-      <a className="my-2 text-base-3 transition-colors duration-300 transform hover:text-primary-3 mx-4" href="#">Home</a>
-      <a className="my-2 text-base-3 transition-colors duration-300 transform hover:text-primary-3 mx-4" href="#">Shop</a>
-      <a className="my-2 text-base-3 transition-colors duration-300 transform hover:text-primary-3 mx-4" href="#">Contact</a>
-      <a className="my-2 text-base-3 transition-colors duration-300 transform hover:text-primary-3 mx-4" href="#">About</a>
+      <a className="my-2 text-base-4 transition-colors duration-300 transform hover:text-primary-3 mx-4" href="#">Home</a>
+      <a className="my-2 text-base-4 transition-colors duration-300 transform hover:text-primary-3 mx-4" href="#">Shop</a>
+      <a className="my-2 text-base-4 transition-colors duration-300 transform hover:text-primary-3 mx-4" href="#">Contact</a>
+      <a className="my-2 text-base-4 transition-colors duration-300 transform hover:text-primary-3 mx-4" href="#">About</a>
     </div>,
   },
   render(args) {
@@ -35,7 +35,7 @@ export const Menu: StoryObj<typeof Navbar> = {
     className: "bg-base shadow-md shadow-offset",
     left: <a href="#" className="flex flex-row">
       <img className="h-10 w-10 mr-4" src={logo} />
-      <span className="text-md text-base-3 text-2xl">Tawasukha UI</span>
+      <span className="text-md text-base-4 text-2xl">Tawasukha UI</span>
     </a>,
     right: <div className="flex flex-row">
       <NavbarMenu icon="HomeIcon" label="Home" href="#" />
@@ -70,7 +70,7 @@ export const Menu: StoryObj<typeof Navbar> = {
         <MenuItem icon="Battery0Icon">Battery</MenuItem>
       </NavbarMenu>
       <NavbarMenu icon="UserCircleIcon" iconOnly last>
-        <div className="px-4 py-2 bg-base-2 text-base-3 text-sm font-semibold opacity-80">Logged User</div>
+        <div className="px-4 py-2 bg-base-2 text-base-5 text-sm font-semibold opacity-80">Logged User</div>
         <MenuItem icon="AcademicCapIcon">Academic</MenuItem>
         <MenuItem icon="AdjustmentsHorizontalIcon">Adjustment</MenuItem>
         <MenuItem icon="ArchiveBoxIcon">Archive</MenuItem>

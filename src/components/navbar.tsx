@@ -42,7 +42,7 @@ export const NavbarMenu = forwardRef<HTMLAnchorElement, NavbarMenuProps>(functio
   useOnClickOutside(refDropdown, setFalse)
 
   return <div className="relative">
-    <a ref={ref} className={cx("flex flex-row my-2 text-base-3 transition-colors",
+    <a ref={ref} className={cx("flex flex-row my-2 text-base-4 transition-colors",
       "duration-300 transform hover:text-primary-3 mx-4 items-center cursor-pointer",
       className)}
       {...props}>

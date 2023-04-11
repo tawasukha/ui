@@ -57,7 +57,7 @@ export const Menu: StoryObj<typeof Sidebar> = {
         <MenuItem icon="Battery0Icon">Battery</MenuItem>
       </SidebarMenu>
       <SidebarMenu icon="UserCircleIcon" label="User">
-        <div className="px-4 py-2 bg-base-2 text-base-3 text-sm font-semibold opacity-80">Logged User</div>
+        <div className="px-4 py-2 bg-base-2 text-base-5 text-sm font-semibold opacity-80">Logged User</div>
         <MenuItem icon="AcademicCapIcon">Academic</MenuItem>
         <MenuItem icon="AdjustmentsHorizontalIcon">Adjustment</MenuItem>
         <MenuItem icon="ArchiveBoxIcon">Archive</MenuItem>

@@ -68,7 +68,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function I
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="flex flex-col flex-1 bg-base shadow-md shadow-offset mt-2 rounded-lg">
-            <div className='flex flex-row justify-between gap gap-x-2 bg-base-2 rounded-t-lg text-md font-semibold text-base-3'>
+            <div className='flex flex-row justify-between gap gap-x-2 bg-base-2 rounded-t-lg text-md font-semibold text-base-4'>
               <div className='flex flex-1'>
                 <button className='p-2' {...previousMonthButton()}>
                   <Icon name="ChevronLeftIcon" className='h-4 w-4' />
@@ -95,7 +95,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function I
             <ul className='grid grid-cols-7 gap-y-2 items-center h-8 p-2 pt-1 pb-3 bg-base-2'>
               {weekDays.map((day, i) => {
                 return (
-                  <li className={cx('text-md font-semibold text-center', i === 0 ? "text-error-3" : "text-base-3")} key={`${month}-${day}`}>{day}</li>
+                  <li className={cx('text-md font-semibold text-center', i === 0 ? "text-error-4" : "text-base-4")} key={`${month}-${day}`}>{day}</li>
                 )
               })}
             </ul >
@@ -103,7 +103,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function I
               {days.map((day, i) => {
                 const sun = [0, 7, 14, 21, 28, 35]
                 return (
-                  <li className={cx("flex justify-center items-center hover:bg-base-2 rounded text-md", sun.includes(i) ? "text-error-3" : "text-base-3")} key={`${month}-${day.inCurrentMonth}-${day.day}`}>
+                  <li className={cx("flex justify-center items-center hover:bg-base-2 rounded text-md", sun.includes(i) ? "text-error-4" : "text-base-4")} key={`${month}-${day.inCurrentMonth}-${day.day}`}>
                     <button className='h-8 w-8' {...dayButton(day)}>{day.day}</button>
                   </li>
                 )

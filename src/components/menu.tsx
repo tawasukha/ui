@@ -16,7 +16,7 @@ export const MenuItem = forwardRef<HTMLLIElement, MenuItemProps>(function MenuIt
   return <li ref={ref}
     className={cx("flex flex-row text-md w-full px-4 py-1.5 items-center",
       disabled ? "cursor-not-allowed text-gray-400" : "hover:bg-base-2 cursor-pointer",
-      hover ? "bg-base-2" : "bg-base", active ? "text-primary-3 bg-base-2" : "text-base-3",
+      hover ? "bg-base-2" : "bg-base", active ? "text-primary-4 bg-base-2" : "text-base-4",
       className)} {...props}>
     {icon && <Icon name={icon} className="w-4 h-4 mr-2" />}
     {children}
