@@ -17,8 +17,8 @@
       "default": "./dist/core.css"
     },
     "./config.cjs": {
-      "require": "./dist/tailwind.config.cjs",
-      "default": "./dist/tailwind.config.cjs"
+      "require": "./dist/config.cjs",
+      "default": "./dist/config.cjs"
     }
   },
   "files": [
