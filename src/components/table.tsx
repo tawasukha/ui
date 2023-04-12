@@ -37,5 +37,5 @@ export const TableHead = forwardRef<HTMLTableSectionElement, TableHeadProps>(fun
 export interface TableProps extends RawTableProps { }
 
 export const Table = forwardRef<HTMLTableElement, TableProps>(function Table({ className, ...props }, ref) {
-  return <table className={cx("min-w-full divide-y divide-base-2 shadow-md shadow-offset", className)} {...props} />
+  return <table className={cx("min-w-full divide-y divide-base-2 shadow-md shadow-offset rounded-lg", className)} {...props} />
 })

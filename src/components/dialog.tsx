@@ -77,7 +77,7 @@ export function Dialog({ visible = false, type, title, description, children, ca
           initial={{ opacity: 0, translateY: "300%", translateX: "-50%" }}
           animate={{ opacity: 1, translateY: "0%", translateX: "-50%" }}
           exit={{ opacity: 0, translateY: "300%", translateX: "-50%" }}
-          className={"fixed flex left-1/2 flex-col w-full max-w-md px-8 py-4 mt-16 bg-base rounded-lg shadow-lg shadow-offset z-40"}>
+          className={"fixed flex left-1/2 top-10 flex-col w-full max-w-md px-8 py-4 mt-16 bg-base rounded-lg shadow-lg shadow-offset z-40"}>
           {iconName && <div className="flex justify-center -mt-16 md:justify-end">
             <StyledIcon name={iconName} className="w-20 h-20 rounded-full ring ring-base-1 bg-base" mode={mode} />
           </div>}

@@ -65,9 +65,9 @@ export const Checkbox: StoryObj<typeof Table> = {
   render(args) {
     return (
       <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>
+        <TableHead >
+          <TableRow >
+            <TableHeaderCell className="rounded-tl-lg">
               <InputCheckbox mode="primary" />
             </TableHeaderCell>
             <TableHeaderCell>
