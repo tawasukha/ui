@@ -1,4 +1,4 @@
-import { cva, type VariantProps } from "cva"
+import { cva, type VariantProps } from "../helpers/cva"
 import { dynamic } from "../helpers/dynamic"
 import { forwardRef } from "react"
 

@@ -1,5 +1,5 @@
 import { type InputProps } from "react-html-props";
-import { cva, type VariantProps } from "cva"
+import { cva, type VariantProps } from "../helpers/cva"
 import { forwardRef } from "react";
 
 const _input = cva(["block w-full placeholder-base-3 bg-base rounded-lg border px-4 pt-3 py-2 focus:outline-none focus:shadow-md"], {

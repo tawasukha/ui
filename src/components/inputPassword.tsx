@@ -1,6 +1,6 @@
 import { forwardRef, useMemo } from "react";
 import { type InputProps } from "react-html-props";
-import { cva, type VariantProps } from "cva"
+import { cva, type VariantProps } from "../helpers/cva"
 import { useBoolean } from "../helpers/useBoolean";
 import { StyledIcon } from "./icon";
 
@@ -19,9 +19,9 @@ const _input = cva(["block w-full placeholder-base-3 bg-base rounded-lg border p
   },
 })
 
-export interface InputTextProps extends Omit<InputProps, "type">, Required<{ mode: NonNullable<VariantProps<typeof _input>["mode"]> }> { }
+export interface InputPasswordProps extends Omit<InputProps, "type">, VariantProps<typeof _input> { }
 
-export const InputPassword = forwardRef<HTMLInputElement, InputTextProps>(function InputPassword({ mode = "base", className, ...props }, ref) {
+export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(function InputPassword({ mode = "base", className, ...props }, ref) {
   const { value, toggle, eye } = useEye(mode)
 
   return <div className="relative flex items-center">

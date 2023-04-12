@@ -24,6 +24,6 @@ export const Basic: Story = {
     mode: "error",
     title: "Error",
     children: "An error occured",
-    onDismiss: undefined
+    onDismiss: undefined,
   },
 };

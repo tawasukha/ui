@@ -55,38 +55,38 @@
   --color-offset: theme("colors.gray.700");
 
   --color-base: theme("colors.slate.800");
-  --color-base-1: theme("colors.slate.800");
-  --color-base-2: theme("colors.slate.700");
+  --color-base-1: theme("colors.slate.700");
+  --color-base-2: theme("colors.slate.600");
   --color-base-3: theme("colors.slate.500");
   --color-base-4: theme("colors.slate.300");
   --color-base-5: theme("colors.slate.200");
 
-  --color-primary-1: theme("colors.sky.800");
-  --color-primary-2: theme("colors.sky.700");
+  --color-primary-1: theme("colors.sky.700");
+  --color-primary-2: theme("colors.sky.600");
   --color-primary-3: theme("colors.sky.500");
   --color-primary-4: theme("colors.sky.300");
   --color-primary-5: theme("colors.sky.200");
 
-  --color-secondary-1: theme("colors.cyan.800");
-  --color-secondary-2: theme("colors.cyan.700");
+  --color-secondary-1: theme("colors.cyan.700");
+  --color-secondary-2: theme("colors.cyan.600");
   --color-secondary-3: theme("colors.cyan.500");
   --color-secondary-4: theme("colors.cyan.300");
   --color-secondary-5: theme("colors.cyan.200");
 
-  --color-success-1: theme("colors.emerald.800");
-  --color-success-2: theme("colors.emerald.700");
+  --color-success-1: theme("colors.emerald.700");
+  --color-success-2: theme("colors.emerald.600");
   --color-success-3: theme("colors.emerald.500");
   --color-success-4: theme("colors.emerald.300");
   --color-success-5: theme("colors.emerald.200");
 
-  --color-warning-1: theme("colors.amber.800");
-  --color-warning-2: theme("colors.amber.700");
+  --color-warning-1: theme("colors.amber.700");
+  --color-warning-2: theme("colors.amber.600");
   --color-warning-3: theme("colors.amber.500");
   --color-warning-4: theme("colors.amber.300");
   --color-warning-5: theme("colors.amber.200");
 
-  --color-error-1: theme("colors.rose.800");
-  --color-error-2: theme("colors.rose.700");
+  --color-error-1: theme("colors.rose.700");
+  --color-error-2: theme("colors.rose.600");
   --color-error-3: theme("colors.rose.500");
   --color-error-4: theme("colors.rose.300");
   --color-error-5: theme("colors.rose.200");

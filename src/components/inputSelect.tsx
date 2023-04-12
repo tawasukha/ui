@@ -1,4 +1,4 @@
-import { cva, cx, type VariantProps } from "cva"
+import { cva, cx, type VariantProps } from "../helpers/cva"
 import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { type InputProps } from "react-html-props"
 import { Menu, MenuItem } from "./menu"
@@ -22,7 +22,7 @@ const _input = cva(["w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr
 })
 
 export interface InputSelectProps<T> extends Omit<InputProps, "value" | "onChange">,
-  Required<{ mode: NonNullable<VariantProps<typeof _input>["mode"]> }> {
+  VariantProps<typeof _input> {
   creatable?: boolean
   options: T[]
   loadOptions?: (inputValue?: string) => Promise<T[]>,
