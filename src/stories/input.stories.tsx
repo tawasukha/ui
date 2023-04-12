@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Label } from "../components/label";
+import { InputCheckbox } from "../components/inputCheckbox"
 import { InputText } from "../components/inputText";
 import { InputTextArea } from "../components/inputTextArea";
 import { InputPassword } from "../components/inputPassword";
@@ -52,6 +53,20 @@ export const TextArea: StoryObj<typeof InputTextArea> = {
     </>
   },
 };
+
+export const Checkbox: StoryObj<typeof InputCheckbox> = {
+  args: {
+    mode: "error",
+    indeterminate: false,
+    checked: false,
+  },
+  render(args) {
+    return <>
+      <InputCheckbox {...args} />
+    </>
+  },
+};
+
 
 export const Date: StoryObj<typeof InputDate> = {
   args: {

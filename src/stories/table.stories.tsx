@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "../components/table"
-import { Checkbox as InputCheckbox } from "../components/inputCheckbox";
+import { InputCheckbox } from "../components/inputCheckbox";
 
 const meta = {
   title: "Tawasukha UI/Table",

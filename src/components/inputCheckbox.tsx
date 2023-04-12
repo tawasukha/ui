@@ -1,52 +1,53 @@
 import { cva, type VariantProps } from "../helpers/cva"
-import { useBoolean } from "../helpers/useBoolean"
 import { type InputProps } from "react-html-props"
 import { AnimatePresence, motion } from "framer-motion"
 import { Icon } from "./icon"
-import { forwardRef, useEffect } from "react"
+import { forwardRef, useEffect, useRef } from "react"
 
-const _input = cva(["flex w-[18px] h-[18px] ring-1 rounded"], {
+const _input = cva(["flex flex-col w-[18px] h-[18px] ring-1 rounded"], {
   variants: {
     mode: {
-      base: ["bg-base-1 ring-base-3"],
-      primary: ["bg-primary-1 ring-primary-3"],
-      error: ["bg-error-1 ring-error-3"],
+      base: ["bg-base-1 text-base-5 ring-base-3"],
+      primary: ["bg-primary-1 text-primary-5 ring-primary-3"],
+      error: ["bg-error-1 text-error-5 ring-error-3"],
     },
   },
 })
 
-interface CheckboxProps extends Omit<InputProps, "onChange">, VariantProps<typeof _input> {
+interface CheckboxProps extends InputProps, VariantProps<typeof _input> {
   indeterminate?: boolean
-  onChange?: (checked?: boolean) => void
 }
 
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox({ mode = "base", className, indeterminate = false, checked = false, onChange }, ref) {
-  const { value, toggle } = useBoolean(checked)
+export const InputCheckbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox({ mode = "base", className, indeterminate, ...props }, ref) {
+  const refCheckbox = useRef<HTMLInputElement>(null!)
 
   useEffect(() => {
-    if (onChange) onChange(value)
-  }, [value, onChange])
+    if (typeof indeterminate === "boolean") {
+      refCheckbox.current.indeterminate = !props.checked && indeterminate
+    }
+  }, [ref, indeterminate, props.checked])
 
   return (
     <>
-      <input ref={ref} type="checkbox" className="hidden" checked={value} readOnly />
-      <label onClick={toggle} className={_input({ mode, className })}>
+      <input ref={refCheckbox} type="checkbox" className="hidden" {...props} />
+      <label onClick={() => { refCheckbox?.current.click(); }} className={_input({ mode, className })}>
         <AnimatePresence>
-          {value && <motion.i
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}>
+          {props.checked && <motion.i
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}>
             <Icon outline name="CheckIcon" className="w-[18px] h-[18px] stroke-[3px]" />
           </motion.i>}
         </AnimatePresence>
         <AnimatePresence>
-          {indeterminate && <motion.i
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}>
+          {!props.checked && indeterminate && <motion.i
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}>
             <Icon name="MinusSmallIcon" className="w-[18px] h-[18px] stroke-[3px]" />
           </motion.i>}
         </AnimatePresence>
-      </label>
+      </label >
     </>);
 })
+
