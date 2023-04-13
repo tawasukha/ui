@@ -1,7 +1,6 @@
+import React, { useCallback, useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { useTheme } from "../helpers/useTheme"
 import { useIsClient } from "../helpers/useIsClient"
-import { useCallback, useEffect, useState } from "react"
 import { StyledIcon } from "../components/icon"
 import { cx } from "cva"
 
@@ -9,7 +8,8 @@ type Theme = "dark" | "light" | undefined
 
 export function ThemeToggle() {
   const isClient = useIsClient()
-  const [theme, setTheme] = useState<Theme>(undefined)
+  const stored = window.localStorage.getItem("theme") as "dark" | "light" | undefined
+  const [theme, setTheme] = useState<Theme>(stored)
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => prev === "light" ? "dark" : "light")
@@ -43,4 +43,22 @@ export function ThemeToggle() {
       }
     </AnimatePresence>
   </button>
+}
+
+export function useTheme(theme?: "light" | "dark") {
+  const isDOM =
+    typeof window !== 'undefined' &&
+    window.document &&
+    window.document.documentElement
+
+  React.useEffect(() => {
+    if (isDOM && !!theme) {
+      const html = document.querySelector("html")
+      if (html) {
+        html.setAttribute("data-theme", theme)
+        window.localStorage.setItem("theme", theme)
+        html.classList.add("bg-default")
+      }
+    }
+  }, [theme])
 }

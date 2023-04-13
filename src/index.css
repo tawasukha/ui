@@ -1163,24 +1163,6 @@ video {
   background-color: rgb(var(--color-warning-3) / var(--tw-bg-opacity));
 }
 
-.bg-yellow-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(234 179 8 / var(--tw-bg-opacity));
-}
-
-.bg-primary-5 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(var(--color-primary-5) / var(--tw-bg-opacity));
-}
-
-.bg-opacity-50 {
-  --tw-bg-opacity: 0.5;
-}
-
-.bg-opacity-20 {
-  --tw-bg-opacity: 0.2;
-}
-
 .fill-base-5 {
   fill: rgb(var(--color-base-5) / 1);
 }

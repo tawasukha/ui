@@ -106,8 +106,9 @@ function useDialogInput({ option, onResolve, allowBlank }: Pick<DialogPromisePro
     React.useCallback(
       (event) => {
         if (event.key === "Enter") {
-          if (!(refInput.current?.value === "" && !allowBlank)) {
-            onResolve(event)
+          const value = refInput.current?.value || ""
+          if (!(value === "" && !allowBlank)) {
+            onResolve({ ok: true, value })
           }
         }
       },
