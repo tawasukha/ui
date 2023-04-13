@@ -108,6 +108,10 @@ export const Select: StoryObj<typeof InputSelect> = {
       <InputSelect {...args} />
       <Label>Label</Label>
       <InputSelect {...args} />
+      <Label>Label</Label>
+      <div className="w-36">
+        <InputSelect {...args} />
+      </div>
     </>
   },
 };

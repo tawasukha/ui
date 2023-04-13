@@ -12,8 +12,8 @@ const _input = cva(["w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr
   "flex flex-row gap-1 overflow-hidden flex-wrap focus:outline-none focus:shadow-md"], {
   variants: {
     mode: {
-      base: ["border-base-2 text-base-5 focus:shadow-base-1"],
-      error: ["border-error-2 text-error-5 focus:shadow-error-1"],
+      base: ["border-base-2 text-base-5 focus:border-base-3 focus:shadow-base-1"],
+      error: ["border-error-2 text-error-5 focus:border-error-3 focus:shadow-error-1"],
     },
   },
 })

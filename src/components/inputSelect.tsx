@@ -12,11 +12,11 @@ import { AnimatePresence } from "framer-motion"
 import { debouncePromise } from "../helpers/debouncePromise"
 
 const _input = cva(["w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr-8 pt-3 py-2",
-  "flex flex-row gap-1 overflow-hidden flex-wrap focus:outline-none focus:shadow-md"], {
+  "focus:outline-none flex flex-row focus:shadow-md"], {
   variants: {
     mode: {
-      base: ["border-base-2 text-base-5 focus:shadow-base-1"],
-      error: ["border-error-2 text-error-5 focus:shadow-error-1"],
+      base: ["border-base-2 text-base-5 focus:border-base-3 focus:shadow-base-1"],
+      error: ["border-error-2 text-error-5 focus:border-error-3 focus:shadow-error-1"],
     },
   },
 })
@@ -172,23 +172,26 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>({
 
   return <div className="relative" onClick={inputFocus}>
     <div ref={ref} className={_input({ mode, className })}>
-      {multipleValue}
-      <input
-        placeholder="Select ..."
-        className="place-base-3 bg-base focus:outline-none tex-md"
-        {...getInputProps({
-          ref: refInput,
-          onKeyDown: (e) => {
-            if (e.key === "Backspace" && multiple && values && (values || []).length > 0) {
-              // @ts-expect-error
-              if (e.target.value === "") {
-                onDismiss(values[values.length - 1])
+      <div className="w-full overflow-hidden flex flex-row gap-1 flex-wrap">
+        {multipleValue}
+        <input
+          placeholder="Select ..."
+          className="place-base-3 bg-base focus:outline-none text-md"
+          {...getInputProps({
+            ref: refInput,
+            onKeyDown: (e) => {
+              if (e.key === "Backspace" && multiple && values && (values || []).length > 0) {
+                // @ts-expect-error
+                if (e.target.value === "") {
+                  onDismiss(values[values.length - 1])
+                }
               }
-            }
-          },
-        })}
-      />
-      <StyledIcon mode={mode} name="ChevronDownIcon" className={cx("absolute right-8 transition ease-out h-6 w-6", isOpen ? "rotate-180" : "")} />
+            },
+          })}
+        />
+      </div>
+
+      <StyledIcon mode={mode} name="ChevronDownIcon" className={cx("absolute right-4 transition ease-out bg-base h-6 w-6", isOpen ? "rotate-180" : "")} />
     </div >
     <div {...getMenuProps()} className="absolute w-full z-10">
       <AnimatePresence>
