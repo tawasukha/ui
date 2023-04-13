@@ -17,7 +17,7 @@ export interface TableRowProps extends TRProps {
 }
 
 export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(function TableCell({ dark, className, ...props }, ref) {
-  return <tr ref={ref} className={cx("font-normal hover:bg-primary-1", dark ? "bg-base-1" : "", className)} {...props} />
+  return <tr ref={ref} className={cx("font-normal hover:bg-primary-1 hover:text-primary-5", dark ? "bg-base-1" : "", className)} {...props} />
 })
 
 export interface TableBody extends TBodyProps {

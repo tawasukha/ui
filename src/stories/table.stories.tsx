@@ -21,44 +21,6 @@ const data = [
   { id: 5, name: "Parker", address: "Great Avenue", city: "San Fransisco" },
 ]
 
-export const Basic: StoryObj<typeof Table> = {
-  args: {
-  },
-  render(args) {
-    return (
-      <Table>
-        <TableHead>
-          <TableRow>
-
-            <TableHeaderCell>
-              No
-            </TableHeaderCell>
-            <TableHeaderCell>
-              Name
-            </TableHeaderCell>
-            <TableHeaderCell>
-              Address
-            </TableHeaderCell>
-            <TableHeaderCell>
-              City
-            </TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((d, i) => {
-            return <TableRow key={i} dark={i % 2 === 0}>
-              <TableCell>{d.id}</TableCell>
-              <TableCell>{d.name}</TableCell>
-              <TableCell>{d.address}</TableCell>
-              <TableCell>{d.city}</TableCell>
-            </TableRow>
-          })}
-        </TableBody>
-      </Table >
-    )
-  },
-};
-
 export const Checkbox: StoryObj<typeof Table> = {
   args: {
   },

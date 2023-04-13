@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "../helpers/cva"
 import { type InputProps } from "react-html-props"
 import { AnimatePresence, motion } from "framer-motion"
 import { Icon } from "./icon"
-import { forwardRef, useEffect, useRef } from "react"
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 
 const _input = cva(["flex flex-col w-[18px] h-[18px] ring-1 rounded"], {
   variants: {
@@ -18,14 +18,22 @@ interface CheckboxProps extends InputProps, VariantProps<typeof _input> {
   indeterminate?: boolean
 }
 
-export const InputCheckbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox({ mode = "base", className, indeterminate, ...props }, ref) {
+export const InputCheckbox = forwardRef<Partial<HTMLInputElement & { click: () => void }>, CheckboxProps>(function Checkbox({ mode = "base", className, indeterminate, ...props }, ref) {
   const refCheckbox = useRef<HTMLInputElement>(null!)
 
   useEffect(() => {
     if (typeof indeterminate === "boolean") {
       refCheckbox.current.indeterminate = !props.checked && indeterminate
     }
-  }, [ref, indeterminate, props.checked])
+  }, [refCheckbox, indeterminate, props.checked])
+
+  useImperativeHandle(ref, () => {
+    return {
+      click() {
+        refCheckbox.current.click();
+      },
+    };
+  }, []);
 
   return (
     <>

@@ -1,93 +1,89 @@
 /* Tawasukha UI Theme 
-* Author : Forte Zhuo
-*
-* 1 = bg
-* 2 = bg offset
-* 3 = border
-* 4 = text offset
-* 5 = text
+*  Author : Forte Zhuo
 */
 
+/* LIGHT */
 [data-theme="light"] {
-  --color-default: theme("colors.white");
-  --color-offset: theme("colors.gray.200");
+  --color-default: 255 255 255;
+  --color-offset: 229 231 235;
+  --color-base: 255 255 255;
 
-  --color-base: theme("colors.white");
-  --color-base-1: theme("colors.slate.50");
-  --color-base-2: theme("colors.slate.200");
-  --color-base-3: theme("colors.slate.500");
-  --color-base-4: theme("colors.slate.600");
-  --color-base-5: theme("colors.slate.700");
+  --color-base-1: 248 250 252;
+  --color-base-2: 226 232 240;
+  --color-base-3: 100 116 139;
+  --color-base-4: 71 85 105;
+  --color-base-5: 51 65 85;
 
-  --color-primary-1: theme("colors.sky.50");
-  --color-primary-2: theme("colors.sky.200");
-  --color-primary-3: theme("colors.sky.500");
-  --color-primary-4: theme("colors.sky.600");
-  --color-primary-5: theme("colors.sky.700");
+  --color-primary-1: 240 249 255;
+  --color-primary-2: 186 230 253;
+  --color-primary-3: 14 165 233;
+  --color-primary-4: 2 132 199;
+  --color-primary-5: 3 105 161;
 
-  --color-secondary-1: theme("colors.cyan.50");
-  --color-secondary-2: theme("colors.cyan.200");
-  --color-secondary-3: theme("colors.cyan.500");
-  --color-secondary-4: theme("colors.cyan.600");
-  --color-secondary-5: theme("colors.cyan.700");
+  --color-secondary-1: 236 254 255;
+  --color-secondary-2: 165 243 252;
+  --color-secondary-3: 6 182 212;
+  --color-secondary-4: 8 145 178;
+  --color-secondary-5: 14 116 144;
 
-  --color-success-1: theme("colors.emerald.50");
-  --color-success-2: theme("colors.emerald.200");
-  --color-success-3: theme("colors.emerald.500");
-  --color-success-4: theme("colors.emerald.600");
-  --color-success-5: theme("colors.emerald.700");
+  --color-success-1: 236 253 245;
+  --color-success-2: 167 243 208;
+  --color-success-3: 16 185 129;
+  --color-success-4: 5 150 105;
+  --color-success-5: 4 120 87;
 
-  --color-warning-1: theme("colors.amber.50");
-  --color-warning-2: theme("colors.amber.200");
-  --color-warning-3: theme("colors.amber.500");
-  --color-warning-4: theme("colors.amber.600");
-  --color-warning-5: theme("colors.amber.700");
+  --color-warning-1: 255 251 235;
+  --color-warning-2: 253 230 138;
+  --color-warning-3: 245 158 11;
+  --color-warning-4: 217 119 6;
+  --color-warning-5: 180 83 9;
 
-  --color-error-1: theme("colors.rose.50");
-  --color-error-2: theme("colors.rose.200");
-  --color-error-3: theme("colors.rose.500");
-  --color-error-4: theme("colors.rose.600");
-  --color-error-5: theme("colors.rose.700");
+  --color-error-1: 255 241 242;
+  --color-error-2: 254 205 211;
+  --color-error-3: 244 63 94;
+  --color-error-4: 225 29 72;
+  --color-error-5: 190 18 60;
 }
 
+/* DARK */
 [data-theme="dark"] {
-  --color-default: theme("colors.gray.900");
-  --color-offset: theme("colors.gray.700");
+  --color-default: 17 24 39;
+  --color-offset: 55 65 81;
+  --color-base: 30 41 59;
 
-  --color-base: theme("colors.slate.800");
-  --color-base-1: theme("colors.slate.700");
-  --color-base-2: theme("colors.slate.600");
-  --color-base-3: theme("colors.slate.500");
-  --color-base-4: theme("colors.slate.300");
-  --color-base-5: theme("colors.slate.200");
+  --color-base-1: 51 65 85;
+  --color-base-2: 71 85 105;
+  --color-base-3: 100 116 139;
+  --color-base-4: 203 213 225;
+  --color-base-5: 226 232 240;
 
-  --color-primary-1: theme("colors.sky.700");
-  --color-primary-2: theme("colors.sky.600");
-  --color-primary-3: theme("colors.sky.500");
-  --color-primary-4: theme("colors.sky.300");
-  --color-primary-5: theme("colors.sky.200");
+  --color-primary-1: 3 105 161;
+  --color-primary-2: 2 132 199;
+  --color-primary-3: 14 165 233;
+  --color-primary-4: 125 211 252;
+  --color-primary-5: 186 230 253;
 
-  --color-secondary-1: theme("colors.cyan.700");
-  --color-secondary-2: theme("colors.cyan.600");
-  --color-secondary-3: theme("colors.cyan.500");
-  --color-secondary-4: theme("colors.cyan.300");
-  --color-secondary-5: theme("colors.cyan.200");
+  --color-secondary-1: 14 116 144;
+  --color-secondary-2: 8 145 178;
+  --color-secondary-3: 6 182 212;
+  --color-secondary-4: 103 232 249;
+  --color-secondary-5: 165 243 252;
 
-  --color-success-1: theme("colors.emerald.700");
-  --color-success-2: theme("colors.emerald.600");
-  --color-success-3: theme("colors.emerald.500");
-  --color-success-4: theme("colors.emerald.300");
-  --color-success-5: theme("colors.emerald.200");
+  --color-success-1: 4 120 87;
+  --color-success-2: 5 150 105;
+  --color-success-3: 16 185 129;
+  --color-success-4: 110 231 183;
+  --color-success-5: 167 243 208;
 
-  --color-warning-1: theme("colors.amber.700");
-  --color-warning-2: theme("colors.amber.600");
-  --color-warning-3: theme("colors.amber.500");
-  --color-warning-4: theme("colors.amber.300");
-  --color-warning-5: theme("colors.amber.200");
+  --color-warning-1: 180 83 9;
+  --color-warning-2: 217 119 6;
+  --color-warning-3: 245 158 11;
+  --color-warning-4: 252 211 77;
+  --color-warning-5: 253 230 138;
 
-  --color-error-1: theme("colors.rose.700");
-  --color-error-2: theme("colors.rose.600");
-  --color-error-3: theme("colors.rose.500");
-  --color-error-4: theme("colors.rose.300");
-  --color-error-5: theme("colors.rose.200");
+  --color-error-1: 190 18 60;
+  --color-error-2: 225 29 72;
+  --color-error-3: 244 63 94;
+  --color-error-4: 253 164 175;
+  --color-error-5: 254 205 211;
 }
