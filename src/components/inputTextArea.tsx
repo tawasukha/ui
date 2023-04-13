@@ -3,7 +3,7 @@ import { dynamic } from "../helpers/dynamic"
 import { forwardRef } from "react"
 
 const TextArea = dynamic(async () => await import("react-textarea-autosize"))
-const _input = cva(["block w-full placeholder-base-3 bg-base rounded-lg border px-4 pt-3 py-2 focus:outline-none focus:shadow-md"], {
+const _input = cva(["focus:ring-0 block w-full placeholder-base-3 bg-base rounded-lg border px-4 pt-3 py-2 focus:outline-none focus:shadow-md"], {
   variants: {
     mode: {
       base: ["border-base-2 text-base-5 focus:border-base-3 focus:shadow-base-1"],

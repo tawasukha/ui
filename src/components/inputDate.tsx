@@ -55,7 +55,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function I
   return (
     <div className="relative">
       <div className={_input({ mode, className })} onClick={setTrue}>
-        <input ref={ref} className='outline-none bg-' type="text" value={selectedDate} readOnly />
+        <input ref={ref} className='outline-none focus:ring-0' type="text" value={selectedDate} readOnly />
         <StyledIcon mode={mode} name="CalendarDaysIcon" className={"absolute right-4 h-6 w-6 opacity-50"} />
       </div>
       <div ref={refDropdown} className="absolute z-10 w-72">
