@@ -1,60 +1,66 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react"
 import { Table, TableBody, TableCell, TableHead, TableRow } from "../components/table"
+import { data } from "./data"
+import { useMemo, useState } from "react"
+import { Pagination } from "../components/pagination"
 
 const meta = {
   title: "Tawasukha UI/Table",
   component: Table,
   tags: ["docsPage"],
-  argTypes: {
-  },
-} satisfies Meta<typeof Table>;
+  argTypes: {},
+} satisfies Meta<typeof Table>
 
-export default meta;
+export default meta
 
-const data = [
-  { id: 1, name: "Andy", address: "Orchid Road", city: "Malaka" },
-  { id: 2, name: "Mary", address: "Pudu", city: "Kuala Lumpur" },
-  { id: 3, name: "Jane", address: "Bassinger Court", city: "Mexico City" },
-  { id: 4, name: "Peter", address: "H Belhaven Loop", city: "Tampa" },
-  { id: 5, name: "Parker", address: "Great Avenue", city: "San Fransisco" },
-]
+const PageSize = 10
 
 export const Basic: StoryObj<typeof Table> = {
-  args: {
-  },
+  args: {},
   render(args) {
+    const [currentPage, setCurrentPage] = useState(1)
+
+    const currentTableData = useMemo(() => {
+      const firstPageIndex = (currentPage - 1) * PageSize
+      const lastPageIndex = firstPageIndex + PageSize
+      return data.slice(firstPageIndex, lastPageIndex)
+    }, [currentPage])
+
     return (
-      <div className="flex min-h-0 flex-1">
+      <div className="flex min-h-0 flex-1 flex-col">
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell className="w-10">
-                No
-              </TableCell>
-              <TableCell>
-                Name
-              </TableCell>
-              <TableCell>
-                Address
-              </TableCell>
-              <TableCell>
-                City
-              </TableCell>
+              <TableCell>ID</TableCell>
+              <TableCell>First Name</TableCell>
+              <TableCell>Last Name</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Phone</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((d, i) => {
-              return <TableRow key={i} dark={i % 2 === 0}>
-                <TableCell>{d.id}</TableCell>
-                <TableCell>{d.name}</TableCell>
-                <TableCell>{d.address}</TableCell>
-                <TableCell>{d.city}</TableCell>
-              </TableRow>
+            {currentTableData.map((d, i) => {
+              return (
+                <TableRow key={i} dark={i % 2 === 0}>
+                  <TableCell>{d.id}</TableCell>
+                  <TableCell>{d.first_name}</TableCell>
+                  <TableCell>{d.last_name}</TableCell>
+                  <TableCell>{d.email}</TableCell>
+                  <TableCell>{d.phone}</TableCell>
+                </TableRow>
+              )
             })}
           </TableBody>
-        </Table >
+        </Table>
+        <Pagination
+          currentPage={currentPage}
+          totalCount={data.length}
+          pageSize={PageSize}
+          onPageChange={(page: number) => {
+            setCurrentPage(page)
+          }}
+        />
       </div>
     )
   },
-};
-
+}

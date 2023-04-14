@@ -27,6 +27,7 @@ module.exports = {
     '@typescript-eslint/prefer-optional-chain': 'off',
     "@typescript-eslint/consistent-type-assertions": "off",
     "@typescript-eslint/no-redeclare": "off",
+    "@typescript-eslint/restrict-plus-operands": "off"
   },
   settings: {
     react: {

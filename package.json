@@ -1,6 +1,6 @@
 {
   "name": "@tawasukha/ui",
-  "version": "0.0.21",
+  "version": "0.0.24",
   "type": "module",
   "types": "dist/index.d.ts",
   "exports": {
@@ -79,13 +79,6 @@
     "framer-motion": "^10.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  },
-  "prettier": {
-    "semi": false,
-    "trailingComma": "all",
-    "singleQuote": true,
-    "printWidth": 100,
-    "tabWidth": 2
   },
   "dependencies": {
     "@fontsource/abeezee": "^4.5.10",
