@@ -1533,6 +1533,14 @@ video {
   min-height: 0px;
 }
 
+.min-h-\[300px\] {
+  min-height: 300px;
+}
+
+.min-h-\[200px\] {
+  min-height: 200px;
+}
+
 .w-10 {
   width: 2.5rem;
 }

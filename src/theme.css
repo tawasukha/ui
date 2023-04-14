@@ -88,6 +88,10 @@
   --color-error-5: 254 205 211;
 }
 
+.prose {
+  --tw-prose-body: --color-base-5;
+}
+
 .ProseMirror html,
 .ProseMirror body,
 .ProseMirror div,

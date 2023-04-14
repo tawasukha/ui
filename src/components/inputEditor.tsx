@@ -1,27 +1,27 @@
-import { cx } from "../helpers/cva"
+import { cx, cva, type VariantProps } from "../helpers/cva"
 import { type EditorContentProps } from "@tiptap/react"
 import { type DivProps } from "react-html-props"
-import { Link } from "../assets/icon/link"
-import { Unlink } from "../assets/icon/unlink"
-import { Bold } from "../assets/icon/bold"
-import { Italic } from "../assets/icon/italic"
-import { Strike } from "../assets/icon/strike"
-import { Ol } from "../assets/icon/ol"
-import { Quote } from "../assets/icon/quote"
-import { Hr } from "../assets/icon/hr"
-import { Ul } from "../assets/icon/ul"
-import { Undo } from "../assets/icon/undo"
-import { Redo } from "../assets/icon/redo"
-import { Code } from "../assets/icon/code"
-import { Paragraph } from "../assets/icon/paragraph"
-import { Table } from "../assets/icon/table"
-import { AddRowBefore } from "../assets/icon/add_row_before"
-import { AddRowAfter } from "../assets/icon/add_row_after"
-import { AddColBefore } from "../assets/icon/add_col_before"
-import { AddColAfter } from "../assets/icon/add_col_after"
-import { DeleteCol } from "../assets/icon/delete_col"
-import { DeleteRow } from "../assets/icon/delete_row"
-import { DeleteTable } from "../assets/icon/delete_table"
+import { Link } from "../icons/link"
+import { Unlink } from "../icons/unlink"
+import { Bold } from "../icons/bold"
+import { Italic } from "../icons/italic"
+import { Strike } from "../icons/strike"
+import { Ol } from "../icons/ol"
+import { Quote } from "../icons/quote"
+import { Hr } from "../icons/hr"
+import { Ul } from "../icons/ul"
+import { Undo } from "../icons/undo"
+import { Redo } from "../icons/redo"
+import { Code } from "../icons/code"
+import { Paragraph } from "../icons/paragraph"
+import { Table } from "../icons/table"
+import { AddRowBefore } from "../icons/add_row_before"
+import { AddRowAfter } from "../icons/add_row_after"
+import { AddColBefore } from "../icons/add_col_before"
+import { AddColAfter } from "../icons/add_col_after"
+import { DeleteCol } from "../icons/delete_col"
+import { DeleteRow } from "../icons/delete_row"
+import { DeleteTable } from "../icons/delete_table"
 
 import { useEditor, EditorContent, BubbleMenu } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
@@ -31,6 +31,20 @@ import { TableRow as ExtRow } from "@tiptap/extension-table-row"
 import { TableHeader as ExtHeader } from "@tiptap/extension-table-header"
 import { TableCell as ExtCell } from "@tiptap/extension-table-cell"
 import { useCallback, useEffect, useRef, useState } from "react"
+
+const _input = cva(
+  [
+    "focus:ring-0 block w-full placeholder-base-3 bg-base rounded-lg border focus:outline-none focus:shadow-md",
+  ],
+  {
+    variants: {
+      mode: {
+        base: ["border-base-2 text-base-5 focus:border-base-3 focus:shadow-base-1"],
+        error: ["border-error-2 text-error-5 focus:border-error-3 focus:shadow-error-1"],
+      },
+    },
+  },
+)
 
 const buttonClass =
   "fill-base-3 h-8 w-8 text-md flex justify-center items-center shadow shadow-offset rounded-md"
@@ -47,7 +61,7 @@ function Icon({ onClick, label, active = false, ...props }: IconProps) {
       <div
         className={cx(
           buttonClass,
-          active ? "fill-primary-3 text-primary-3" : "hover:bg-primary-2/30 text-base-3",
+          active ? "fill-primary-5 text-primary-5" : "hover:bg-primary-2/30 text-base-3",
         )}
       >
         <props.name className="h-4 w-4" />
@@ -79,19 +93,21 @@ function Iconbar({ editor }: EditorContentProps) {
   }, [editor])
 
   return (
-    <div className="flex flex-row gap-1 overflow-x-hidden flex-wrap p-2 pt-4 -m-2 mb-2 shadow shadow-offset">
+    <div className="flex flex-row gap-1 overflow-x-hidden flex-wrap p-2 shadow shadow-offset">
       <Icon
         label="bold"
         name={Bold}
         onClick={() => editor?.chain().focus().toggleBold().run()}
         active={editor?.isActive("bold") || false}
       />
-      <Icon
-        label="italic"
-        name={Italic}
-        onClick={() => editor?.chain().focus().toggleItalic().run()}
-        active={editor?.isActive("italic") || false}
-      />
+      {false && (
+        <Icon
+          label="italic"
+          name={Italic}
+          onClick={() => editor?.chain().focus().toggleItalic().run()}
+          active={editor?.isActive("italic") || false}
+        />
+      )}
       <Icon
         label="strike"
         name={Strike}
@@ -245,13 +261,20 @@ function TableMenu({ editor }: EditorContentProps) {
   )
 }
 
-export type InputEditorProps = {
+export interface InputEditorProps extends VariantProps<typeof _input> {
   onChange?: (body: string) => void
+  className?: string
   content: string
   disabled?: boolean
 }
 
-export function InputEditor({ onChange, content, disabled = false }: InputEditorProps) {
+export function InputEditor({
+  mode = "base",
+  className,
+  onChange,
+  content,
+  disabled = false,
+}: InputEditorProps) {
   const ref = useRef<any>()
   const [hasContent, renderContent] = useState(content === undefined)
   const editor = useEditor({
@@ -302,11 +325,13 @@ export function InputEditor({ onChange, content, disabled = false }: InputEditor
   }, [editor])
 
   return (
-    <div className="rounded border border-slate-300 px-2" onClick={focus}>
+    <div className={_input({ mode, className })} onClick={focus}>
       {!disabled && <Iconbar editor={editor} />}
-      <div className="h-[300px] overflow-auto">
+      <div className="min-h-[200px] overflow-auto">
         {editor && <TableMenu editor={editor} />}
-        <EditorContent editor={editor} />
+        <div className="px-4 pt-3 py-2 text-base-5">
+          <EditorContent editor={editor} />
+        </div>
       </div>
     </div>
   )
