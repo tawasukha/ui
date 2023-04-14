@@ -103,15 +103,15 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(function P
     const first = (currentPage - 1) * pageSize + 1
     const last = currentPage * pageSize
 
-    return `${first}-${last > totalCount ? last : totalCount} / ${totalCount}`
+    return `${first}-${last > totalCount ? totalCount : last} of ${totalCount} records`
   }, [currentPage, pageSize])
 
   return (
     <div className="flex items-center justify-between py-4 text-base-3 text-md">
       <div className="flex">
-        <span className="hidden md:block">Data : {display}</span>
+        <span className="hidden md:block">Show : {display}</span>
         <div className="flex flex-col gap-x-2 sm:flex-row md:hidden">
-          <span>Page : </span>
+          <span>Show : </span>
           <span>
             {currentPage} / {lastPage}
           </span>
