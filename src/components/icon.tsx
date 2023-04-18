@@ -1,11 +1,15 @@
 import { cva, type VariantProps } from "cva"
 import { loadIcon, type ListIcon } from "@tawasukha/icon"
-import React from "react";
+import React from "react"
 
-export function Icon({ name, className, outline = false }: React.SVGProps<SVGSVGElement> & { outline?: boolean, name: ListIcon, className?: string }) {
+export function Icon({
+  name,
+  className,
+  outline = false,
+}: React.SVGProps<SVGSVGElement> & { outline?: boolean; name: ListIcon; className?: string }) {
   const HeroIcon = loadIcon(name, outline ? "outline" : "solid")
-  return <HeroIcon className={className} />;
-};
+  return <HeroIcon className={className} />
+}
 
 const _icon = cva([], {
   variants: {
@@ -22,9 +26,18 @@ const _icon = cva([], {
 
 export type ModeProps = Required<{ mode: VariantProps<typeof _icon>["mode"] }>
 
-export function StyledIcon({ className, mode, ...rest }: React.ComponentProps<typeof Icon> & ModeProps) {
-  return <Icon {...rest} className={_icon({
-    mode, className,
-  })} />
+export function StyledIcon({
+  className,
+  mode,
+  ...rest
+}: React.ComponentProps<typeof Icon> & ModeProps) {
+  return (
+    <Icon
+      {...rest}
+      className={_icon({
+        mode,
+        className,
+      })}
+    />
+  )
 }
-

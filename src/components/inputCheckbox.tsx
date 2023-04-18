@@ -1,8 +1,10 @@
 import { cva, type VariantProps } from "../helpers/cva"
 import { type InputProps } from "react-html-props"
 import { AnimatePresence, motion } from "framer-motion"
-import { Icon } from "./icon"
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react"
+import { dynamic } from "../helpers/dynamic"
+
+const Icon = dynamic(async () => await import("./icon").then((o) => ({ default: o.Icon })))
 
 const _input = cva(["flex flex-col w-[18px] h-[18px] ring-1 rounded"], {
   variants: {
@@ -18,7 +20,10 @@ interface CheckboxProps extends InputProps, VariantProps<typeof _input> {
   indeterminate?: boolean
 }
 
-export const InputCheckbox = forwardRef<Partial<HTMLInputElement & { click: () => void }>, CheckboxProps>(function Checkbox({ mode = "base", className, indeterminate, ...props }, ref) {
+export const InputCheckbox = forwardRef<
+  Partial<HTMLInputElement & { click: () => void }>,
+  CheckboxProps
+>(function Checkbox({ mode = "base", className, indeterminate, ...props }, ref) {
   const refCheckbox = useRef<HTMLInputElement>(null!)
 
   useEffect(() => {
@@ -27,35 +32,50 @@ export const InputCheckbox = forwardRef<Partial<HTMLInputElement & { click: () =
     }
   }, [refCheckbox, indeterminate, props.checked])
 
-  useImperativeHandle(ref, () => {
-    return {
-      click() {
-        refCheckbox.current.click();
-      },
-    };
-  }, []);
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        click() {
+          refCheckbox.current.click()
+        },
+      }
+    },
+    [],
+  )
 
   return (
     <>
       <input ref={refCheckbox} type="checkbox" className="hidden" {...props} />
-      <label onClick={() => { refCheckbox?.current.click(); }} className={_input({ mode, className })}>
+      <label
+        onClick={() => {
+          refCheckbox?.current.click()
+        }}
+        className={_input({ mode, className })}
+      >
         <AnimatePresence>
-          {props.checked && <motion.i
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}>
-            <Icon outline name="CheckIcon" className="w-[18px] h-[18px] stroke-[3px]" />
-          </motion.i>}
+          {props.checked && (
+            <motion.i
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+            >
+              <Icon outline name="CheckIcon" className="w-[18px] h-[18px] stroke-[3px]" />
+            </motion.i>
+          )}
         </AnimatePresence>
         <AnimatePresence>
-          {!props.checked && indeterminate && <motion.i
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}>
-            <Icon name="MinusSmallIcon" className="w-[18px] h-[18px] stroke-[3px]" />
-          </motion.i>}
+          {!props.checked && indeterminate && (
+            <motion.i
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+            >
+              <Icon name="MinusSmallIcon" className="w-[18px] h-[18px] stroke-[3px]" />
+            </motion.i>
+          )}
         </AnimatePresence>
-      </label >
-    </>);
+      </label>
+    </>
+  )
 })
-

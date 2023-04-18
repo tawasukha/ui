@@ -6,6 +6,7 @@ import { InputTextArea } from "../components/inputTextArea"
 import { InputPassword } from "../components/inputPassword"
 import { InputSelect } from "../components/inputSelect"
 import { InputDate } from "../components/inputDate"
+import { InputNumber } from "../components/inputNumber"
 import { InputEditor } from "../components/inputEditor"
 
 const meta = {
@@ -39,8 +40,20 @@ export const Password: StoryObj<typeof InputPassword> = {
       <>
         <Label>Label</Label>
         <InputPassword {...args} />
+      </>
+    )
+  },
+}
+
+export const Number: StoryObj<typeof InputNumber> = {
+  args: {
+    mode: "error",
+  },
+  render(args) {
+    return (
+      <>
         <Label>Label</Label>
-        <InputPassword {...args} />
+        <InputNumber {...args} />
       </>
     )
   },

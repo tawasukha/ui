@@ -1,38 +1,44 @@
-import { forwardRef, useMemo, useRef } from "react";
-import { type AProps, type NavProps } from "react-html-props";
+import { forwardRef, useMemo, useRef, Children, cloneElement } from "react"
+import { type AProps, type NavProps } from "react-html-props"
 import { cx } from "cva"
-import { type ListIcon } from "@tawasukha/icon";
-import { useOnClickOutside } from "../helpers/useOnClickOutside";
-import { useBoolean } from "../helpers/useBoolean";
-import { Icon } from "./icon";
-import { AnimatePresence } from "framer-motion";
-import { Menu } from "./menu";
+import { type ListIcon } from "@tawasukha/icon"
+import { useOnClickOutside } from "../helpers/useOnClickOutside"
+import { useBoolean } from "../helpers/useBoolean"
+import { AnimatePresence } from "framer-motion"
+import { Menu } from "./menu"
+import { dynamic } from "../helpers/dynamic"
+
+const Icon = dynamic(async () => await import("./icon").then((o) => ({ default: o.Icon })))
 
 export interface NavbarProps extends NavProps {
-  left: JSX.Element,
-  right: JSX.Element,
+  left: JSX.Element
+  right: JSX.Element
 }
 
-export const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar({ left, right, className }, ref) {
-  return <nav className={cx("px-6 py-4 flex justify-between", className)}>
-    <div className="flex items-center justify-between">
-      {left}
-    </div>
+export const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
+  { left, right, className },
+  ref,
+) {
+  return (
+    <nav className={cx("px-6 py-4 flex justify-between", className)}>
+      <div className="flex items-center justify-between">{left}</div>
 
-    <div className="z-20 pl-6 py-4">
-      {right}
-    </div>
-  </nav >
+      <div className="z-20 pl-6 py-4">{right}</div>
+    </nav>
+  )
 })
 
 export interface NavbarMenuProps extends AProps {
-  label?: string,
+  label?: string
   last?: boolean
   icon?: ListIcon
   iconOnly?: boolean
 }
 
-export const NavbarMenu = forwardRef<HTMLAnchorElement, NavbarMenuProps>(function DropdownMenu({ className, children, label, icon, iconOnly, href, last = false }, ref) {
+export const NavbarMenu = forwardRef<HTMLAnchorElement, NavbarMenuProps>(function DropdownMenu(
+  { className, children, label, icon, iconOnly, href, last = false },
+  ref,
+) {
   const { value: isOpen, setTrue, setFalse } = useBoolean()
   const refDropdown = useRef(null)
   const props = useMemo(() => {
@@ -41,24 +47,42 @@ export const NavbarMenu = forwardRef<HTMLAnchorElement, NavbarMenuProps>(functio
 
   useOnClickOutside(refDropdown, setFalse)
 
-  return <div className="relative">
-    <a ref={ref} className={cx("flex flex-row my-2 text-base-4 transition-colors",
-      "duration-300 transform hover:text-primary-3 mx-4 items-center cursor-pointer",
-      className)}
-      {...props}>
-      {icon && <Icon className={iconOnly ? "w-8 h-8 -mt-1" : "w-5 h-5 mr-2"} name={icon} />}
-      {label}
-    </a>
-    <div ref={refDropdown} className={cx("absolute z-10", last ? "right-0" : "")}>
-      <AnimatePresence>
-        {isOpen && <Menu className="min-w-[180px] ml-2 w-full" transition={{ duration: 0.2 }}
-          initial={{ opacity: 0, height: "0" }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: "0" }}
-        >
-          {children}
-        </Menu>})
-      </AnimatePresence>
+  return (
+    <div className="relative">
+      <a
+        ref={ref}
+        className={cx(
+          "flex flex-row my-2 text-base-4 transition-colors",
+          "duration-300 transform hover:text-primary-3 mx-4 items-center cursor-pointer",
+          className,
+        )}
+        {...props}
+      >
+        {icon && <Icon className={iconOnly ? "w-8 h-8 -mt-1" : "w-5 h-5 mr-2"} name={icon} />}
+        {label}
+      </a>
+      <div ref={refDropdown} className={cx("absolute z-10", last ? "right-0" : "")}>
+        <AnimatePresence>
+          {isOpen && (
+            <Menu
+              className="min-w-[180px] ml-2 w-full"
+              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0, height: "0" }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: "0" }}
+            >
+              {Children.map(children, (child, index) =>
+                cloneElement(child as React.ReactElement<any>, {
+                  onClose() {
+                    setFalse()
+                  },
+                }),
+              )}
+            </Menu>
+          )}
+          )
+        </AnimatePresence>
+      </div>
     </div>
-  </div >
+  )
 })
