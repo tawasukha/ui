@@ -1,35 +1,23 @@
 import { type ULProps, type LIProps } from "react-html-props"
 import { cx } from "cva"
-import { forwardRef, useCallback, type MouseEvent } from "react"
+import { forwardRef } from "react"
 import { motion } from "framer-motion"
+import { Icon } from "../components/icon"
 import { type ListIcon } from "@tawasukha/icon"
-import { dynamic } from "../helpers/dynamic"
-
-const Icon = dynamic(async () => await import("./icon").then((o) => ({ default: o.Icon })))
 
 type MenuItemProps = LIProps & {
   icon?: ListIcon
   disabled?: boolean
   hover?: boolean
   active?: boolean
-  onClose?: () => void
 }
 
 export const MenuItem = forwardRef<HTMLLIElement, MenuItemProps>(function MenuItem(
-  { icon, disabled, active, hover, className, children, onClose, onClick, ...props },
+  { icon, disabled, active, hover, className, children, ...props },
   ref,
 ) {
-  const onMenuClick = useCallback(
-    (e: MouseEvent<HTMLLIElement>) => {
-      if (onClick) onClick(e)
-      if (onClose) onClose()
-    },
-    [onClick, onClose],
-  )
-
   return (
     <li
-      onClick={onMenuClick}
       ref={ref}
       className={cx(
         "flex flex-row text-md w-full px-4 py-1.5 items-center",

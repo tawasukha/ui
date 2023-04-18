@@ -2,12 +2,7 @@ import { cva, type VariantProps } from "cva"
 import { type DivProps } from "react-html-props"
 import { forwardRef, type MouseEventHandler } from "react"
 import { type ListIcon } from "@tawasukha/icon"
-import { dynamic } from "../helpers/dynamic"
-
-const Icon = dynamic(async () => await import("./icon").then((o) => ({ default: o.Icon })))
-const StyledIcon = dynamic(
-  async () => await import("./icon").then((o) => ({ default: o.StyledIcon })),
-)
+import { Icon, StyledIcon } from "./icon"
 
 const _boxicon = cva(["flex items-center justify-center w-12 rounded-l-lg"], {
   variants: {

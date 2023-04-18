@@ -2,9 +2,7 @@ import { cva, type VariantProps } from "cva"
 import { type DivProps } from "react-html-props"
 import { type ListIcon } from "@tawasukha/icon"
 import { forwardRef } from "react"
-import { dynamic } from "../helpers/dynamic"
-
-const Icon = dynamic(async () => await import("./icon").then((o) => ({ default: o.Icon })))
+import { Icon } from "./icon"
 
 const _box = cva(
   [

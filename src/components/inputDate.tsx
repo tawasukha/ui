@@ -6,12 +6,7 @@ import { useBoolean } from "../helpers/useBoolean"
 import { motion, AnimatePresence } from "framer-motion"
 import { format } from "date-fns"
 import { useOnClickOutside } from "src/helpers/useOnClickOutside"
-import { dynamic } from "../helpers/dynamic"
-
-const Icon = dynamic(async () => await import("./icon").then((o) => ({ default: o.Icon })))
-const StyledIcon = dynamic(
-  async () => await import("./icon").then((o) => ({ default: o.StyledIcon })),
-)
+import { Icon, StyledIcon } from "./icon"
 
 const _input = cva(
   [

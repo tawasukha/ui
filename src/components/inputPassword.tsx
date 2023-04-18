@@ -2,11 +2,7 @@ import { forwardRef, useMemo } from "react"
 import { type InputProps } from "react-html-props"
 import { cva, type VariantProps } from "../helpers/cva"
 import { useBoolean } from "../helpers/useBoolean"
-import { dynamic } from "../helpers/dynamic"
-
-const StyledIcon = dynamic(
-  async () => await import("./icon").then((o) => ({ default: o.StyledIcon })),
-)
+import { StyledIcon } from "./icon"
 
 function useEye(mode: "base" | "error") {
   const { value, toggle } = useBoolean()

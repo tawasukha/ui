@@ -1,6 +1,27 @@
 import { cx, cva, type VariantProps } from "../helpers/cva"
 import { type EditorContentProps } from "@tiptap/react"
 import { type DivProps } from "react-html-props"
+import { Link } from "../icons/link"
+import { Unlink } from "../icons/unlink"
+import { Bold } from "../icons/bold"
+import { Italic } from "../icons/italic"
+import { Strike } from "../icons/strike"
+import { Ol } from "../icons/ol"
+import { Quote } from "../icons/quote"
+import { Hr } from "../icons/hr"
+import { Ul } from "../icons/ul"
+import { Undo } from "../icons/undo"
+import { Redo } from "../icons/redo"
+import { Code } from "../icons/code"
+import { Paragraph } from "../icons/paragraph"
+import { Table } from "../icons/table"
+import { AddRowBefore } from "../icons/add_row_before"
+import { AddRowAfter } from "../icons/add_row_after"
+import { AddColBefore } from "../icons/add_col_before"
+import { AddColAfter } from "../icons/add_col_after"
+import { DeleteCol } from "../icons/delete_col"
+import { DeleteRow } from "../icons/delete_row"
+import { DeleteTable } from "../icons/delete_table"
 import { useEditor, EditorContent, BubbleMenu } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import { Link as ExtLink } from "@tiptap/extension-link"
@@ -9,56 +30,6 @@ import { TableRow as ExtRow } from "@tiptap/extension-table-row"
 import { TableHeader as ExtHeader } from "@tiptap/extension-table-header"
 import { TableCell as ExtCell } from "@tiptap/extension-table-cell"
 import { useCallback, useEffect, useRef, useState } from "react"
-import { dynamic } from "../helpers/dynamic"
-
-const Link = dynamic(async () => await import("../icons/link").then((o) => ({ default: o.Link })))
-
-const Unlink = dynamic(
-  async () => await import("../icons/unlink").then((o) => ({ default: o.Unlink })),
-)
-const Bold = dynamic(async () => await import("../icons/bold").then((o) => ({ default: o.Bold })))
-const Italic = dynamic(
-  async () => await import("../icons/italic").then((o) => ({ default: o.Italic })),
-)
-const Strike = dynamic(
-  async () => await import("../icons/strike").then((o) => ({ default: o.Strike })),
-)
-const Ol = dynamic(async () => await import("../icons/ol").then((o) => ({ default: o.Ol })))
-const Quote = dynamic(
-  async () => await import("../icons/quote").then((o) => ({ default: o.Quote })),
-)
-const Hr = dynamic(async () => await import("../icons/hr").then((o) => ({ default: o.Hr })))
-const Ul = dynamic(async () => await import("../icons/ul").then((o) => ({ default: o.Ul })))
-const Undo = dynamic(async () => await import("../icons/undo").then((o) => ({ default: o.Undo })))
-const Redo = dynamic(async () => await import("../icons/redo").then((o) => ({ default: o.Redo })))
-const Code = dynamic(async () => await import("../icons/code").then((o) => ({ default: o.Code })))
-const Paragraph = dynamic(
-  async () => await import("../icons/paragraph").then((o) => ({ default: o.Paragraph })),
-)
-const Table = dynamic(
-  async () => await import("../icons/table").then((o) => ({ default: o.Table })),
-)
-const AddRowBefore = dynamic(
-  async () => await import("../icons/add_row_before").then((o) => ({ default: o.AddRowBefore })),
-)
-const AddRowAfter = dynamic(
-  async () => await import("../icons/add_row_after").then((o) => ({ default: o.AddRowAfter })),
-)
-const AddColBefore = dynamic(
-  async () => await import("../icons/add_col_before").then((o) => ({ default: o.AddColBefore })),
-)
-const AddColAfter = dynamic(
-  async () => await import("../icons/add_col_after").then((o) => ({ default: o.AddColAfter })),
-)
-const DeleteCol = dynamic(
-  async () => await import("../icons/delete_col").then((o) => ({ default: o.DeleteCol })),
-)
-const DeleteRow = dynamic(
-  async () => await import("../icons/delete_row").then((o) => ({ default: o.DeleteRow })),
-)
-const DeleteTable = dynamic(
-  async () => await import("../icons/delete_table").then((o) => ({ default: o.DeleteTable })),
-)
 
 const _input = cva(
   [

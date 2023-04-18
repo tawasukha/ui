@@ -1,9 +1,7 @@
 import { cva, type VariantProps } from "cva"
 import { forwardRef } from "react"
 import { type SpanProps } from "react-html-props"
-import { dynamic } from "../helpers/dynamic"
-
-const Icon = dynamic(async () => await import("./icon").then((o) => ({ default: o.Icon })))
+import { Icon } from "./icon"
 
 const _chip = cva(
   [

@@ -1,14 +1,12 @@
-import { forwardRef, useMemo, useRef, Children, cloneElement } from "react"
+import { forwardRef, useMemo, useRef } from "react"
 import { type AProps, type NavProps } from "react-html-props"
 import { cx } from "cva"
 import { type ListIcon } from "@tawasukha/icon"
 import { useOnClickOutside } from "../helpers/useOnClickOutside"
 import { useBoolean } from "../helpers/useBoolean"
+import { Icon } from "./icon"
 import { AnimatePresence } from "framer-motion"
 import { Menu } from "./menu"
-import { dynamic } from "../helpers/dynamic"
-
-const Icon = dynamic(async () => await import("./icon").then((o) => ({ default: o.Icon })))
 
 export interface NavbarProps extends NavProps {
   left: JSX.Element
@@ -71,13 +69,7 @@ export const NavbarMenu = forwardRef<HTMLAnchorElement, NavbarMenuProps>(functio
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: "0" }}
             >
-              {Children.map(children, (child, index) =>
-                cloneElement(child as React.ReactElement<any>, {
-                  onClose() {
-                    setFalse()
-                  },
-                }),
-              )}
+              {children}
             </Menu>
           )}
           )

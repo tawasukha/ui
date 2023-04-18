@@ -6,11 +6,7 @@ import { InputTextArea } from "./inputTextArea"
 import { type ListIcon as Icons } from "@tawasukha/icon"
 import { AnimatePresence, motion } from "framer-motion"
 import { create } from "react-modal-promise"
-import { dynamic } from "../helpers/dynamic"
-
-const StyledIcon = dynamic(
-  async () => await import("./icon").then((o) => ({ default: o.StyledIcon })),
-)
+import { StyledIcon } from "./icon"
 
 type Mode = Exclude<NonNullable<ModeProps["mode"]>, "secondary">
 type MouseEvent = MouseEventHandler<HTMLButtonElement | HTMLDivElement>

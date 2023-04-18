@@ -2,9 +2,7 @@ import { cva, type VariantProps } from "../helpers/cva"
 import { type InputProps } from "react-html-props"
 import { AnimatePresence, motion } from "framer-motion"
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react"
-import { dynamic } from "../helpers/dynamic"
-
-const Icon = dynamic(async () => await import("./icon").then((o) => ({ default: o.Icon })))
+import { Icon } from "./icon"
 
 const _input = cva(["flex flex-col w-[18px] h-[18px] ring-1 rounded"], {
   variants: {

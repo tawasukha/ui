@@ -3,10 +3,8 @@ import { type DivProps } from "react-html-props"
 import { useBoolean } from "../helpers/useBoolean"
 import { AnimatePresence, motion } from "framer-motion"
 import { type ListIcon } from "@tawasukha/icon"
+import { Icon } from "./icon"
 import { cx } from "cva"
-import { dynamic } from "../helpers/dynamic"
-
-const Icon = dynamic(async () => await import("./icon").then((o) => ({ default: o.Icon })))
 
 export interface SidebarProps extends DivProps {
   isOpen?: boolean

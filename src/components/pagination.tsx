@@ -1,8 +1,6 @@
 import { cx } from "../helpers/cva"
 import { forwardRef, useCallback, useMemo } from "react"
-import { dynamic } from "../helpers/dynamic"
-
-const Icon = dynamic(async () => await import("./icon").then((o) => ({ default: o.Icon })))
+import { Icon } from "./icon"
 
 export const DOTS = "..."
 
@@ -106,7 +104,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(function P
     const last = currentPage * pageSize
 
     return `${first}-${last > totalCount ? totalCount : last} of ${totalCount} records`
-  }, [currentPage, pageSize, totalCount])
+  }, [currentPage, pageSize])
 
   return (
     <div className="flex items-center justify-between py-4 text-base-3 text-md">

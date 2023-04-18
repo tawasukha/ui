@@ -8,15 +8,10 @@ import {
   type UseComboboxStateChangeOptions,
   type UseComboboxStateChange,
 } from "downshift"
+import { StyledIcon } from "./icon"
 import { Chip, XChip } from "./chip"
 import { AnimatePresence } from "framer-motion"
 import { debouncePromise } from "../helpers/debouncePromise"
-
-import { dynamic } from "../helpers/dynamic"
-
-const StyledIcon = dynamic(
-  async () => await import("./icon").then((o) => ({ default: o.StyledIcon })),
-)
 
 const _input = cva(
   [
@@ -37,7 +32,7 @@ export interface InputSelectProps<T>
   extends Omit<InputProps, "value" | "onChange">,
     VariantProps<typeof _input> {
   creatable?: boolean
-  options?: T[]
+  options: T[]
   loadOptions?: (inputValue?: string) => Promise<T[]>
   milis?: number
   multiple?: boolean
@@ -48,7 +43,7 @@ export interface InputSelectProps<T>
   renderItem?: (item: T) => JSX.Element
 }
 
-export const InputSelect = forwardRef(function InputSelect<T>(
+export const InputSelect = forwardRef(function InputSelect<T extends object>(
   {
     creatable = false,
     multiple = false,
@@ -187,7 +182,7 @@ export const InputSelect = forwardRef(function InputSelect<T>(
         } catch (err) {}
         setItems(asyncOptions)
       } else {
-        const filteredOptions = (options || [])
+        const filteredOptions = options
           .filter((opt) => {
             return !(values || []).some(
               // @ts-expect-error
@@ -278,8 +273,10 @@ export const InputSelect = forwardRef(function InputSelect<T>(
               ) : (
                 items.map((item, index) => (
                   <MenuItem
-                    // @ts-expect-error
-                    key={`${item[keyValue]}${index}`}
+                    key={
+                      // @ts-expect-error
+                      `${item[keyValue]}${index}`
+                    }
                     hover={highlightedIndex === index}
                     active={selected === item}
                     {...getItemProps({ item, index })}
