@@ -1,6 +1,6 @@
 {
   "name": "@tawasukha/ui",
-  "version": "0.0.39",
+  "version": "0.0.42",
   "type": "module",
   "types": "dist/index.d.ts",
   "exports": {
