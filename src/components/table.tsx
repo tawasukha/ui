@@ -34,11 +34,11 @@ export const TableRow = forwardRef<HTMLDivElement, TableRowProps>(function Table
   )
 })
 
-export interface TableBody extends DivProps {
+export interface TableBodyProps extends DivProps {
   dark?: boolean
 }
 
-export const TableBody = forwardRef<HTMLDivElement, TableBody>(function TableBody(
+export const TableBody = forwardRef<HTMLDivElement, TableBodyProps>(function TableBody(
   { dark, className, ...props },
   ref,
 ) {

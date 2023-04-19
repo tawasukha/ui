@@ -16,13 +16,13 @@ const _input = cva(["flex flex-col w-[18px] h-[18px] ring-1 rounded"], {
   },
 })
 
-interface CheckboxProps extends InputProps, VariantProps<typeof _input> {
+export interface InputCheckboxProps extends InputProps, VariantProps<typeof _input> {
   indeterminate?: boolean
 }
 
 export const InputCheckbox = forwardRef<
   Partial<HTMLInputElement & { click: () => void }>,
-  CheckboxProps
+  InputCheckboxProps
 >(function Checkbox({ mode = "base", className, indeterminate, ...props }, ref) {
   const refCheckbox = useRef<HTMLInputElement>(null!)
 

@@ -1,9 +1,11 @@
 import React from "react"
 import { useTheme } from "./theme"
-import { Container as ModalContainer } from 'react-modal-promise';
+import { Container as ModalContainer } from "react-modal-promise"
 
-export function Provider({ theme, children }: React.PropsWithChildren & { theme: "light" | "dark" }) {
-
+export function Provider({
+  theme,
+  children,
+}: React.PropsWithChildren & { theme: "light" | "dark" }) {
   useTheme(theme)
 
   return (
@@ -12,4 +14,4 @@ export function Provider({ theme, children }: React.PropsWithChildren & { theme:
       <ModalContainer />
     </>
   )
-} 
+}

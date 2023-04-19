@@ -33,7 +33,7 @@ export interface InputSelectProps<T>
   extends Omit<InputProps, "value" | "onChange">,
     VariantProps<typeof _input> {
   creatable?: boolean
-  options: T[]
+  options?: T[]
   loadOptions?: (inputValue?: string) => Promise<T[]>
   milis?: number
   multiple?: boolean
@@ -44,7 +44,7 @@ export interface InputSelectProps<T>
   renderItem?: (item: T) => JSX.Element
 }
 
-export const InputSelect = forwardRef(function InputSelect<T extends object>(
+export const InputSelect = forwardRef(function InputSelect<T>(
   {
     creatable = false,
     multiple = false,
@@ -183,7 +183,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>(
         } catch (err) {}
         setItems(asyncOptions)
       } else {
-        const filteredOptions = options
+        const filteredOptions = (options || [])
           .filter((opt) => {
             return !(values || []).some(
               // @ts-expect-error

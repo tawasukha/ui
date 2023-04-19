@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+
 export function Loader() {
   return (
     <div className="fixed flex left-1/2 -ml-20 -mt-8 translateY-[-50%] top-1/2 flex-row justify-around w-36">

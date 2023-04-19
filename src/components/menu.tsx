@@ -4,7 +4,7 @@ import { forwardRef } from "react"
 import { motion } from "framer-motion"
 import { Icon } from "../components/icon"
 
-type MenuItemProps = LIProps & {
+export type MenuItemProps = LIProps & {
   icon?: React.FC<any>
   disabled?: boolean
   hover?: boolean

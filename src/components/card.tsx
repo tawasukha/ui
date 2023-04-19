@@ -1,23 +1,34 @@
 import { cva, type VariantProps } from "cva"
 
-type CardProps = {
-  title: string;
-  description: string;
+export type CardProps = {
+  title: string
+  description: string
   className: any
-};
+}
 
-
-const _box = cva(["bg-base", "rounded-lg", "shadow-lg", "hover:ring-1", "overflow-hidden", "sm:max-w-xs", "lg:max-w-sm", "xl:max-w-md"], {
-  variants: {
-    mode: {
-      primary: ['ring-primary-3'],
-      secondary: ['ring-secondary-3'],
-      success: ['ring-success-3'],
-      warning: ['ring-warning-3'],
-      error: ['ring-error-3'],
+const _box = cva(
+  [
+    "bg-base",
+    "rounded-lg",
+    "shadow-lg",
+    "hover:ring-1",
+    "overflow-hidden",
+    "sm:max-w-xs",
+    "lg:max-w-sm",
+    "xl:max-w-md",
+  ],
+  {
+    variants: {
+      mode: {
+        primary: ["ring-primary-3"],
+        secondary: ["ring-secondary-3"],
+        success: ["ring-success-3"],
+        warning: ["ring-warning-3"],
+        error: ["ring-error-3"],
+      },
     },
   },
-})
+)
 
 const _box_title = cva(["px-6 py-2 font-bold text-xl"], {
   variants: {
@@ -31,7 +42,12 @@ const _box_title = cva(["px-6 py-2 font-bold text-xl"], {
   },
 })
 
-export const Card = ({ title, description, mode, className }: CardProps & VariantProps<typeof _box>) => {
+export const Card = ({
+  title,
+  description,
+  mode,
+  className,
+}: CardProps & VariantProps<typeof _box>) => {
   return (
     <div className={_box({ mode, className })}>
       <div className={_box_title({ mode })}>
@@ -39,5 +55,5 @@ export const Card = ({ title, description, mode, className }: CardProps & Varian
       </div>
       <p className={"px-6 py-4 text-base text-base-5"}>{description}</p>
     </div>
-  );
-};
+  )
+}
