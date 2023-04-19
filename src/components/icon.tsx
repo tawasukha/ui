@@ -1,14 +1,11 @@
 import { cva, type VariantProps } from "cva"
-import { loadIcon, type ListIcon } from "@tawasukha/icon"
 import React from "react"
 
 export function Icon({
-  name,
   className,
-  outline = false,
-}: React.SVGProps<SVGSVGElement> & { outline?: boolean; name: ListIcon; className?: string }) {
-  const HeroIcon = loadIcon(name, outline ? "outline" : "solid")
-  return <HeroIcon className={className} />
+  ...props
+}: Omit<React.SVGProps<SVGSVGElement>, "name"> & { name: React.FC<any>; className?: string }) {
+  return <props.name className={className} />
 }
 
 const _icon = cva([], {

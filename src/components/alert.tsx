@@ -1,8 +1,14 @@
 import { cva, type VariantProps } from "cva"
 import { type DivProps } from "react-html-props"
 import { forwardRef, type MouseEventHandler } from "react"
-import { type ListIcon } from "@tawasukha/icon"
 import { Icon, StyledIcon } from "./icon"
+import {
+  InformationCircleIcon,
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+  XCircleIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/solid"
 
 const _boxicon = cva(["flex items-center justify-center w-12 rounded-l-lg"], {
   variants: {
@@ -44,12 +50,12 @@ export interface AlertProps
   onDismiss?: MouseEventHandler<HTMLButtonElement>
 }
 
-const iconName: Record<string, ListIcon> = {
-  primary: "InformationCircleIcon",
-  secondary: "InformationCircleIcon",
-  success: "CheckCircleIcon",
-  warning: "ExclamationCircleIcon",
-  error: "XCircleIcon",
+const iconName: Record<string, React.FC<any>> = {
+  primary: InformationCircleIcon,
+  secondary: InformationCircleIcon,
+  success: CheckCircleIcon,
+  warning: ExclamationCircleIcon,
+  error: XCircleIcon,
 }
 
 export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -73,7 +79,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
         {onDismiss && (
           <button className="text-base-5 hover:text-base-4 self-start" onClick={onDismiss}>
             <span className="sr-only">Dismiss</span>
-            <Icon name="XMarkIcon" className="h-6 w-6" />
+            <Icon name={XMarkIcon} className="h-6 w-6" />
           </button>
         )}
       </div>

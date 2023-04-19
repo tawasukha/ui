@@ -5,7 +5,7 @@ import dts from "vite-plugin-dts";
 import tsConfigPaths from "vite-tsconfig-paths";
 import * as packageJson from "./package.json";
 
-const external = Object.keys(packageJson.dependencies).concat(Object.keys(packageJson.peerDependencies))
+const external = Object.keys(packageJson.peerDependencies)
 
 export default defineConfig(() => ({
   plugins: [

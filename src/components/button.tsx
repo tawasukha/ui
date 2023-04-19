@@ -1,6 +1,5 @@
 import { cva, type VariantProps } from "cva"
 import { type ButtonProps as HtmlButtonProps } from "react-html-props"
-import { type ListIcon } from "@tawasukha/icon"
 import { forwardRef } from "react"
 import { Icon } from "./icon"
 
@@ -53,7 +52,7 @@ type ModeProps = Required<{ mode: NonNullable<Props["mode"]> }>
 type SizeProps = Required<{ size: NonNullable<Props["size"]> }>
 
 export interface ButtonProps extends HtmlButtonProps, ModeProps, SizeProps {
-  icon?: ListIcon
+  icon?: React.FC<any>
   iconClassName?: string
 }
 

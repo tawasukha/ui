@@ -3,28 +3,27 @@ import { type ModeProps } from "./icon"
 import { Button } from "./button"
 import { InputText } from "./inputText"
 import { InputTextArea } from "./inputTextArea"
-import { type ListIcon as Icons } from "@tawasukha/icon"
 import { AnimatePresence, motion } from "framer-motion"
 import { create } from "react-modal-promise"
 import { StyledIcon } from "./icon"
+import {
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+  InformationCircleIcon,
+  XCircleIcon,
+} from "@heroicons/react/24/solid"
 
 type Mode = Exclude<NonNullable<ModeProps["mode"]>, "secondary">
 type MouseEvent = MouseEventHandler<HTMLButtonElement | HTMLDivElement>
 
 type ListIcon = {
-  [k in Exclude<Mode, "base">]: Icons
+  [k in Exclude<Mode, "base">]: React.FC<any>
 }
 
 type DialogType = Exclude<keyof ListIcon, "primary"> | "info" | "default"
 
 function type2Mode(dialogType: DialogType) {
   return dialogType === "default" ? "base" : dialogType === "info" ? "primary" : dialogType
-}
-const listIcon: ListIcon = {
-  primary: "InformationCircleIcon",
-  warning: "ExclamationCircleIcon",
-  error: "XCircleIcon",
-  success: "CheckCircleIcon",
 }
 
 type FooterProps = {
@@ -113,7 +112,16 @@ export function Dialog({
   onClickBackDrop,
 }: DialogProps) {
   const mode = React.useMemo(() => type2Mode(type), [type])
-  const iconName = React.useMemo(() => (mode === "base" ? null : listIcon[mode]), [mode])
+  const iconName = React.useMemo(() => {
+    const listIcon: ListIcon = {
+      primary: InformationCircleIcon,
+      warning: ExclamationCircleIcon,
+      error: XCircleIcon,
+      success: CheckCircleIcon,
+    }
+
+    return mode === "base" ? null : listIcon[mode]
+  }, [mode])
 
   return (
     <AnimatePresence>

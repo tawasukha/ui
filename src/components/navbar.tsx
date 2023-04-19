@@ -1,7 +1,6 @@
 import { forwardRef, useMemo, useRef } from "react"
 import { type AProps, type NavProps } from "react-html-props"
 import { cx } from "cva"
-import { type ListIcon } from "@tawasukha/icon"
 import { useOnClickOutside } from "../helpers/useOnClickOutside"
 import { useBoolean } from "../helpers/useBoolean"
 import { Icon } from "./icon"
@@ -29,7 +28,7 @@ export const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
 export interface NavbarMenuProps extends AProps {
   label?: string
   last?: boolean
-  icon?: ListIcon
+  icon?: React.FC<any>
   iconOnly?: boolean
 }
 

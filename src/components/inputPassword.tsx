@@ -3,6 +3,7 @@ import { type InputProps } from "react-html-props"
 import { cva, type VariantProps } from "../helpers/cva"
 import { useBoolean } from "../helpers/useBoolean"
 import { StyledIcon } from "./icon"
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid"
 
 function useEye(mode: "base" | "error") {
   const { value, toggle } = useBoolean()
@@ -10,7 +11,7 @@ function useEye(mode: "base" | "error") {
     () => (
       <StyledIcon
         mode={mode}
-        name={value ? "EyeIcon" : "EyeSlashIcon"}
+        name={value ? EyeIcon : EyeSlashIcon}
         className="h-6 w-6 text-base-5"
       />
     ),

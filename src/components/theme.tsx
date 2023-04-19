@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useIsClient } from "../helpers/useIsClient"
 import { StyledIcon } from "../components/icon"
 import { cx } from "cva"
+import { MoonIcon, SunIcon } from "@heroicons/react/24/solid"
 
 type Theme = "dark" | "light" | undefined
 
@@ -39,7 +40,7 @@ export function ThemeToggle() {
           >
             <StyledIcon
               mode="warning"
-              name="SunIcon"
+              name={SunIcon}
               className="h-6 w-6 rounded-full outline-none hover:ring-2 hover:ring-offset-1 hover:ring-offset-base hover:ring-warning-3"
             />
           </motion.i>
@@ -54,7 +55,7 @@ export function ThemeToggle() {
           >
             <StyledIcon
               mode="primary"
-              name="MoonIcon"
+              name={MoonIcon}
               className="h-6 w-6 rounded-full outline-none hover:ring-2 hover:ring-offset-1 hover:ring-offset-base hover:ring-primary-3"
             />
           </motion.i>

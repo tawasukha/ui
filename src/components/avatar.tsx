@@ -1,6 +1,5 @@
 import { cva, type VariantProps } from "cva"
 import { type DivProps } from "react-html-props"
-import { type ListIcon } from "@tawasukha/icon"
 import { forwardRef } from "react"
 import { Icon } from "./icon"
 
@@ -65,7 +64,7 @@ export interface AvatarProps
     Required<{ size: NonNullable<VariantProps<typeof _box>["size"]> }>,
     Omit<VariantProps<typeof _status>, "size"> {
   image?: string
-  icon?: ListIcon
+  icon?: React.FC<any>
 }
 
 export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(

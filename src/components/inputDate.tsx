@@ -7,6 +7,13 @@ import { motion, AnimatePresence } from "framer-motion"
 import { format } from "date-fns"
 import { useOnClickOutside } from "src/helpers/useOnClickOutside"
 import { Icon, StyledIcon } from "./icon"
+import {
+  CalendarDaysIcon,
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+} from "@heroicons/react/24/solid"
 
 const _input = cva(
   [
@@ -73,7 +80,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function I
         />
         <StyledIcon
           mode={mode}
-          name="CalendarDaysIcon"
+          name={CalendarDaysIcon}
           className={"absolute right-4 h-6 w-6 opacity-50"}
         />
       </div>
@@ -90,20 +97,20 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function I
               <div className="flex flex-row justify-between gap gap-x-2 bg-base-2 rounded-t-lg text-md font-semibold text-base-4">
                 <div className="flex flex-1">
                   <button className="p-2" {...previousMonthButton()}>
-                    <Icon name="ChevronLeftIcon" className="h-4 w-4" />
+                    <Icon name={ChevronLeftIcon} className="h-4 w-4" />
                   </button>
                   <span className="w-20 py-2">{month}</span>
                   <button className="p-2" {...nextMonthButton()}>
-                    <Icon name="ChevronRightIcon" className="h-4 w-4" />
+                    <Icon name={ChevronRightIcon} className="h-4 w-4" />
                   </button>
                 </div>
                 <div className="flex">
                   <button className="p-2" {...previousMonthButton({ step: 12 })}>
-                    <Icon name="ChevronUpIcon" className="h-4 w-4" />
+                    <Icon name={ChevronUpIcon} className="h-4 w-4" />
                   </button>
                   <span className="py-2">{year}</span>
                   <button className="p-2" {...nextMonthButton({ step: 12 })}>
-                    <Icon name="ChevronDownIcon" className="h-4 w-4" />
+                    <Icon name={ChevronDownIcon} className="h-4 w-4" />
                   </button>
                 </div>
               </div>

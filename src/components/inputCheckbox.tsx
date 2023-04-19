@@ -3,6 +3,8 @@ import { type InputProps } from "react-html-props"
 import { AnimatePresence, motion } from "framer-motion"
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 import { Icon } from "./icon"
+import { CheckIcon } from "@heroicons/react/24/outline"
+import { MinusSmallIcon } from "@heroicons/react/24/solid"
 
 const _input = cva(["flex flex-col w-[18px] h-[18px] ring-1 rounded"], {
   variants: {
@@ -58,7 +60,7 @@ export const InputCheckbox = forwardRef<
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
             >
-              <Icon outline name="CheckIcon" className="w-[18px] h-[18px] stroke-[3px]" />
+              <Icon name={CheckIcon} className="w-[18px] h-[18px] stroke-[3px]" />
             </motion.i>
           )}
         </AnimatePresence>
@@ -69,7 +71,7 @@ export const InputCheckbox = forwardRef<
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
             >
-              <Icon name="MinusSmallIcon" className="w-[18px] h-[18px] stroke-[3px]" />
+              <Icon name={MinusSmallIcon} className="w-[18px] h-[18px] stroke-[3px]" />
             </motion.i>
           )}
         </AnimatePresence>

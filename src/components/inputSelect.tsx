@@ -12,6 +12,7 @@ import { StyledIcon } from "./icon"
 import { Chip, XChip } from "./chip"
 import { AnimatePresence } from "framer-motion"
 import { debouncePromise } from "../helpers/debouncePromise"
+import { ChevronDownIcon } from "@heroicons/react/24/solid"
 
 const _input = cva(
   [
@@ -249,7 +250,7 @@ export const InputSelect = forwardRef(function InputSelect<T extends object>(
 
         <StyledIcon
           mode={mode}
-          name="ChevronDownIcon"
+          name={ChevronDownIcon}
           className={cx(
             "absolute right-4 transition ease-out bg-base h-6 w-6",
             isOpen ? "rotate-180" : "",

@@ -3,10 +3,9 @@ import { cx } from "cva"
 import { forwardRef } from "react"
 import { motion } from "framer-motion"
 import { Icon } from "../components/icon"
-import { type ListIcon } from "@tawasukha/icon"
 
 type MenuItemProps = LIProps & {
-  icon?: ListIcon
+  icon?: React.FC<any>
   disabled?: boolean
   hover?: boolean
   active?: boolean

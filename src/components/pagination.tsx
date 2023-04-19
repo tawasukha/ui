@@ -1,6 +1,7 @@
 import { cx } from "../helpers/cva"
 import { forwardRef, useCallback, useMemo } from "react"
 import { Icon } from "./icon"
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid"
 
 export const DOTS = "..."
 
@@ -104,7 +105,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(function P
     const last = currentPage * pageSize
 
     return `${first}-${last > totalCount ? totalCount : last} of ${totalCount} records`
-  }, [currentPage, pageSize])
+  }, [currentPage, pageSize, totalCount])
 
   return (
     <div className="flex items-center justify-between py-4 text-base-3 text-md">
@@ -127,7 +128,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(function P
                 currentPage === 1 ? "cursor-not-allowed" : "cursor-pointer",
               )}
             >
-              <Icon name="ChevronLeftIcon" className="w-4 h-4" />
+              <Icon name={ChevronLeftIcon} className="w-4 h-4" />
               <span>Prev</span>
             </a>
             <div className="items-center hidden lg:flex gap-x-1 mx-1">
@@ -162,7 +163,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(function P
               )}
             >
               <span>Next</span>
-              <Icon name="ChevronRightIcon" className="w-4 h-4" />
+              <Icon name={ChevronRightIcon} className="w-4 h-4" />
             </a>
           </>
         )}

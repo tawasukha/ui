@@ -1,6 +1,8 @@
 import "./theme.css"
+import { dynamic } from "./helpers/dynamic"
 
-export { loadIcon, type ListIcon as Icons } from "@tawasukha/icon"
+
+export const InputEditor = dynamic(async () => await import("./components/inputEditor").then(o => ({ default: o.InputEditor })))
 
 export * from "./components/alert"
 export * from "./components/avatar"
@@ -12,7 +14,7 @@ export * from "./components/icon"
 export * from "./components/label"
 export * from "./components/loader"
 export * from "./components/inputCheckbox"
-export * from "./components/inputEditor"
+// export * from "./components/inputEditor"
 export * from "./components/inputPassword"
 export * from "./components/inputText"
 export * from "./components/inputTextArea"

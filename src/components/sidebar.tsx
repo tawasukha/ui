@@ -2,7 +2,6 @@ import { forwardRef } from "react"
 import { type DivProps } from "react-html-props"
 import { useBoolean } from "../helpers/useBoolean"
 import { AnimatePresence, motion } from "framer-motion"
-import { type ListIcon } from "@tawasukha/icon"
 import { Icon } from "./icon"
 import { cx } from "cva"
 
@@ -33,7 +32,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar
 })
 
 export interface SidebarMenuProps extends DivProps {
-  icon: ListIcon
+  icon: React.FC<any>
   label: string
   link?: string
 }

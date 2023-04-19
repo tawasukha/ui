@@ -2,6 +2,7 @@ import { cva, type VariantProps } from "cva"
 import { forwardRef } from "react"
 import { type SpanProps } from "react-html-props"
 import { Icon } from "./icon"
+import { XMarkIcon } from "@heroicons/react/24/solid"
 
 const _chip = cva(
   [
@@ -65,7 +66,7 @@ export const XChip = forwardRef<HTMLSpanElement, XChipProps>(function XChip(
   return (
     <Chip ref={ref} className="cursor-pointer" size={size} onClick={onDismiss} {...props}>
       <>
-        <Icon name="XMarkIcon" className={_icon({ size })} />
+        <Icon name={XMarkIcon} className={_icon({ size })} />
         <span>{children}</span>
       </>
     </Chip>
