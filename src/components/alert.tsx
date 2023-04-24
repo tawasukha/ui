@@ -1,6 +1,6 @@
-import { cva, type VariantProps } from "cva"
+import { cva, type VariantProps } from "../helpers/cva"
 import { type DivProps } from "react-html-props"
-import { forwardRef, type MouseEventHandler } from "react"
+import { type MouseEventHandler } from "react"
 import { Icon, StyledIcon } from "./icon"
 import {
   InformationCircleIcon,
@@ -58,12 +58,9 @@ const iconName: Record<string, React.FC<any>> = {
   error: XCircleIcon,
 }
 
-export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  { mode = "base", title, children, onDismiss, ...props },
-  ref,
-) {
+export function Alert({ mode = "base", title, children, onDismiss, ...props }: AlertProps) {
   return (
-    <div ref={ref} className="flex max-w-sm bg-base rounded-lg shadow-md shadow-offset" {...props}>
+    <div className="flex max-w-sm bg-base rounded-lg shadow-md shadow-offset" {...props}>
       {mode !== "base" && (
         <div className={_boxicon({ mode })}>
           <StyledIcon mode={mode} name={iconName[mode]} className="h-10 w-10" />
@@ -85,4 +82,4 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
       </div>
     </div>
   )
-})
+}

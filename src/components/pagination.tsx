@@ -1,5 +1,5 @@
 import { cx } from "../helpers/cva"
-import { forwardRef, useCallback, useMemo } from "react"
+import { useCallback, useMemo } from "react"
 import { Icon } from "./icon"
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid"
 
@@ -75,10 +75,13 @@ export type PaginationProps = {
   pageSize: number
 }
 
-export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(function Pagination(
-  { onPageChange, totalCount, siblingCount = 1, currentPage, pageSize },
-  ref,
-) {
+export function Pagination({
+  onPageChange,
+  totalCount,
+  siblingCount = 1,
+  currentPage,
+  pageSize,
+}: PaginationProps) {
   const paginationRange = usePagination({
     currentPage,
     totalCount,
@@ -170,4 +173,4 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(function P
       </div>
     </div>
   )
-})
+}

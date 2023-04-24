@@ -1,6 +1,6 @@
 {
   "name": "@tawasukha/ui",
-  "version": "0.0.42",
+  "version": "0.0.48",
   "type": "module",
   "types": "dist/index.d.ts",
   "exports": {
@@ -17,8 +17,8 @@
       "default": "./dist/core.css"
     },
     "./config.cjs": {
-      "require": "./dist/config.cjs",
-      "default": "./dist/config.cjs"
+      "require": "./dist/tailwind.config.cjs",
+      "default": "./dist/tailwind.config.cjs"
     }
   },
   "files": [
@@ -27,9 +27,7 @@
   "scripts": {
     "build": "rm -rf dist && vite build && pnpm build:css && pnpm copy:config",
     "build:css": "tailwindcss -m -i ./src/tailwind-entry.css -o ./dist/core.css",
-    "build-watch": "concurrently \"vite build --watch\" \"pnpm build-watch:css\"",
-    "build-watch:css": "tailwindcss -w -i ./src/tailwind-entry.css -o ./dist/core.css",
-    "copy:config": "cp tailwind.config.cjs ./dist/config.cjs",
+    "copy:config": "cp tailwind.config.cjs ./dist",
     "storybook": "concurrently \"pnpm run storybook:css\" \"storybook dev -p 9999\"",
     "storybook:css": "tailwindcss -w -i ./src/tailwind-entry.css -o ./src/index.css",
     "build-storybook": "concurrently \"pnpm run build-storybook:css\" \"storybook build\"",
@@ -78,10 +76,10 @@
     "vite-tsconfig-paths": "^4.2.0"
   },
   "peerDependencies": {
-    "date-fns": "^2.29.3",
-    "framer-motion": "^10.11.2",
     "@fontsource/abeezee": "^4.5.10",
     "@heroicons/react": "^2.0.17",
+    "date-fns": "^2.29.3",
+    "framer-motion": "^10.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

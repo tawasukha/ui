@@ -1,18 +1,14 @@
-import { forwardRef } from "react"
 import { type DivProps } from "react-html-props"
 import { useBoolean } from "../helpers/useBoolean"
 import { AnimatePresence, motion } from "framer-motion"
 import { Icon } from "./icon"
-import { cx } from "cva"
+import { cx } from "../helpers/cva"
 
 export interface SidebarProps extends DivProps {
   isOpen?: boolean
 }
 
-export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar(
-  { className, children, isOpen = true },
-  ref,
-) {
+export function Sidebar({ className, children, isOpen = true }: SidebarProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -21,7 +17,6 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar
           initial={{ opacity: 0, translateX: "-100%" }}
           animate={{ opacity: 1, translateX: "0%" }}
           exit={{ opacity: 0, translateX: "-100%" }}
-          ref={ref}
           className={cx("flex flex-1 overflow-hidden", className)}
         >
           {children}
@@ -29,7 +24,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar
       )}
     </AnimatePresence>
   )
-})
+}
 
 export interface SidebarMenuProps extends DivProps {
   icon: React.FC<any>
@@ -37,14 +32,11 @@ export interface SidebarMenuProps extends DivProps {
   link?: string
 }
 
-export const SidebarMenu = forwardRef<HTMLDivElement, SidebarMenuProps>(function SidebarMenu(
-  { className, icon, label, children, link },
-  ref,
-) {
+export function SidebarMenu({ className, icon, label, children, link }: SidebarMenuProps) {
   const { value: isOpen, toggle } = useBoolean()
 
   return (
-    <div ref={ref} className="relative">
+    <div className="relative">
       <a
         href={link}
         className={cx(
@@ -78,4 +70,4 @@ export const SidebarMenu = forwardRef<HTMLDivElement, SidebarMenuProps>(function
       </div>
     </div>
   )
-})
+}

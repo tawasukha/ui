@@ -1,4 +1,4 @@
-import { forwardRef, useState, useMemo, useRef, useEffect } from "react"
+import { useState, useMemo, useRef, useEffect } from "react"
 import { useDatePicker } from "@rehookify/datepicker"
 import { type InputProps } from "react-html-props"
 import { cva, cx, type VariantProps } from "../helpers/cva"
@@ -37,10 +37,7 @@ export interface InputDateProps
   onChange: (date: Date | null) => void
 }
 
-export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function InputDate(
-  { mode = "base", className, value, onChange },
-  ref,
-) {
+export function InputDate({ mode = "base", className, value, onChange }: InputDateProps) {
   const { value: isOpen, setTrue, setFalse } = useBoolean()
   const [selectedDates, onDatesChange] = useState<Date[]>([])
   const refDropdown = useRef(null)
@@ -71,13 +68,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function I
   return (
     <div className="relative">
       <div className={_input({ mode, className })} onClick={setTrue}>
-        <input
-          ref={ref}
-          className="outline-none focus:ring-0"
-          type="text"
-          value={selectedDate}
-          readOnly
-        />
+        <input className="outline-none focus:ring-0" type="text" value={selectedDate} readOnly />
         <StyledIcon
           mode={mode}
           name={CalendarDaysIcon}
@@ -153,4 +144,4 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function I
       </div>
     </div>
   )
-})
+}

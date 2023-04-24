@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useIsClient } from "../helpers/useIsClient"
 import { StyledIcon } from "../components/icon"
-import { cx } from "cva"
+import { cx } from "../helpers/cva"
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid"
 
 type Theme = "dark" | "light" | undefined

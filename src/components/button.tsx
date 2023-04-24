@@ -1,6 +1,5 @@
-import { cva, type VariantProps } from "cva"
+import { cva, type VariantProps } from "../helpers/cva"
 import { type ButtonProps as HtmlButtonProps } from "react-html-props"
-import { forwardRef } from "react"
 import { Icon } from "./icon"
 
 const _button = cva(
@@ -56,14 +55,19 @@ export interface ButtonProps extends HtmlButtonProps, ModeProps, SizeProps {
   iconClassName?: string
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { icon, iconClassName, mode = "primary", size = "md", className, children, ...props },
-  ref,
-) {
+export function Button({
+  icon,
+  iconClassName,
+  mode = "primary",
+  size = "md",
+  className,
+  children,
+  ...props
+}: ButtonProps) {
   return (
-    <button ref={ref} className={_button({ mode, size, className })} {...props}>
+    <button className={_button({ mode, size, className })} {...props}>
       {icon && <Icon name={icon} className={_icon({ size, className: iconClassName })} />}
       <span className="ml-1">{children}</span>
     </button>
   )
-})
+}

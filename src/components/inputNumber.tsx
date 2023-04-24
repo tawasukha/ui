@@ -1,6 +1,6 @@
 import { NumericFormat, type NumericFormatProps } from "react-number-format"
 import { cva, type VariantProps } from "../helpers/cva"
-import { forwardRef, useMemo } from "react"
+import { useMemo } from "react"
 
 const _input = cva(
   [
@@ -33,26 +33,28 @@ export interface InputNumberProps
   onChange?: NumericFormatProps["onValueChange"]
 }
 
-export const InputNumber = forwardRef<Omit<HTMLInputElement, "onChange">, InputNumberProps>(
-  function InputNumber(
-    { mode = "base", className, onChange, value: _value, decimal, ...props },
-    ref,
-  ) {
-    const value = useMemo(() => numberParser(_value), [_value])
-    const decimalScale = useMemo(
-      () => (decimal ? (typeof decimal === "boolean" ? 2 : decimal) : 0),
-      [decimal],
-    )
+export function InputNumber({
+  mode = "base",
+  className,
+  onChange,
+  value: _value,
+  decimal,
+  ...props
+}: InputNumberProps) {
+  const value = useMemo(() => numberParser(_value), [_value])
+  const decimalScale = useMemo(
+    () => (decimal ? (typeof decimal === "boolean" ? 2 : decimal) : 0),
+    [decimal],
+  )
 
-    return (
-      <NumericFormat
-        className={_input({ mode, className })}
-        thousandSeparator
-        decimalScale={decimalScale}
-        onValueChange={onChange}
-        value={value}
-        {...props}
-      />
-    )
-  },
-)
+  return (
+    <NumericFormat
+      className={_input({ mode, className })}
+      thousandSeparator
+      decimalScale={decimalScale}
+      onValueChange={onChange}
+      value={value}
+      {...props}
+    />
+  )
+}

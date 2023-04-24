@@ -1,6 +1,6 @@
-import { forwardRef, useMemo, useRef } from "react"
+import { useMemo, useRef } from "react"
 import { type AProps, type NavProps } from "react-html-props"
-import { cx } from "cva"
+import { cx } from "../helpers/cva"
 import { useOnClickOutside } from "../helpers/useOnClickOutside"
 import { useBoolean } from "../helpers/useBoolean"
 import { Icon } from "./icon"
@@ -12,10 +12,7 @@ export interface NavbarProps extends NavProps {
   right: JSX.Element
 }
 
-export const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
-  { left, right, className },
-  ref,
-) {
+export function Navbar({ left, right, className }: NavbarProps) {
   return (
     <nav className={cx("px-6 py-4 flex justify-between", className)}>
       <div className="flex items-center justify-between">{left}</div>
@@ -23,7 +20,7 @@ export const Navbar = forwardRef<HTMLDivElement, NavbarProps>(function Navbar(
       <div className="z-20 pl-6 py-4">{right}</div>
     </nav>
   )
-})
+}
 
 export interface NavbarMenuProps extends AProps {
   label?: string
@@ -32,10 +29,15 @@ export interface NavbarMenuProps extends AProps {
   iconOnly?: boolean
 }
 
-export const NavbarMenu = forwardRef<HTMLAnchorElement, NavbarMenuProps>(function DropdownMenu(
-  { className, children, label, icon, iconOnly, href, last = false },
-  ref,
-) {
+export const NavbarMenu = function DropdownMenu({
+  className,
+  children,
+  label,
+  icon,
+  iconOnly,
+  href,
+  last = false,
+}: NavbarMenuProps) {
   const { value: isOpen, setTrue, setFalse } = useBoolean()
   const refDropdown = useRef(null)
   const props = useMemo(() => {
@@ -47,7 +49,6 @@ export const NavbarMenu = forwardRef<HTMLAnchorElement, NavbarMenuProps>(functio
   return (
     <div className="relative">
       <a
-        ref={ref}
         className={cx(
           "flex flex-row my-2 text-base-4 transition-colors",
           "duration-300 transform hover:text-primary-3 mx-4 items-center cursor-pointer",
@@ -76,4 +77,4 @@ export const NavbarMenu = forwardRef<HTMLAnchorElement, NavbarMenuProps>(functio
       </div>
     </div>
   )
-})
+}

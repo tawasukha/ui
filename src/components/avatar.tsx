@@ -1,6 +1,5 @@
-import { cva, type VariantProps } from "cva"
+import { cva, type VariantProps } from "../helpers/cva"
 import { type DivProps } from "react-html-props"
-import { forwardRef } from "react"
 import { Icon } from "./icon"
 
 const _box = cva(
@@ -67,12 +66,9 @@ export interface AvatarProps
   icon?: React.FC<any>
 }
 
-export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
-  { mode, size = "md", image, icon, children, ...props },
-  ref,
-) {
+export function Avatar({ mode, size = "md", image, icon, children, ...props }: AvatarProps) {
   return (
-    <div ref={ref} className="flex items-center gap-x-6" {...props}>
+    <div className="flex items-center gap-x-6" {...props}>
       <div className="relative">
         <div className={_box({ size })}>
           {image && <img className="object-cover" src={image} />}
@@ -83,4 +79,4 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
       </div>
     </div>
   )
-})
+}

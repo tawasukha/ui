@@ -1,5 +1,4 @@
-import { cva, type VariantProps } from "cva"
-import { forwardRef } from "react"
+import { cva, type VariantProps } from "../helpers/cva"
 import { type SpanProps } from "react-html-props"
 import { Icon } from "./icon"
 import { XMarkIcon } from "@heroicons/react/24/solid"
@@ -44,31 +43,25 @@ type Props = VariantProps<typeof _chip>
 export type ChipProps = SpanProps &
   Required<{ mode: NonNullable<Props["mode"]>; size: NonNullable<Props["size"]> }>
 
-export const Chip = forwardRef<HTMLSpanElement, ChipProps>(function Chip(
-  { mode = "base", size = "sm", className, children, ...props },
-  ref,
-) {
+export function Chip({ mode = "base", size = "sm", className, children, ...props }: ChipProps) {
   return (
-    <span ref={ref} className={_chip({ mode, size, className })} {...props}>
+    <span className={_chip({ mode, size, className })} {...props}>
       {children}
     </span>
   )
-})
+}
 
 export type XChipProps = Omit<ChipProps, "ref"> & {
   onDismiss?: (T?: Record<any, any>) => void
 }
 
-export const XChip = forwardRef<HTMLSpanElement, XChipProps>(function XChip(
-  { onDismiss, children, className, size = "sm", ...props }: XChipProps,
-  ref,
-) {
+export function XChip({ onDismiss, children, className, size = "sm", ...props }: XChipProps) {
   return (
-    <Chip ref={ref} className="cursor-pointer" size={size} onClick={onDismiss} {...props}>
+    <Chip className="cursor-pointer" size={size} onClick={onDismiss} {...props}>
       <>
         <Icon name={XMarkIcon} className={_icon({ size })} />
         <span>{children}</span>
       </>
     </Chip>
   )
-})
+}

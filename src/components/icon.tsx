@@ -1,5 +1,4 @@
-import { cva, type VariantProps } from "cva"
-import React from "react"
+import { cva, type VariantProps } from "../helpers/cva"
 
 export function Icon({
   className,

@@ -1,6 +1,6 @@
 import { forwardRef } from "react"
 import { type DivProps } from "react-html-props"
-import { cx } from "cva"
+import { cx } from "../helpers/cva"
 
 export interface TableCellProps extends DivProps {}
 

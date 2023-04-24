@@ -1,6 +1,5 @@
 import { cva, type VariantProps } from "../helpers/cva"
 import { dynamic } from "../helpers/dynamic"
-import { forwardRef } from "react"
 
 const TextArea = dynamic(async () => await import("react-textarea-autosize"))
 const _input = cva(
@@ -21,8 +20,6 @@ export interface InputTextAreaProps
   extends React.ComponentProps<typeof TextArea>,
     VariantProps<typeof _input> {}
 
-export const InputTextArea = forwardRef<HTMLTextAreaElement, InputTextAreaProps>(
-  function InputTextArea({ mode = "base", className, ...props }, ref) {
-    return <TextArea ref={ref} {...props} className={_input({ mode, className })} />
-  },
-)
+export function InputTextArea({ mode = "base", className, ...props }: InputTextAreaProps) {
+  return <TextArea {...props} className={_input({ mode, className })} />
+}

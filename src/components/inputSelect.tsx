@@ -1,5 +1,5 @@
 import { cva, cx, type VariantProps } from "../helpers/cva"
-import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { type InputProps } from "react-html-props"
 import { Menu, MenuItem } from "./menu"
 import {
@@ -44,32 +44,50 @@ export interface InputSelectProps<T>
   renderItem?: (item: T) => JSX.Element
 }
 
-export const InputSelect = forwardRef(function InputSelect<T>(
-  {
-    creatable = false,
-    multiple = false,
-    keyLabel = "label",
-    keyValue = "value",
-    renderItem,
-    milis = 300,
-    mode = "base",
-    className,
-    options,
-    value,
-    onChange = () => {},
-    loadOptions: _loadOptions,
-  }: InputSelectProps<T>,
-  ref: React.ForwardedRef<HTMLInputElement>,
-) {
+export function InputSelect<T>({
+  creatable = false,
+  multiple = false,
+  keyLabel = "label",
+  keyValue = "value",
+  renderItem,
+  milis = 300,
+  mode = "base",
+  className,
+  options,
+  value,
+  onChange = () => {},
+  loadOptions: _loadOptions,
+}: InputSelectProps<T>) {
   const loadOptions = useMemo(
     () => (_loadOptions ? debouncePromise(_loadOptions, milis, "Aborted") : undefined),
     [_loadOptions],
   )
   const refInput = useRef<HTMLInputElement | null>(null)
   const [items, setItems] = useState(options || [])
+
+  // For Multiple Values only
+  const refSyncValues = useRef<boolean>(true)
   const [values, setValues] = useState(
     value ? (multiple ? (Array.isArray(value) ? value : [value]) : undefined) : undefined,
   )
+
+  // For Multiple Values only
+  useEffect(() => {
+    if (refSyncValues.current) {
+      const _values = value
+        ? multiple
+          ? Array.isArray(value)
+            ? value
+            : [value]
+          : undefined
+        : undefined
+
+      if (JSON.stringify(values) !== JSON.stringify(_values)) {
+        setValues(_values)
+        refSyncValues.current = false
+      }
+    }
+  }, [value, values, setValues])
 
   const onDismiss = useCallback(
     (item: T) => {
@@ -228,7 +246,7 @@ export const InputSelect = forwardRef(function InputSelect<T>(
 
   return (
     <div className="relative" onClick={inputFocus}>
-      <div ref={ref} className={_input({ mode, className })}>
+      <div className={_input({ mode, className })}>
         <div className="w-full overflow-hidden flex flex-row gap-1 flex-wrap">
           {multipleValue}
           <input
@@ -305,4 +323,4 @@ export const InputSelect = forwardRef(function InputSelect<T>(
       </div>
     </div>
   )
-})
+}
