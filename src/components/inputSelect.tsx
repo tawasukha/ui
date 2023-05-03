@@ -244,14 +244,24 @@ export function InputSelect<T>({
     }
   }, [])
 
+  const _className = useMemo(() => {
+    return cx(
+      {
+        base: isOpen ? "border-base-3 shadow-base-1" : "",
+        error: isOpen ? "border-error-3 shadow-error-1" : "",
+      }[mode],
+      className,
+    )
+  }, [mode, isOpen, className])
+
   return (
     <div className="relative" onClick={inputFocus}>
-      <div className={_input({ mode, className })}>
+      <div className={_input({ mode, className: _className })}>
         <div className="w-full overflow-hidden flex flex-row gap-1 flex-wrap">
           {multipleValue}
           <input
             placeholder="Select ..."
-            className="place-base-3 bg-base focus:outline-none text-md"
+            className="place-base-3 bg-base focus:outline-none text-md min-w-full"
             {...getInputProps({
               ref: refInput,
               onKeyDown: (e) => {
@@ -279,7 +289,7 @@ export function InputSelect<T>({
         <AnimatePresence>
           {isOpen && (
             <Menu
-              className="w-full h-40"
+              className="w-full max-h-40"
               transition={{ duration: 0.2 }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

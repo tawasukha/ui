@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Button } from "../components/button"
+import { PaperAirplaneIcon } from "@heroicons/react/24/solid"
 
 const meta = {
   title: "Tawasukha UI/Button",
@@ -13,7 +14,7 @@ type Story = StoryObj<typeof meta>
 export const Basic: Story = {
   args: {
     mode: "base",
-    icon: "PaperAirplaneIcon",
+    icon: PaperAirplaneIcon,
     iconClassName: "-mt-1.5 -rotate-45",
     size: "md",
     children: "Submit",

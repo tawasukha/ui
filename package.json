@@ -84,6 +84,8 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
+    "@fontsource/abeezee": "^4.5.10",
+    "@heroicons/react": "^2.0.17",
     "@rehookify/datepicker": "^4.3.2",
     "@tiptap/extension-link": "2.0.3",
     "@tiptap/extension-table": "2.0.3",
@@ -93,8 +95,10 @@
     "@tiptap/pm": "^2.0.3",
     "@tiptap/react": "^2.0.3",
     "@tiptap/starter-kit": "^2.0.3",
-    "cva": "npm:class-variance-authority@^0.5.2",
+    "cva": "npm:class-variance-authority@^0.5.3",
+    "date-fns": "^2.29.3",
     "downshift": "^7.6.0",
+    "framer-motion": "^10.11.2",
     "react-dropzone": "^14.2.3",
     "react-modal-promise": "^1.0.2",
     "react-number-format": "^5.1.4",

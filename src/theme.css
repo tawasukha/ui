@@ -51,39 +51,39 @@
   --color-offset: 55 65 81;
   --color-base: 30 41 59;
 
-  --color-base-1: 51 65 85;
-  --color-base-2: 71 85 105;
-  --color-base-3: 100 116 139;
+  --color-base-1: 30 41 59;
+  --color-base-2: 51 65 85;
+  --color-base-3: 71 85 105;
   --color-base-4: 203 213 225;
   --color-base-5: 226 232 240;
 
-  --color-primary-1: 3 105 161;
-  --color-primary-2: 2 132 199;
-  --color-primary-3: 14 165 233;
+  --color-primary-1: 7 89 133;
+  --color-primary-2: 3 105 161;
+  --color-primary-3: 2 132 199;
   --color-primary-4: 125 211 252;
   --color-primary-5: 186 230 253;
 
-  --color-secondary-1: 14 116 144;
-  --color-secondary-2: 8 145 178;
-  --color-secondary-3: 6 182 212;
+  --color-secondary-1: 21 94 117;
+  --color-secondary-2: 14 116 144;
+  --color-secondary-3: 8 145 178;
   --color-secondary-4: 103 232 249;
   --color-secondary-5: 165 243 252;
 
-  --color-success-1: 4 120 87;
-  --color-success-2: 5 150 105;
-  --color-success-3: 16 185 129;
+  --color-success-1: 6 95 70;
+  --color-success-2: 4 120 87;
+  --color-success-3: 5 150 105;
   --color-success-4: 110 231 183;
   --color-success-5: 167 243 208;
 
-  --color-warning-1: 180 83 9;
-  --color-warning-2: 217 119 6;
-  --color-warning-3: 245 158 11;
+  --color-warning-1: 146 64 14;
+  --color-warning-2: 180 83 9;
+  --color-warning-3: 217 119 6;
   --color-warning-4: 252 211 77;
   --color-warning-5: 253 230 138;
 
-  --color-error-1: 190 18 60;
-  --color-error-2: 225 29 72;
-  --color-error-3: 244 63 94;
+  --color-error-1: 159 18 57;
+  --color-error-2: 190 18 60;
+  --color-error-3: 225 29 72;
   --color-error-4: 253 164 175;
   --color-error-5: 254 205 211;
 }

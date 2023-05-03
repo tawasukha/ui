@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react"
+import { forwardRef, useImperativeHandle, useMemo, useRef } from "react"
 import { type AProps, type NavProps } from "react-html-props"
 import { cx } from "../helpers/cva"
 import { useOnClickOutside } from "../helpers/useOnClickOutside"
@@ -29,15 +29,14 @@ export interface NavbarMenuProps extends AProps {
   iconOnly?: boolean
 }
 
-export const NavbarMenu = function DropdownMenu({
-  className,
-  children,
-  label,
-  icon,
-  iconOnly,
-  href,
-  last = false,
-}: NavbarMenuProps) {
+export type NavbarMenuElement = {
+  close: () => void
+}
+
+export const NavbarMenu = forwardRef<NavbarMenuElement, NavbarMenuProps>(function NavbarMenu(
+  { className, children, label, icon, iconOnly, href, last = false },
+  ref,
+) {
   const { value: isOpen, setTrue, setFalse } = useBoolean()
   const refDropdown = useRef(null)
   const props = useMemo(() => {
@@ -45,6 +44,14 @@ export const NavbarMenu = function DropdownMenu({
   }, [href])
 
   useOnClickOutside(refDropdown, setFalse)
+
+  useImperativeHandle(ref, () => {
+    return {
+      close() {
+        setFalse()
+      },
+    }
+  })
 
   return (
     <div className="relative">
@@ -77,4 +84,4 @@ export const NavbarMenu = function DropdownMenu({
       </div>
     </div>
   )
-}
+})

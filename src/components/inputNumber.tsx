@@ -30,7 +30,7 @@ export interface InputNumberProps
   extends Omit<NumericFormatProps, "onChange" | "onValueChange">,
     VariantProps<typeof _input> {
   decimal?: boolean | number
-  onChange?: NumericFormatProps["onValueChange"]
+  onChange?: (value: number | undefined) => void
 }
 
 export function InputNumber({
@@ -52,7 +52,11 @@ export function InputNumber({
       className={_input({ mode, className })}
       thousandSeparator
       decimalScale={decimalScale}
-      onValueChange={onChange}
+      onValueChange={(value) => {
+        if (onChange) {
+          onChange(value.floatValue)
+        }
+      }}
       value={value}
       {...props}
     />
