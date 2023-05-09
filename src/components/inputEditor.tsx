@@ -95,7 +95,7 @@ export function InputEditor({
       <div className="min-h-[200px] overflow-auto">
         {editor && <TableMenu editor={editor} />}
         <div className="px-4 pt-3 py-2 text-base-5">
-          <EditorContent editor={editor} />
+          <EditorContent editor={editor} disabled={disabled} />
         </div>
       </div>
     </div>

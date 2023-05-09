@@ -37,9 +37,9 @@ export interface InputDateProps
   onChange: (date: Date | null) => void
 }
 
-export function InputDate({ mode = "base", className, value, onChange }: InputDateProps) {
+export function InputDate({ mode = "base", className, value, onChange, disabled }: InputDateProps) {
   const { value: isOpen, setTrue, setFalse } = useBoolean()
-  const [selectedDates, onDatesChange] = useState<Date[]>([])
+  const [selectedDates, onDatesChange] = useState<Date[]>(value ? [value] : [])
   const refDropdown = useRef(null)
 
   useOnClickOutside(refDropdown, setFalse)
@@ -63,12 +63,35 @@ export function InputDate({ mode = "base", className, value, onChange }: InputDa
 
   useEffect(() => {
     onChange(selectedDates ? selectedDates[0] : null)
+    setFalse()
   }, [selectedDates])
+
+  const _className = useMemo(() => {
+    return cx(
+      {
+        base: disabled ? "bg-opacity-40 bg-base-2" : isOpen ? "border-base-3 shadow-base-1" : "",
+        error: disabled
+          ? "bg-opacity-40 bg-error-2"
+          : isOpen
+          ? "border-error-3 shadow-error-1"
+          : "",
+      }[mode],
+      className,
+    )
+  }, [mode, isOpen, className, disabled])
 
   return (
     <div className="relative">
-      <div className={_input({ mode, className })} onClick={setTrue}>
-        <input className="outline-none focus:ring-0" type="text" value={selectedDate} readOnly />
+      <div
+        className={_input({ mode, className: _className })}
+        onClick={disabled ? undefined : setTrue}
+      >
+        <input
+          className="outline-none focus:ring-0 bg-transparent"
+          type="text"
+          value={selectedDate}
+          readOnly
+        />
         <StyledIcon
           mode={mode}
           name={CalendarDaysIcon}

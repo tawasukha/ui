@@ -57,6 +57,7 @@ export function InputSelect<T>({
   value,
   onChange = () => {},
   loadOptions: _loadOptions,
+  disabled,
 }: InputSelectProps<T>) {
   const loadOptions = useMemo(
     () => (_loadOptions ? debouncePromise(_loadOptions, milis, "Aborted") : undefined),
@@ -247,12 +248,16 @@ export function InputSelect<T>({
   const _className = useMemo(() => {
     return cx(
       {
-        base: isOpen ? "border-base-3 shadow-base-1" : "",
-        error: isOpen ? "border-error-3 shadow-error-1" : "",
+        base: disabled ? "bg-opacity-40 bg-base-2" : isOpen ? "border-base-3 shadow-base-1" : "",
+        error: disabled
+          ? "bg-opacity-40 bg-error-2"
+          : isOpen
+          ? "border-error-3 shadow-error-1"
+          : "",
       }[mode],
       className,
     )
-  }, [mode, isOpen, className])
+  }, [mode, isOpen, className, disabled])
 
   return (
     <div className="relative" onClick={inputFocus}>
@@ -261,7 +266,10 @@ export function InputSelect<T>({
           {multipleValue}
           <input
             placeholder="Select ..."
-            className="place-base-3 bg-base focus:outline-none text-md min-w-full"
+            className={cx(
+              "place-base-3 bg-transparent focus:outline-none text-md",
+              multiple ? "" : "min-w-full",
+            )}
             {...getInputProps({
               ref: refInput,
               onKeyDown: (e) => {
