@@ -1,16 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { useIsClient } from "../helpers/useIsClient"
 import { StyledIcon } from "../components/icon"
 import { cx } from "../helpers/cva"
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid"
+import { useIsClient } from "../helpers/useIsClient"
 
 type Theme = "dark" | "light" | undefined
 
 export function ThemeToggle() {
-  const isClient = useIsClient()
   const stored = window.localStorage.getItem("theme") as "dark" | "light" | undefined
-  const [theme, setTheme] = useState<Theme>(stored)
+  const [theme, setTheme] = useState<Theme>(stored || "light")
+
+  const isClient = useIsClient()
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"))
@@ -18,11 +19,13 @@ export function ThemeToggle() {
 
   useEffect(() => {
     if (isClient) {
-      setTheme((document.querySelector("html")?.getAttribute("data-theme") as Theme) || undefined)
+      window.localStorage.setItem("theme", theme || "light")
+      const html = document.querySelector("html")
+      if (html) {
+        html.setAttribute("data-theme", theme || "light")
+      }
     }
-  }, [isClient])
-
-  useTheme(theme)
+  }, [theme])
 
   return !theme ? (
     <></>
@@ -65,17 +68,16 @@ export function ThemeToggle() {
   )
 }
 
-export function useTheme(theme?: "light" | "dark") {
+export function useTheme() {
   const isDOM = typeof window !== "undefined" && window.document && window.document.documentElement
 
   React.useEffect(() => {
-    if (isDOM && !!theme) {
+    if (isDOM) {
       const html = document.querySelector("html")
       if (html) {
-        html.setAttribute("data-theme", theme)
-        window.localStorage.setItem("theme", theme)
-        html.classList.add("bg-default")
+        const theme = window.localStorage.getItem("theme") as "dark" | "light" | undefined
+        html.setAttribute("data-theme", theme || "light")
       }
     }
-  }, [theme])
+  }, [])
 }

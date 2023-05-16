@@ -134,7 +134,7 @@ export function Dialog({
             animate={{ opacity: 1, translateY: "0%", translateX: "-50%" }}
             exit={{ opacity: 0, translateY: "300%", translateX: "-50%" }}
             className={
-              "fixed flex left-1/2 top-10 flex-col w-full max-w-md px-8 py-4 mt-16 bg-base rounded-lg shadow-lg shadow-offset z-40"
+              "fixed flex left-1/2 top-10 flex-col w-full max-w-md lg:max-w-xl px-8 py-4 mt-16 bg-base rounded-lg shadow-lg shadow-offset z-40"
             }
           >
             {iconName && (
@@ -148,9 +148,7 @@ export function Dialog({
             )}
 
             <h2 className="mt-2 text-xl font-semibold text-base-5">{title}</h2>
-            <p className="mt-4 text-sm text-base-5 max-h-60 overflow-y-scroll pr-1">
-              {description}
-            </p>
+            <p className="mt-4 text-sm text-base-5 max-h-60 overflow-y-auto pr-1">{description}</p>
             {children || (
               <DialogFooter {...{ mode, captionCancel, captionOK, onClickOK, onClickCancel }} />
             )}

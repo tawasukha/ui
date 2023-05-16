@@ -10,6 +10,7 @@ import {
 import { Icon, StyledIcon } from "./icon"
 import { InputText } from "./inputText"
 import { InputTextArea } from "./inputTextArea"
+import { InputUpload } from "./inputUpload"
 import { Label } from "./label"
 import { Loader } from "./loader"
 import { Menu, MenuItem } from "./menu"
@@ -24,7 +25,8 @@ import { ThemeToggle } from "./theme"
 
 export {
   Alert, Avatar, Button, Card, Chip, XChip, Dialog, dialog,
-  ErrorHandler, useErrorHandler, Icon, InputText, InputTextArea, StyledIcon, Label, Loader,
+  ErrorHandler, useErrorHandler, Icon, InputText, InputTextArea, InputUpload, StyledIcon, Label, Loader,
   Menu, MenuItem, Navbar, NavbarMenu, Provider, Pagination, Sidebar, Table,
   TableBody, TableCell, TableRow, TableHead, ThemeToggle,
 }
+

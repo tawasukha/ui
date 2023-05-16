@@ -8,6 +8,7 @@ import { InputSelect } from "../components/inputSelect"
 import { InputDate } from "../components/inputDate"
 import { InputNumber } from "../components/inputNumber"
 import { InputEditor } from "../components/inputEditor"
+import { InputUpload } from "../components/inputUpload"
 
 const meta = {
   title: "Tawasukha UI/Input",
@@ -319,5 +320,21 @@ export const Editor: StoryObj<typeof InputEditor> = {
   args: {},
   render() {
     return <InputEditor content={""} onChange={() => {}} />
+  },
+}
+
+export const Upload: StoryObj<typeof InputUpload> = {
+  args: {},
+  render() {
+    /* WITH URL
+    const urlUpload = "https://fake_domain.com/api/upload"
+    const urlDelete = "https://fake_domain.com/api/delete"
+    const onDelete = async (link: string) => {
+      const name = link.split("/").pop()
+      await fetch(urlDelete + name, { method: "DELETE" })
+    }
+    return <InputUpload url={urlUpload} onDelete={onDelete} responseKey="url"/>
+    */
+    return <InputUpload />
   },
 }
