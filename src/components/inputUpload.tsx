@@ -22,7 +22,7 @@ export interface InputUploadProps
   extends Pick<DivProps, "className" | "style">,
     Omit<UploaderProps, "maxSize" | "setFiles">,
     VariantProps<typeof _input> {
-  onDelete?: (value: string) => Promise<void>
+  onDelete?: (value: string) => Promise<Response>
   value?: string[]
   maxSize?: number
   onChange?: (value: string[]) => void

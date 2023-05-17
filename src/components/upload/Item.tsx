@@ -10,9 +10,10 @@ type ItemProps = {
   disabled?: boolean
 }
 
-export function Item({ onRemove, name, link, disabled }: ItemProps) {
+export function Item({ onRemove, name, link, disabled = false }: ItemProps) {
   return (
     <motion.div
+      className="relative"
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0 }}
@@ -38,7 +39,7 @@ export function Item({ onRemove, name, link, disabled }: ItemProps) {
       <a
         href={link}
         target="_blank"
-        className="group p-4 relative block w-48 border rounded-lg border-base-2 bg-base-1 h-28 cursor-pointer"
+        className="group p-4 relative block w-40 border rounded-lg border-base-2 bg-base-1 h-28 cursor-pointer"
         rel="noreferrer"
       >
         <p className="w-full h-full break-words line-clamp-3">{name}</p>

@@ -1,92 +1,90 @@
 /* eslint-disable react/prop-types */
-import React from "react"
+import {
+  useContext,
+  createContext,
+  useEffect,
+  createElement,
+  Component,
+  type PropsWithRef,
+  type PropsWithChildren,
+} from "react"
 import { dialog } from "./dialog"
 
-type ErrorHandlerState = { error: Error | null; catched: boolean }
-
-export interface ErrorHandlerProps {
-  onResetKeysChange?: (
-    prevResetKeys: unknown[] | undefined,
-    resetKeys: unknown[] | undefined
-  ) => void
-  onReset?: (...args: unknown[]) => void
-  resetKeys?: unknown[]
+type FallbackProps = {
+  error: any
+  reset: () => void
+}
+type ErrorState = { didCatch: boolean; error: any }
+type ErrorContextType = {
+  didCatch: boolean
+  error: any
+  setError: (error: any) => void
+  reset: () => void
 }
 
-const ErrorContext = React.createContext<any>(undefined)
+const ErrorContext = createContext<ErrorContextType | undefined>(undefined)
+const initialState: ErrorState = {
+  didCatch: false,
+  error: null,
+}
 
-const changedArray = (a: unknown[] = [], b: unknown[] = []) =>
-  a.length !== b.length || a.some((item, index) => !Object.is(item, b[index]))
-
-const initialState: ErrorHandlerState = { error: null, catched: false }
-
-export class ErrorHandler extends React.Component<
-  React.PropsWithRef<React.PropsWithChildren<ErrorHandlerProps>>,
-  ErrorHandlerState
-> {
-  static contextType = ErrorContext
-  static getDerivedStateFromError(error: Error) {
-    return { error }
-  }
-
-  state = initialState
-  resetErrorHandler = (...args: unknown[]) => {
-    this.props.onReset?.(...args)
-    this.reset()
-  }
-
-  setError = (error: any) => {
-    this.setState(() => ({ error, catched: true }))
-  }
-
-  reset() {
-    this.setState(initialState)
-  }
-
-  async componentDidCatch(error: Error, info: React.ErrorInfo) {
-    this.resetErrorHandler()
-    console.error(JSON.stringify(info), error)
-    await dialog.show({
-      title: "Error",
-      type: "error",
-      description: `${error.message} [${error.name}]`,
-    })
-  }
-
-  async componentDidUpdate(
-    prevProps: ErrorHandlerProps,
-    prevState: ErrorHandlerState,
-  ) {
-    const { error, catched } = this.state
-    const { resetKeys } = this.props
-
-    if (catched && !!error) {
+function Fallback({ error, reset }: FallbackProps) {
+  useEffect(() => {
+    void (async () => {
       const result = await dialog.show({
         title: "Error",
         type: "error",
         description: `${error.message} [${error.name}]`,
       })
-      if (result.ok) {
-        this.reset()
-      }
-    }
 
-    if (
-      error !== null &&
-      prevState.error !== null &&
-      changedArray(prevProps.resetKeys, resetKeys)
-    ) {
-      this.props.onResetKeysChange?.(prevProps.resetKeys, resetKeys)
-      this.reset()
+      if (result.ok) {
+        reset()
+      }
+    })()
+  }, [error, reset])
+
+  return <></>
+}
+
+export class ErrorHandler extends Component<PropsWithRef<PropsWithChildren<any>>, ErrorState> {
+  state = initialState
+
+  static getDerivedStateFromError(error: Error) {
+    return { didCatch: true, error }
+  }
+
+  setError = (error: any) => {
+    this.setState(() => ({ error, didCatch: true }))
+  }
+
+  reset = () => {
+    const { error } = this.state
+    if (error !== null) {
+      this.setState(initialState)
+    }
+  }
+
+  componentDidUpdate(_: any, prevState: ErrorState) {
+    const { didCatch } = this.state
+
+    if (didCatch && prevState.error !== null) {
+      this.setState(initialState)
     }
   }
 
   render() {
+    const { didCatch, error } = this.state
+
+    let children = this.props.children
+
+    if (didCatch) {
+      children = createElement(Fallback, { error, reset: this.reset })
+    }
     return (
       <ErrorContext.Provider
-        value={{ error: this.state.error, setError: this.setError }}
+        value={{ didCatch, error, setError: this.setError, reset: this.reset }}
       >
-        {this.props.children}
+        {children}
       </ErrorContext.Provider>
     )
   }
@@ -95,6 +93,10 @@ export class ErrorHandler extends React.Component<
 export function useErrorHandler(givenError?: unknown) {
   // eslint-disable-next-line @typescript-eslint/no-throw-literal
   if (givenError != null) throw givenError
-  const { setError } = React.useContext(ErrorContext)
-  return { setError }
+  const { setError } = useContext(ErrorContext) || {
+    setError: () => {
+      throw new Error("setError function undefined")
+    },
+  }
+  return setError
 }

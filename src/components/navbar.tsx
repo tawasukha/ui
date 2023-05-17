@@ -70,7 +70,7 @@ export const NavbarMenu = forwardRef<NavbarMenuElement, NavbarMenuProps>(functio
         <AnimatePresence>
           {isOpen && (
             <Menu
-              className="min-w-[180px] ml-2 w-full"
+              className="min-w-[180px] ml-2 w-full overflow-hidden"
               transition={{ duration: 0.2 }}
               initial={{ opacity: 0, height: "0" }}
               animate={{ opacity: 1, height: "auto" }}

@@ -4,7 +4,8 @@ export function Icon({
   className,
   ...props
 }: Omit<React.SVGProps<SVGSVGElement>, "name"> & { name: React.FC<any>; className?: string }) {
-  return <props.name className={className} />
+  const { name, ...rest } = props
+  return <props.name className={className} {...rest} />
 }
 
 const _icon = cva([], {

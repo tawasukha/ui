@@ -10,5 +10,5 @@ export const InputNumber = dynamic(async () => await import("./components/inputN
 export const InputCheckbox = dynamic(async () => await import("./components/inputCheckbox").then(o => ({ default: o.InputCheckbox })))
 export const InputPassword = dynamic(async () => await import("./components/inputPassword").then(o => ({ default: o.InputPassword })))
 export const InputDate = dynamic(async () => await import("./components/inputDate").then(o => ({ default: o.InputDate })))
-
+export const InputUpload = dynamic(async () => await import("./components/inputUpload").then(o => ({ default: o.InputUpload })))
 

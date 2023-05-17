@@ -1,5 +1,5 @@
 import { Icon } from "../icon"
-import { CloudArrowUpIcon } from "@heroicons/react/24/solid"
+import { CloudArrowUpIcon } from "@heroicons/react/24/outline"
 import { ProgressBar } from "./ProgressBar"
 import { useDropzone, type Accept } from "react-dropzone"
 import { useCallback, useState } from "react"
@@ -55,7 +55,7 @@ export function Uploader({
     <div
       {...getRootProps({
         className:
-          "relative flex flex-col p-4 w-48 items-center justify-center border rounded-lg border-base-3 h-28 cursor-pointer",
+          "relative flex flex-col p-4 w-40 items-center justify-center border rounded-lg border-base-2 h-28 cursor-pointer border-dashed",
       })}
     >
       {progress === 0 ? (
@@ -64,8 +64,11 @@ export function Uploader({
         ) : (
           <>
             <input {...getInputProps()} />
-            <Icon name={CloudArrowUpIcon} className="h-20 w-20 text-primary-5" />
-            <span className="text-center">Click to upload or drag and drop</span>
+            <Icon
+              name={CloudArrowUpIcon}
+              className="h-20 w-20 fill-primary-2 text-base-4 stroke-1"
+            />
+            <span className="text-center text-base-3">Drag and drop</span>
           </>
         )
       ) : (
