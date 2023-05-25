@@ -110,20 +110,20 @@ export function InputDate({ mode = "base", className, value, onChange, disabled 
             >
               <div className="flex flex-row justify-between gap gap-x-2 bg-base-2 rounded-t-lg text-md font-semibold text-base-4">
                 <div className="flex flex-1">
-                  <button className="p-2" {...previousMonthButton()}>
+                  <button type="button" className="p-2" {...previousMonthButton()}>
                     <Icon name={ChevronLeftIcon} className="h-4 w-4" />
                   </button>
                   <span className="w-20 py-2">{month}</span>
-                  <button className="p-2" {...nextMonthButton()}>
+                  <button type="button" className="p-2" {...nextMonthButton()}>
                     <Icon name={ChevronRightIcon} className="h-4 w-4" />
                   </button>
                 </div>
                 <div className="flex">
-                  <button className="p-2" {...previousMonthButton({ step: 12 })}>
+                  <button type="button" className="p-2" {...previousMonthButton({ step: 12 })}>
                     <Icon name={ChevronUpIcon} className="h-4 w-4" />
                   </button>
                   <span className="py-2">{year}</span>
-                  <button className="p-2" {...nextMonthButton({ step: 12 })}>
+                  <button type="button" className="p-2" {...nextMonthButton({ step: 12 })}>
                     <Icon name={ChevronDownIcon} className="h-4 w-4" />
                   </button>
                 </div>
@@ -154,7 +154,7 @@ export function InputDate({ mode = "base", className, value, onChange, disabled 
                       )}
                       key={`${month}-${day.inCurrentMonth}-${day.day}`}
                     >
-                      <button className="h-8 w-8" {...dayButton(day)}>
+                      <button type="button" className="h-8 w-8" {...dayButton(day)}>
                         {day.day}
                       </button>
                     </li>

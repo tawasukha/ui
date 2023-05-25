@@ -94,9 +94,10 @@ export function useErrorHandler(givenError?: unknown) {
   // eslint-disable-next-line @typescript-eslint/no-throw-literal
   if (givenError != null) throw givenError
   const { setError } = useContext(ErrorContext) || {
-    setError: () => {
-      throw new Error("setError function undefined")
+    setError: (error: any) => {
+      console.log(error)
+      throw new Error("setError is not defined")
     },
   }
-  return setError
+  return { setError }
 }

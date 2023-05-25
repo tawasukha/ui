@@ -293,7 +293,7 @@ export function InputSelect<T>({
           )}
         />
       </div>
-      <div {...getMenuProps()} className="absolute w-full z-10">
+      <div {...getMenuProps()} className="absolute w-full z-20">
         <AnimatePresence>
           {isOpen && (
             <Menu

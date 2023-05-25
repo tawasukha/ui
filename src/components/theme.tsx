@@ -75,8 +75,9 @@ export function useTheme() {
     if (isDOM) {
       const html = document.querySelector("html")
       if (html) {
+        const defaultTheme = html.getAttribute("data-theme") as "dark" | "light" | undefined
         const theme = window.localStorage.getItem("theme") as "dark" | "light" | undefined
-        html.setAttribute("data-theme", theme || "light")
+        html.setAttribute("data-theme", theme || defaultTheme || "light")
       }
     }
   }, [])

@@ -20,14 +20,14 @@ import {
 import { Provider } from "./provider"
 import { Pagination } from "./pagination"
 import { Section } from "./section"
-import { Sidebar } from "./sidebar"
+import { Sidebar, SidebarMenu } from "./sidebar"
 import { Table, TableHead, TableBody, TableCell, TableRow } from "./table"
 import { ThemeToggle } from "./theme"
 
 export {
   Alert, Avatar, Button, Card, Chip, XChip, Dialog, dialog,
   ErrorHandler, useErrorHandler, Icon, InputText, InputTextArea, InputUpload, StyledIcon, Label, Loader,
-  Menu, MenuItem, Navbar, NavbarMenu, Provider, Pagination, Section, Sidebar, Table,
-  TableBody, TableCell, TableRow, TableHead, ThemeToggle,
+  Menu, MenuItem, Navbar, NavbarMenu, Provider, Pagination, Section, Sidebar, SidebarMenu,
+  Table, TableBody, TableCell, TableRow, TableHead, ThemeToggle,
 }
 

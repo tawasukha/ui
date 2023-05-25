@@ -3,6 +3,7 @@ import { useBoolean } from "../helpers/useBoolean"
 import { AnimatePresence, motion } from "framer-motion"
 import { Icon } from "./icon"
 import { cx } from "../helpers/cva"
+import { useCallback } from "react"
 
 export interface SidebarProps extends DivProps {
   isOpen?: boolean
@@ -30,10 +31,32 @@ export interface SidebarMenuProps extends DivProps {
   icon: React.FC<any>
   label: string
   link?: string
+  open?: boolean
+  disabled?: boolean
+  onClick?: () => void
 }
 
-export function SidebarMenu({ className, icon, label, children, link }: SidebarMenuProps) {
-  const { value: isOpen, toggle } = useBoolean()
+export function SidebarMenu({
+  className,
+  icon,
+  label,
+  children,
+  open = false,
+  disabled = false,
+  onClick: _onClick,
+  link,
+}: SidebarMenuProps) {
+  const { value: isOpen, toggle } = useBoolean(open)
+
+  const onClick = useCallback(() => {
+    if (!disabled) {
+      if (_onClick) {
+        _onClick()
+      } else {
+        toggle()
+      }
+    }
+  }, [_onClick, disabled, toggle])
 
   return (
     <div className="relative">
@@ -47,7 +70,7 @@ export function SidebarMenu({ className, icon, label, children, link }: SidebarM
             : "text-primary-3 bg-primary-1 hover:text-primary-5",
           className,
         )}
-        onClick={toggle}
+        onClick={onClick}
       >
         {icon && <Icon className={"w-5 h-5 mr-2"} name={icon} />}
         {label}
