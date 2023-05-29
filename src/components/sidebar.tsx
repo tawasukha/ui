@@ -5,19 +5,26 @@ import { Icon } from "./icon"
 import { cx } from "../helpers/cva"
 import { useCallback } from "react"
 
-export interface SidebarProps extends DivProps {
+export interface SidebarProps extends React.ComponentProps<typeof motion.div> {
   isOpen?: boolean
 }
 
-export function Sidebar({ className, children, isOpen = true }: SidebarProps) {
+export function Sidebar({
+  className,
+  children,
+  isOpen = true,
+  initial = { opacity: 0, translateX: "-100%" },
+  animate = { opacity: 1, translateX: "0%" },
+  exit = { opacity: 0, translateX: "-100%" },
+}: SidebarProps) {
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
           transition={{ delay: 0.15 }}
-          initial={{ opacity: 0, translateX: "-100%" }}
-          animate={{ opacity: 1, translateX: "0%" }}
-          exit={{ opacity: 0, translateX: "-100%" }}
+          initial={initial}
+          animate={animate}
+          exit={exit}
           className={cx("flex flex-1 overflow-hidden", className)}
         >
           {children}
@@ -44,7 +51,7 @@ export function SidebarMenu({
   open = false,
   disabled = false,
   onClick: _onClick,
-  link,
+  style,
 }: SidebarMenuProps) {
   const { value: isOpen, toggle } = useBoolean(open)
 
@@ -59,9 +66,8 @@ export function SidebarMenu({
   }, [_onClick, disabled, toggle])
 
   return (
-    <div className="relative">
+    <div className="relative" style={style}>
       <a
-        href={link}
         className={cx(
           "flex flex-row py-3 px-4 border-base-2 border-b transition-colors",
           "duration-300 transform cursor-pointer items-center",
