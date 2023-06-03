@@ -6,9 +6,17 @@ export type SectionProps = DivProps & {
   title: string
   right?: React.ReactNode
   titleClassName?: string
+  bodyClassName?: string
 }
 
-export function Section({ children, title, titleClassName, right, className }: SectionProps) {
+export function Section({
+  children,
+  title,
+  titleClassName,
+  bodyClassName,
+  right,
+  className,
+}: SectionProps) {
   return (
     <div className={cx("rounded-lg shadow", className)}>
       <div
@@ -20,7 +28,7 @@ export function Section({ children, title, titleClassName, right, className }: S
         <h3 className="flex flex-grow">{title}</h3>
         {right}
       </div>
-      <div className="px-4 space-y-2 pb-4">{children}</div>
+      <div className={cx("px-4 space-y-2 pb-4", bodyClassName)}>{children}</div>
     </div>
   )
 }
