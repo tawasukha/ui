@@ -68,12 +68,20 @@ export function InputSelect<T>({
 
   // For Multiple Values only
   const refSyncValues = useRef<boolean>(true)
-  const [values, setValues] = useState(value ? (Array.isArray(value) ? value : [value]) : undefined)
+  const [values, setValues] = useState(
+    value ? (multiple ? (Array.isArray(value) ? value : [value]) : undefined) : undefined,
+  )
 
   // For Multiple Values only
   useEffect(() => {
     if (refSyncValues.current) {
-      const _values = value ? (Array.isArray(value) ? value : [value]) : undefined
+      const _values = value
+        ? multiple
+          ? Array.isArray(value)
+            ? value
+            : [value]
+          : undefined
+        : undefined
 
       if (JSON.stringify(values) !== JSON.stringify(_values)) {
         setValues(_values)
@@ -102,7 +110,6 @@ export function InputSelect<T>({
         // @ts-expect-error
         refInput.current.focus()
       } else {
-        setValues((values) => (selectedItem ? [selectedItem] : values))
         onChange(selectedItem)
       }
     },
@@ -114,26 +121,26 @@ export function InputSelect<T>({
   }, [value])
 
   const displayValue = useMemo(() => {
-    return (values || []).map((value, i) => {
-      // @ts-expect-error
-      const val = value[keyLabel] ? value[keyLabel] : value
-      return multiple ? (
-        <XChip
-          key={`${val}${i}`}
-          {...{
-            size: "sm",
-            mode: "base",
-            onDismiss: () => {
-              onDismiss(value)
-            },
-          }}
-        >
-          {val}
-        </XChip>
-      ) : (
-        <span>{val}</span>
-      )
-    })
+    return !multiple
+      ? undefined
+      : (values || []).map((value, i) => {
+          // @ts-expect-error
+          const val = value[keyLabel] ? value[keyLabel] : value
+          return (
+            <XChip
+              key={`${val}${i}`}
+              {...{
+                size: "sm",
+                mode: "base",
+                onDismiss: () => {
+                  onDismiss(value)
+                },
+              }}
+            >
+              {val}
+            </XChip>
+          )
+        })
   }, [values, multiple])
 
   const stateReducer = useCallback(
@@ -256,12 +263,12 @@ export function InputSelect<T>({
     <div className="relative" onClick={inputFocus}>
       <div className={_input({ mode, className: _className })}>
         <div className="w-full overflow-hidden flex flex-row gap-1 flex-wrap">
-          {multiple ? displayValue : isOpen ? <span></span> : displayValue}
+          {displayValue}
           <input
             placeholder="Select ..."
             className={cx(
               "place-base-3 bg-transparent focus:outline-none text-md",
-              multiple ? "" : isOpen ? "min-w-full" : "opacity-0 w-[1px]",
+              multiple ? "" : "min-w-full",
             )}
             {...getInputProps({
               ref: refInput,

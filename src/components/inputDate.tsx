@@ -98,7 +98,7 @@ export function InputDate({ mode = "base", className, value, onChange, disabled 
           className={"absolute right-4 h-6 w-6 opacity-50"}
         />
       </div>
-      <div ref={refDropdown} className="absolute z-10 w-72">
+      <div ref={refDropdown} className="absolute z-20 w-72">
         <AnimatePresence>
           {isOpen && (
             <motion.div

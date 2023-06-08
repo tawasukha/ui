@@ -63,9 +63,10 @@ export const usePagination = ({
   return paginationRange || []
 }
 
-const pageClassName = "px-3 py-2 text-md text-base-3 bg-base-1 hover:bg-primary-1"
+const pageClassName =
+  "px-3 py-2 text-md text-base-3 bg-base-1 hover:bg-primary-2 hover:bg-opacity-40 rounded-md"
 const buttonClassName =
-  "flex items-center px-4 py-2 text-md text-base-3 bg-base-1 hover:bg-primary-1 hover:text-primary-3 transition-colors duration-200 border rounded-md gap-x-2"
+  "flex items-center px-4 py-2 text-md text-base-3 bg-base-1 hover:bg-primary-2 hover:bg-opacity-40 transition-colors duration-200 rounded-md gap-x-2"
 
 export type PaginationProps = {
   onPageChange: (page: number) => void

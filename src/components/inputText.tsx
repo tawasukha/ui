@@ -21,10 +21,6 @@ const _input = cva(
 
 export interface InputTextProps extends Omit<InputProps, "type">, VariantProps<typeof _input> {}
 
-export const InputText = function InputText({
-  mode = "base",
-  className,
-  ...props
-}: InputTextProps) {
+export function InputText({ mode = "base", className, ...props }: InputTextProps) {
   return <input type="text" {...props} className={_input({ mode, className })} />
 }
