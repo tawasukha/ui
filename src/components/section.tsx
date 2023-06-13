@@ -18,7 +18,7 @@ export function Section({
   className,
 }: SectionProps) {
   return (
-    <div className={cx("rounded-lg shadow", className)}>
+    <section className={cx("rounded-lg shadow", className)}>
       <div
         className={cx(
           "flex w-full flex-row bg-primary-2 text-primary-4 text-md py-3.5 px-4 bg-opacity-40 rounded-t-lg sticky top-0 z-10 backdrop-blur-md",
@@ -29,6 +29,6 @@ export function Section({
         {right}
       </div>
       <div className={cx("px-4 space-y-2 pb-4", bodyClassName)}>{children}</div>
-    </div>
+    </section>
   )
 }

@@ -131,7 +131,9 @@ export function InputSelect<T>({
           {val}
         </XChip>
       ) : (
-        <span>{val}</span>
+        <span className="whitespace-nowrap" key={`${val}${i}`}>
+          {val}
+        </span>
       )
     })
   }, [values, multiple])
@@ -255,13 +257,15 @@ export function InputSelect<T>({
   return (
     <div className="relative" onClick={inputFocus}>
       <div className={_input({ mode, className: _className })}>
-        <div className="w-full overflow-hidden flex flex-row gap-1 flex-wrap">
+        <div
+          className={cx("w-full overflow-hidden flex flex-row gap-1", multiple ? "flex-wrap" : "")}
+        >
           {multiple ? displayValue : isOpen ? <span></span> : displayValue}
           <input
             placeholder="Select ..."
             className={cx(
-              "place-base-3 bg-transparent focus:outline-none text-md",
-              multiple ? "" : isOpen ? "min-w-full" : "opacity-0 w-[1px]",
+              "place-base-3 bg-[transparent!important] focus:outline-none text-md",
+              multiple ? "" : isOpen ? "w-[inherit]" : "opacity-0 w-[1px]",
             )}
             {...getInputProps({
               ref: refInput,
