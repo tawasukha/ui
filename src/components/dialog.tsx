@@ -148,7 +148,10 @@ export function Dialog({
             )}
 
             <h2 className="mt-2 text-xl font-semibold text-base-5">{title}</h2>
-            <p className="mt-4 text-sm text-base-5 max-h-60 overflow-y-auto pr-1">{description}</p>
+            <p
+              className="mt-4 text-sm text-base-5 max-h-60 overflow-y-auto pr-1"
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
             {children || (
               <DialogFooter {...{ mode, captionCancel, captionOK, onClickOK, onClickCancel }} />
             )}

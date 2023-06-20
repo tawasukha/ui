@@ -10,25 +10,27 @@ import {
 } from "react"
 import { dialog } from "./dialog"
 
-type FallbackProps = {
+type ErrorDialogProps = {
   error: any
+  retry: boolean
   reset: () => void
 }
-type ErrorState = { didCatch: boolean; error: any }
+type ErrorState = { didCatch: boolean; error: any; retry: boolean }
 type ErrorContextType = {
   didCatch: boolean
   error: any
-  setError: (error: any) => void
+  setError: (error: any, retry?: boolean) => void
   reset: () => void
 }
 
 const ErrorContext = createContext<ErrorContextType | undefined>(undefined)
 const initialState: ErrorState = {
+  retry: false,
   didCatch: false,
   error: null,
 }
 
-function Fallback({ error, reset }: FallbackProps) {
+function ErrorDialog({ error, reset, retry }: ErrorDialogProps) {
   useEffect(() => {
     void (async () => {
       const result = await dialog.show({
@@ -38,7 +40,7 @@ function Fallback({ error, reset }: FallbackProps) {
       })
 
       if (result.ok) {
-        reset()
+        if (retry) reset()
       }
     })()
   }, [error, reset])
@@ -53,8 +55,8 @@ export class ErrorHandler extends Component<PropsWithRef<PropsWithChildren<any>>
     return { didCatch: true, error }
   }
 
-  setError = (error: any) => {
-    this.setState(() => ({ error, didCatch: true }))
+  setError = (error: any, retry = false) => {
+    this.setState(() => ({ error, didCatch: true, retry }))
   }
 
   reset = () => {
@@ -73,18 +75,29 @@ export class ErrorHandler extends Component<PropsWithRef<PropsWithChildren<any>>
   }
 
   render() {
-    const { didCatch, error } = this.state
+    const { didCatch, error, retry = false } = this.state
 
+    let errorDialog
     let children = this.props.children
 
     if (didCatch) {
-      children = createElement(Fallback, { error, reset: this.reset })
+      errorDialog = createElement(ErrorDialog, { error, reset: this.reset, retry })
+      if (retry) {
+        children = errorDialog
+        errorDialog = undefined
+      }
     }
     return (
       <ErrorContext.Provider
-        value={{ didCatch, error, setError: this.setError, reset: this.reset }}
+        value={{
+          didCatch,
+          error,
+          setError: this.setError,
+          reset: this.reset,
+        }}
       >
         {children}
+        {errorDialog}
       </ErrorContext.Provider>
     )
   }
@@ -94,7 +107,7 @@ export function useErrorHandler(givenError?: unknown) {
   // eslint-disable-next-line @typescript-eslint/no-throw-literal
   if (givenError != null) throw givenError
   const { setError } = useContext(ErrorContext) || {
-    setError: (error: any) => {
+    setError: (error: any, retry?: boolean) => {
       console.log(error)
       throw new Error("setError is not defined")
     },
