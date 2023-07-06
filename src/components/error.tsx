@@ -1,36 +1,13 @@
-/* eslint-disable react/prop-types */
-import {
-  useContext,
-  createContext,
-  useEffect,
-  createElement,
-  Component,
-  type PropsWithRef,
-  type PropsWithChildren,
-} from "react"
+import { ErrorBoundary, useErrorBoundary } from "react-error-boundary"
 import { dialog } from "./dialog"
+import { useEffect } from "react"
 
 type ErrorDialogProps = {
   error: any
-  retry: boolean
-  reset: () => void
-}
-type ErrorState = { didCatch: boolean; error: any; retry: boolean }
-type ErrorContextType = {
-  didCatch: boolean
-  error: any
-  setError: (error: any, retry?: boolean) => void
-  reset: () => void
+  resetErrorBoundary: () => void
 }
 
-const ErrorContext = createContext<ErrorContextType | undefined>(undefined)
-const initialState: ErrorState = {
-  retry: false,
-  didCatch: false,
-  error: null,
-}
-
-function ErrorDialog({ error, reset, retry }: ErrorDialogProps) {
+function ErrorDialog({ error, resetErrorBoundary }: ErrorDialogProps) {
   useEffect(() => {
     void (async () => {
       const result = await dialog.show({
@@ -40,77 +17,31 @@ function ErrorDialog({ error, reset, retry }: ErrorDialogProps) {
       })
 
       if (result.ok) {
-        if (retry) reset()
+        resetErrorBoundary()
       }
     })()
-  }, [error, reset])
+  }, [error, resetErrorBoundary])
 
   return <></>
 }
 
-export class ErrorHandler extends Component<PropsWithRef<PropsWithChildren<any>>, ErrorState> {
-  state = initialState
-
-  static getDerivedStateFromError(error: Error) {
-    return { didCatch: true, error }
-  }
-
-  setError = (error: any, retry = false) => {
-    this.setState(() => ({ error, didCatch: true, retry }))
-  }
-
-  reset = () => {
-    const { error } = this.state
-    if (error !== null) {
-      this.setState(initialState)
-    }
-  }
-
-  componentDidUpdate(_: any, prevState: ErrorState) {
-    const { didCatch } = this.state
-
-    if (didCatch && prevState.error !== null) {
-      this.setState(initialState)
-    }
-  }
-
-  render() {
-    const { didCatch, error, retry = false } = this.state
-
-    let errorDialog
-    let children = this.props.children
-
-    if (didCatch) {
-      errorDialog = createElement(ErrorDialog, { error, reset: this.reset, retry })
-      if (retry) {
-        children = errorDialog
-        errorDialog = undefined
-      }
-    }
-    return (
-      <ErrorContext.Provider
-        value={{
-          didCatch,
-          error,
-          setError: this.setError,
-          reset: this.reset,
-        }}
-      >
-        {children}
-        {errorDialog}
-      </ErrorContext.Provider>
-    )
-  }
+type ChildrenProps = {
+  children: React.ReactNode
 }
 
-export function useErrorHandler(givenError?: unknown) {
-  // eslint-disable-next-line @typescript-eslint/no-throw-literal
-  if (givenError != null) throw givenError
-  const { setError } = useContext(ErrorContext) || {
-    setError: (error: any, retry?: boolean) => {
-      console.log(error)
-      throw new Error("setError is not defined")
-    },
-  }
-  return { setError }
+const logError = (error: Error, info: { componentStack: string }) => {
+  console.error(info.componentStack, error)
+}
+
+export function ErrorHandler({ children }: ChildrenProps) {
+  return (
+    <ErrorBoundary onError={logError} FallbackComponent={ErrorDialog}>
+      {children}
+    </ErrorBoundary>
+  )
+}
+
+export function useErrorHandler() {
+  const { showBoundary } = useErrorBoundary()
+  return { setError: showBoundary }
 }
