@@ -39,9 +39,23 @@ export interface InputDateProps
 
 export function InputDate({ mode = "base", className, value, onChange, disabled }: InputDateProps) {
   const { value: isOpen, setTrue, setFalse } = useBoolean()
-  const [selectedDates, onDatesChange] = useState<Date[]>(value ? [value] : [])
-  const refDropdown = useRef(null)
+  const [selectedDates, onDatesChange] = useState<Date[]>(
+    value ? (Array.isArray(value) ? value : [value]) : [],
+  )
 
+  const refSyncValues = useRef<boolean>(true)
+  useEffect(() => {
+    if (refSyncValues.current) {
+      const _values = value ? (Array.isArray(value) ? value : [value]) : []
+
+      if (JSON.stringify(selectedDates) !== JSON.stringify(_values)) {
+        onDatesChange(_values)
+        refSyncValues.current = false
+      }
+    }
+  }, [value, selectedDates, onDatesChange])
+
+  const refDropdown = useRef(null)
   useOnClickOutside(refDropdown, setFalse)
 
   const {

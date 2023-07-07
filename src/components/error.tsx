@@ -30,7 +30,7 @@ type ChildrenProps = {
 }
 
 const logError = (error: Error, info: { componentStack: string }) => {
-  console.error(info.componentStack, error)
+  console.error(`[ERROR] Tawasukha UI : ${info.componentStack}`, error)
 }
 
 export function ErrorHandler({ children }: ChildrenProps) {
