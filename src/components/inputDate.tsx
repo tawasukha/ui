@@ -14,7 +14,6 @@ import {
   ChevronRightIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/solid"
-import { useIsFirstRender } from "src/helpers/useIsFirstRender"
 
 const _input = cva(
   [
@@ -43,14 +42,18 @@ export function InputDate({ mode = "base", className, value, onChange, disabled 
   const [selectedDates, onDatesChange] = useState<Date[]>(
     value ? (Array.isArray(value) ? value : [value]) : [],
   )
-  const isFirstRender = useIsFirstRender()
 
+  const refSyncValues = useRef<boolean>(true)
   useEffect(() => {
-    if (isFirstRender) {
+    if (refSyncValues.current) {
       const _values = value ? (Array.isArray(value) ? value : [value]) : []
-      onDatesChange(_values)
+
+      if (JSON.stringify(selectedDates) !== JSON.stringify(_values)) {
+        onDatesChange(_values)
+        refSyncValues.current = false
+      }
     }
-  }, [value, onDatesChange])
+  }, [value, selectedDates, onDatesChange])
 
   const refDropdown = useRef(null)
   useOnClickOutside(refDropdown, setFalse)
@@ -73,7 +76,7 @@ export function InputDate({ mode = "base", className, value, onChange, disabled 
   )
 
   useEffect(() => {
-    if (!isFirstRender) {
+    if (!refSyncValues.current) {
       onChange(selectedDates ? selectedDates[0] : null)
       setFalse()
     }

@@ -16,6 +16,7 @@ import { type InputTextProps } from "./components/inputText"
 import { type InputTextAreaProps } from "./components/inputTextArea"
 import { type LabelProps } from "react-html-props"
 import { type MenuItemProps } from "./components/menu"
+import { type ModalProps } from "./components/modal"
 import { type NavbarProps, type NavbarMenuProps, type NavbarMenuElement } from "./components/navbar"
 import { type PaginationProps } from "./components/pagination"
 import { type SectionProps } from "./components/section"
@@ -30,7 +31,7 @@ export type {
   ButtonProps, CardProps, ChipProps, XChipProps, DialogProps,
   ModeProps, InputCheckboxProps, InputDateProps,
   InputEditorProps, InputUploadProps, InputNumberProps, InputPasswordProps,
-  InputSelectProps, InputTextProps, InputTextAreaProps, LabelProps, MenuItemProps,
+  InputSelectProps, InputTextProps, InputTextAreaProps, LabelProps, MenuItemProps, ModalProps,
   NavbarMenuElement, NavbarMenuProps, NavbarProps, PaginationProps, SectionProps,
   SidebarMenuProps, SidebarProps, TableCellProps, TableHeadProps, TableProps,
   TableRowProps, TableBodyProps,

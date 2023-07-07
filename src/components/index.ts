@@ -3,7 +3,7 @@ import { Avatar } from "./avatar"
 import { Button } from "./button"
 import { Card } from "./card"
 import { Chip, XChip } from "./chip"
-import { Dialog, dialog } from "./dialog"
+import { dialog } from "./dialog"
 import {
   ErrorHandler, useErrorHandler,
 } from "./error"
@@ -13,6 +13,7 @@ import { InputTextArea } from "./inputTextArea"
 import { InputUpload } from "./inputUpload"
 import { Label } from "./label"
 import { Loader } from "./loader"
+import { Modal } from "./modal"
 import { Menu, MenuItem } from "./menu"
 import {
   Navbar, NavbarMenu,
@@ -25,9 +26,9 @@ import { Table, TableHead, TableBody, TableCell, TableRow } from "./table"
 import { ThemeToggle } from "./theme"
 
 export {
-  Alert, Avatar, Button, Card, Chip, XChip, Dialog, dialog,
+  Alert, Avatar, Button, Card, Chip, XChip, dialog,
   ErrorHandler, useErrorHandler, Icon, InputText, InputTextArea, InputUpload, StyledIcon, Label, Loader,
-  Menu, MenuItem, Navbar, NavbarMenu, Provider, Pagination, Section, Sidebar, SidebarMenu,
+  Menu, MenuItem, Modal, Navbar, NavbarMenu, Provider, Pagination, Section, Sidebar, SidebarMenu,
   Table, TableBody, TableCell, TableRow, TableHead, ThemeToggle,
 }
 
