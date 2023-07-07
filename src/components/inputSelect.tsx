@@ -13,6 +13,7 @@ import { Chip, XChip } from "./chip"
 import { AnimatePresence } from "framer-motion"
 import { debouncePromise } from "../helpers/debouncePromise"
 import { ChevronDownIcon } from "@heroicons/react/24/solid"
+import { useIsFirstRender } from "src/helpers/useIsFirstRender"
 
 const _input = cva(
   [
@@ -65,22 +66,18 @@ export function InputSelect<T>({
   )
   const refInput = useRef<HTMLInputElement | null>(null)
   const [items, setItems] = useState(options || [])
+  const isFirstRender = useIsFirstRender()
 
   // For Multiple Values only
-  const refSyncValues = useRef<boolean>(true)
   const [values, setValues] = useState(value ? (Array.isArray(value) ? value : [value]) : undefined)
 
   // For Multiple Values only
   useEffect(() => {
-    if (refSyncValues.current) {
+    if (isFirstRender) {
       const _values = value ? (Array.isArray(value) ? value : [value]) : undefined
-
-      if (JSON.stringify(values) !== JSON.stringify(_values)) {
-        setValues(_values)
-        refSyncValues.current = false
-      }
+      setValues(_values)
     }
-  }, [value, values, setValues])
+  }, [value, setValues])
 
   const onDismiss = useCallback(
     (item: T) => {
@@ -114,6 +111,7 @@ export function InputSelect<T>({
   }, [value])
 
   const displayValue = useMemo(() => {
+    const values = value ? (Array.isArray(value) ? value : [value]) : undefined
     return (values || []).map((value, i) => {
       // @ts-expect-error
       const val = value[keyLabel] ? value[keyLabel] : value
@@ -136,7 +134,7 @@ export function InputSelect<T>({
         </span>
       )
     })
-  }, [values, multiple])
+  }, [value, multiple])
 
   const stateReducer = useCallback(
     (state: UseComboboxState<T>, actionAndChanges: UseComboboxStateChangeOptions<T>) => {
@@ -163,7 +161,7 @@ export function InputSelect<T>({
   )
 
   useEffect(() => {
-    if (multiple) {
+    if (!isFirstRender && multiple) {
       onChange(values)
     }
   }, [multiple, values])
