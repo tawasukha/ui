@@ -1,7 +1,7 @@
 import React from "react"
 import { InputText } from "./inputText"
 import { InputTextArea } from "./inputTextArea"
-import { create } from "react-modal-promise"
+import { create } from "./modal-promise"
 import { type ModalProps, Modal, ModalFooter, type2Mode } from "./modal"
 
 interface DialogPromiseProps
@@ -61,23 +61,20 @@ export function DialogPromise({
   const mode = React.useMemo(() => type2Mode(type), [type])
   const { refInput, Input } = useDialogInput({ option, onResolve, allowBlank })
 
-  const onClickOK = React.useCallback(
-    (value: any) => {
-      if (refInput.current) {
-        value = refInput.current.value
-        if (allowBlank) {
-          onResolve(value ? { ok: true, value } : { ok: true })
-        } else {
-          if (value) {
-            onResolve({ ok: true, value })
-          }
-        }
+  const onClickOK = React.useCallback(() => {
+    if (refInput.current) {
+      const value = refInput.current.value
+      if (allowBlank) {
+        onResolve(value ? { ok: true, value } : { ok: true })
       } else {
-        onResolve({ ok: true, value })
+        if (value) {
+          onResolve({ ok: true, value })
+        }
       }
-    },
-    [onResolve],
-  )
+    } else {
+      onResolve({ ok: true, value: "" })
+    }
+  }, [onResolve])
 
   const onClickCancel = React.useCallback(() => {
     onReject({ ok: false })

@@ -2,19 +2,31 @@ import { ErrorBoundary, useErrorBoundary } from "react-error-boundary"
 import { dialog } from "./dialog"
 import { useEffect } from "react"
 
+type ChildrenProps = {
+  children: React.ReactNode
+}
+
 type ErrorDialogProps = {
   error: any
   resetErrorBoundary: () => void
 }
 
+async function showError(error: any) {
+  return await dialog.show({
+    title: "Error",
+    type: "error",
+    description: `${error.message} [${error.name}]`,
+  })
+}
+
+const logError = (error: Error, info: { componentStack: string }) => {
+  console.error(`[ERROR] Tawasukha UI : ${info.componentStack}`, error)
+}
+
 function ErrorDialog({ error, resetErrorBoundary }: ErrorDialogProps) {
   useEffect(() => {
     void (async () => {
-      const result = await dialog.show({
-        title: "Error",
-        type: "error",
-        description: `${error.message} [${error.name}]`,
-      })
+      const result = await showError(error)
 
       if (result.ok) {
         resetErrorBoundary()
@@ -23,14 +35,6 @@ function ErrorDialog({ error, resetErrorBoundary }: ErrorDialogProps) {
   }, [error, resetErrorBoundary])
 
   return <></>
-}
-
-type ChildrenProps = {
-  children: React.ReactNode
-}
-
-const logError = (error: Error, info: { componentStack: string }) => {
-  console.error(`[ERROR] Tawasukha UI : ${info.componentStack}`, error)
 }
 
 export function ErrorHandler({ children }: ChildrenProps) {
@@ -43,5 +47,5 @@ export function ErrorHandler({ children }: ChildrenProps) {
 
 export function useErrorHandler() {
   const { showBoundary } = useErrorBoundary()
-  return { setError: showBoundary }
+  return { setError: showBoundary, showError }
 }

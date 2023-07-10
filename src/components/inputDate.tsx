@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect } from "react"
+import { useMemo, useRef, useEffect, useCallback } from "react"
 import { useDatePicker } from "@rehookify/datepicker"
 import { type InputProps } from "react-html-props"
 import { cva, cx, type VariantProps } from "../helpers/cva"
@@ -39,30 +39,17 @@ export interface InputDateProps
 
 export function InputDate({ mode = "base", className, value, onChange, disabled }: InputDateProps) {
   const { value: isOpen, setTrue, setFalse } = useBoolean()
-  const [selectedDates, onDatesChange] = useState<Date[]>(
-    value ? (Array.isArray(value) ? value : [value]) : [],
-  )
-
-  const refSyncValues = useRef<boolean>(true)
-  useEffect(() => {
-    if (refSyncValues.current) {
-      const _values = value ? (Array.isArray(value) ? value : [value]) : []
-
-      if (JSON.stringify(selectedDates) !== JSON.stringify(_values)) {
-        onDatesChange(_values)
-        refSyncValues.current = false
-      }
-    }
-  }, [value, selectedDates, onDatesChange])
-
   const refDropdown = useRef(null)
+  const onDatesChange = useCallback((dates:Date[])=>{ onChange(dates?dates[0]:null); },[onChange])
+  const selectedDates = useMemo(()=>value ? [value] : undefined,[value])
+  
   useOnClickOutside(refDropdown, setFalse)
 
   const {
     data: { calendars, weekDays },
     propGetters: { dayButton, nextMonthButton, previousMonthButton },
   } = useDatePicker({
-    selectedDates: value ? [value] : undefined,
+    selectedDates,
     onDatesChange,
     dates: { toggle: true, mode: "single" },
   })
@@ -76,10 +63,7 @@ export function InputDate({ mode = "base", className, value, onChange, disabled 
   )
 
   useEffect(() => {
-    if (!refSyncValues.current) {
-      onChange(selectedDates ? selectedDates[0] : null)
-      setFalse()
-    }
+    setFalse()
   }, [selectedDates])
 
   const _className = useMemo(() => {
@@ -108,11 +92,13 @@ export function InputDate({ mode = "base", className, value, onChange, disabled 
           value={selectedDate}
           readOnly
         />
-        <StyledIcon
-          mode={mode}
-          name={CalendarDaysIcon}
-          className={"absolute right-4 h-6 w-6 opacity-50"}
-        />
+        {!disabled && (
+          <StyledIcon
+            mode={mode}
+            name={CalendarDaysIcon}
+            className={"absolute right-4 h-6 w-6 opacity-50"}
+          />
+        )}
       </div>
       <div ref={refDropdown} className="absolute z-20 w-72">
         <AnimatePresence>

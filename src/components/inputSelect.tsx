@@ -282,14 +282,16 @@ export function InputSelect<T>({
           />
         </div>
 
-        <StyledIcon
-          mode={mode}
-          name={ChevronDownIcon}
-          className={cx(
-            "absolute right-4 transition ease-out bg-base h-6 w-6",
-            isOpen ? "rotate-180" : "",
-          )}
-        />
+        {!disabled && (
+          <StyledIcon
+            mode={mode}
+            name={ChevronDownIcon}
+            className={cx(
+              "absolute right-4 transition ease-out bg-base h-6 w-6",
+              isOpen ? "rotate-180" : "",
+            )}
+          />
+        )}
       </div>
       <div {...getMenuProps()} className="absolute w-full z-20">
         <AnimatePresence>
