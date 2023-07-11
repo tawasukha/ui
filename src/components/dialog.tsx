@@ -1,6 +1,6 @@
 import React from "react"
 import { InputText } from "./inputText"
-import { InputTextArea } from "./inputTextArea"
+import { RawTextArea } from "./inputTextArea"
 import { create } from "./modal-promise"
 import { type ModalProps, Modal, ModalFooter, type2Mode } from "./modal"
 
@@ -10,6 +10,7 @@ interface DialogPromiseProps
   option?: "textarea" | "input"
   allowBlank?: boolean
   allowClose?: boolean
+  placeholder?: string
   onResolve: (
     args: React.KeyboardEvent<HTMLInputElement> | Record<string, string | boolean>,
   ) => void
@@ -20,7 +21,8 @@ function useDialogInput({
   option,
   onResolve,
   allowBlank,
-}: Pick<DialogPromiseProps, "option" | "onResolve" | "allowBlank">) {
+  placeholder,
+}: Pick<DialogPromiseProps, "option" | "onResolve" | "allowBlank" | "placeholder">) {
   const refInput = React.useRef<HTMLInputElement & HTMLTextAreaElement>(null)
   const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = React.useCallback(
     (event) => {
@@ -36,9 +38,9 @@ function useDialogInput({
 
   const Input = React.useMemo(() => {
     return !option ? null : option === "input" ? (
-      <InputText className="mt-2" ref={refInput} onKeyDown={onKeyDown} />
+      <InputText placeholder={placeholder} className="mt-2" ref={refInput} onKeyDown={onKeyDown} />
     ) : (
-      <InputTextArea className="mt-2" ref={refInput} minRows={3} />
+      <RawTextArea placeholder={placeholder} className="mt-2 h-28" ref={refInput} />
     )
   }, [])
 
@@ -57,13 +59,15 @@ export function DialogPromise({
   description,
   captionOK,
   captionCancel,
+  placeholder,
 }: DialogPromiseProps) {
   const mode = React.useMemo(() => type2Mode(type), [type])
-  const { refInput, Input } = useDialogInput({ option, onResolve, allowBlank })
+  const { refInput, Input } = useDialogInput({ option, onResolve, allowBlank, placeholder })
 
   const onClickOK = React.useCallback(() => {
     if (refInput.current) {
       const value = refInput.current.value
+
       if (allowBlank) {
         onResolve(value ? { ok: true, value } : { ok: true })
       } else {
@@ -74,7 +78,7 @@ export function DialogPromise({
     } else {
       onResolve({ ok: true, value: "" })
     }
-  }, [onResolve])
+  }, [onResolve, refInput.current])
 
   const onClickCancel = React.useCallback(() => {
     onReject({ ok: false })

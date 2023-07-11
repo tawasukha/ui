@@ -1,5 +1,6 @@
 import { type InputProps } from "react-html-props"
 import { cva, type VariantProps } from "../helpers/cva"
+import { forwardRef } from "react"
 
 const _input = cva(
   [
@@ -21,6 +22,6 @@ const _input = cva(
 
 export interface InputTextProps extends Omit<InputProps, "type">, VariantProps<typeof _input> {}
 
-export function InputText({ mode = "base", className, ...props }: InputTextProps) {
-  return <input type="text" {...props} className={_input({ mode, className })} />
-}
+export const InputText = forwardRef<HTMLInputElement,InputTextProps>(function InputText({ mode = "base", className, ...props },ref) {
+  return <input ref={ref} type="text" {...props} className={_input({ mode, className })} />
+})

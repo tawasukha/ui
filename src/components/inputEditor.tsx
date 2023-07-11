@@ -1,12 +1,12 @@
 import { cva, type VariantProps } from "../helpers/cva"
-import { useEditor, EditorContent } from "@tiptap/react"
+import { useEditor, EditorContent, type PureEditorContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import { Link as ExtLink } from "@tiptap/extension-link"
 import { Table as ExtTable } from "@tiptap/extension-table"
 import { TableRow as ExtRow } from "@tiptap/extension-table-row"
 import { TableHeader as ExtHeader } from "@tiptap/extension-table-header"
 import { TableCell as ExtCell } from "@tiptap/extension-table-cell"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { forwardRef, useCallback, useEffect, useRef, useState } from "react"
 import { dynamic } from "../helpers/dynamic"
 
 const Iconbar = dynamic(async () => await import("./editor/iconbar"))
@@ -33,14 +33,14 @@ export interface InputEditorProps extends VariantProps<typeof _input> {
   disabled?: boolean
 }
 
-export function InputEditor({
+export const InputEditor = forwardRef<PureEditorContent,InputEditorProps>(function InputEditor({
   mode = "base",
   className,
   onChange,
   content,
   disabled = false,
-}: InputEditorProps) {
-  const ref = useRef<any>()
+},ref) {
+  const refTimeout = useRef<NodeJS.Timeout>()
   const [hasContent, renderContent] = useState(content === undefined)
   const editor = useEditor({
     extensions: [
@@ -74,14 +74,14 @@ export function InputEditor({
   })
 
   useEffect(() => {
-    ref.current = setTimeout(() => {
+    refTimeout.current = setTimeout(() => {
       if (editor && hasContent) {
         editor.commands.setContent(content)
         renderContent(false)
       }
     }, 300)
     return () => {
-      clearTimeout(ref.current)
+      clearTimeout(refTimeout.current)
     }
   }, [content, editor, hasContent])
 
@@ -95,9 +95,9 @@ export function InputEditor({
       <div className="min-h-[200px] overflow-auto">
         {editor && <TableMenu editor={editor} />}
         <div className="px-4 pt-3 py-2 text-base-5">
-          <EditorContent editor={editor} disabled={disabled} />
+          <EditorContent ref={ref} editor={editor} disabled={disabled} />
         </div>
       </div>
     </div>
   )
-}
+})

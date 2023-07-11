@@ -1,5 +1,5 @@
 import { cva, cx, type VariantProps } from "../helpers/cva"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { type InputProps } from "react-html-props"
 import { Menu, MenuItem } from "./menu"
 import {
@@ -45,7 +45,7 @@ export interface InputSelectProps<T>
   renderItem?: (item: T) => JSX.Element
 }
 
-export function InputSelect<T>({
+export const InputSelect = forwardRef(function InputSelect<T>({
   creatable = false,
   multiple = false,
   keyLabel = "label",
@@ -59,7 +59,7 @@ export function InputSelect<T>({
   onChange = () => {},
   loadOptions: _loadOptions,
   disabled,
-}: InputSelectProps<T>) {
+}:InputSelectProps<T>,ref:any) {
   const loadOptions = useMemo(
     () => (_loadOptions ? debouncePromise(_loadOptions, milis, "Aborted") : undefined),
     [_loadOptions],
@@ -253,7 +253,7 @@ export function InputSelect<T>({
   }, [mode, isOpen, className, disabled])
 
   return (
-    <div className="relative" onClick={inputFocus}>
+    <div ref={ref} className="relative" onClick={inputFocus}>
       <div className={_input({ mode, className: _className })}>
         <div
           className={cx("w-full overflow-hidden flex flex-row gap-1", multiple ? "flex-wrap" : "")}
@@ -341,4 +341,4 @@ export function InputSelect<T>({
       </div>
     </div>
   )
-}
+})

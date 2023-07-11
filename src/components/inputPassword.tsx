@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { forwardRef, useMemo } from "react"
 import { type InputProps } from "react-html-props"
 import { cva, type VariantProps } from "../helpers/cva"
 import { useBoolean } from "../helpers/useBoolean"
@@ -40,7 +40,7 @@ const _input = cva(
 
 export interface InputPasswordProps extends Omit<InputProps, "type">, VariantProps<typeof _input> {}
 
-export function InputPassword({ mode = "base", className, ...props }: InputPasswordProps) {
+export const InputPassword = forwardRef<HTMLInputElement,InputPasswordProps>(function InputPassword({ mode = "base", className, ...props },ref) {
   const { value, toggle, eye } = useEye(mode)
 
   return (
@@ -50,10 +50,11 @@ export function InputPassword({ mode = "base", className, ...props }: InputPassw
       </button>
 
       <input
+        ref={ref}
         type={value ? "text" : "password"}
         {...props}
         className={_input({ mode, className })}
       />
     </div>
   )
-}
+})

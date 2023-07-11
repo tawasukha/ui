@@ -1,4 +1,4 @@
-import { useMemo, useRef, useEffect, useCallback } from "react"
+import { useMemo, useRef, useEffect, useCallback, forwardRef } from "react"
 import { useDatePicker } from "@rehookify/datepicker"
 import { type InputProps } from "react-html-props"
 import { cva, cx, type VariantProps } from "../helpers/cva"
@@ -37,7 +37,7 @@ export interface InputDateProps
   onChange: (date: Date | null) => void
 }
 
-export function InputDate({ mode = "base", className, value, onChange, disabled }: InputDateProps) {
+export const InputDate = forwardRef<HTMLInputElement,InputDateProps>(function InputDate({ mode = "base", className, value, onChange, disabled },ref) {
   const { value: isOpen, setTrue, setFalse } = useBoolean()
   const refDropdown = useRef(null)
   const onDatesChange = useCallback((dates:Date[])=>{ onChange(dates?dates[0]:null); },[onChange])
@@ -87,6 +87,7 @@ export function InputDate({ mode = "base", className, value, onChange, disabled 
         onClick={disabled ? undefined : setTrue}
       >
         <input
+        ref={ref}
           className="outline-none focus:ring-0 bg-transparent"
           type="text"
           value={selectedDate}
@@ -169,4 +170,4 @@ export function InputDate({ mode = "base", className, value, onChange, disabled 
       </div>
     </div>
   )
-}
+})

@@ -1,3 +1,4 @@
+import { forwardRef } from "react"
 import { cva, type VariantProps } from "../helpers/cva"
 import { dynamic } from "../helpers/dynamic"
 
@@ -24,6 +25,10 @@ export interface InputTextAreaProps
   extends React.ComponentProps<typeof TextArea>,
     VariantProps<typeof _input> {}
 
-export function InputTextArea({ mode = "base", className, ...props }: InputTextAreaProps) {
-  return <TextArea {...props} className={_input({ mode, className })} />
-}
+export const InputTextArea = forwardRef<HTMLTextAreaElement,InputTextAreaProps>(function InputTextArea({ mode = "base", className, ...props },ref) {
+  return <TextArea ref={ref} {...props} className={_input({ mode, className })} />
+})
+
+export const RawTextArea = forwardRef<HTMLTextAreaElement,InputTextAreaProps>(function InputTextArea({ mode = "base", className, ...props },ref) {
+  return <textarea ref={ref} {...props} className={_input({ mode, className })} />
+})
