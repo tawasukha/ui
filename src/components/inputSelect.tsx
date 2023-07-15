@@ -45,21 +45,24 @@ export interface InputSelectProps<T>
   renderItem?: (item: T) => JSX.Element
 }
 
-export const InputSelect = forwardRef(function InputSelect<T>({
-  creatable = false,
-  multiple = false,
-  keyLabel = "label",
-  keyValue = "value",
-  renderItem,
-  milis = 300,
-  mode = "base",
-  className,
-  options,
-  value,
-  onChange = () => {},
-  loadOptions: _loadOptions,
-  disabled,
-}:InputSelectProps<T>,ref:any) {
+export const InputSelect = forwardRef(function InputSelect<T>(
+  {
+    creatable = false,
+    multiple = false,
+    keyLabel = "label",
+    keyValue = "value",
+    renderItem,
+    milis = 300,
+    mode = "base",
+    className,
+    options,
+    value,
+    onChange = () => {},
+    loadOptions: _loadOptions,
+    disabled,
+  }: InputSelectProps<T>,
+  ref: any,
+) {
   const loadOptions = useMemo(
     () => (_loadOptions ? debouncePromise(_loadOptions, milis, "Aborted") : undefined),
     [_loadOptions],
@@ -192,7 +195,18 @@ export const InputSelect = forwardRef(function InputSelect<T>({
         let asyncOptions: T[] = []
         try {
           asyncOptions = await loadOptions(inputValue)
-        } catch (err) {}
+        } catch (err) {
+          console.log(err)
+        }
+
+        if (creatable && !!inputValue) {
+          asyncOptions.push({
+            [keyValue]: inputValue,
+            [keyLabel]: inputValue,
+            __new__: true,
+          } as T)
+        }
+
         setItems(asyncOptions)
       } else {
         const filteredOptions = (options || [])
