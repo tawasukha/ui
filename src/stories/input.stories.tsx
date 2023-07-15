@@ -9,6 +9,8 @@ import { InputDate } from "../components/inputDate"
 import { InputNumber } from "../components/inputNumber"
 import { InputEditor } from "../components/inputEditor"
 import { InputUpload } from "../components/inputUpload"
+import { today } from "./data"
+import { useState } from "react"
 
 const meta = {
   title: "Tawasukha UI/Input",
@@ -92,14 +94,13 @@ export const Checkbox: StoryObj<typeof InputCheckbox> = {
 export const Date: StoryObj<typeof InputDate> = {
   args: {
     mode: "base",
-    value: undefined,
-    onChange: () => {},
   },
   render(args) {
+    const [value, onChange] = useState<any>(today)
     return (
       <>
         <Label>Label</Label>
-        <InputDate {...args} />
+        <InputDate {...args} value={value} onChange={onChange} />
       </>
     )
   },
@@ -130,15 +131,16 @@ export const Select: StoryObj<typeof InputSelect> = {
     ],
   },
   render(args) {
+    const [value, onChange] = useState<any>("")
     return (
       <>
         <Label>Label</Label>
-        <InputSelect {...args} />
+        <InputSelect {...{ value, onChange }} {...args} />
         <Label>Label</Label>
-        <InputSelect {...args} />
+        <InputSelect {...{ value, onChange }} {...args} />
         <Label>Label</Label>
         <div className="w-36">
-          <InputSelect {...args} />
+          <InputSelect {...{ value, onChange }} {...args} />
         </div>
       </>
     )
@@ -147,6 +149,7 @@ export const Select: StoryObj<typeof InputSelect> = {
 
 export const AsyncSelect: StoryObj<typeof InputSelect> = {
   args: {
+    creatable: false,
     mode: "error",
     keyLabel: "name",
     keyValue: "mal_id",
@@ -163,12 +166,13 @@ export const AsyncSelect: StoryObj<typeof InputSelect> = {
     },
   },
   render(args) {
+    const [value, onChange] = useState<any>("")
     return (
       <>
         <Label>Label</Label>
-        <InputSelect {...args} />
+        <InputSelect {...{ value, onChange }} {...args} />
         <Label>Label</Label>
-        <InputSelect {...args} />
+        <InputSelect {...{ value, onChange }} {...args} />
       </>
     )
   },
@@ -200,12 +204,14 @@ export const CreatableSelect: StoryObj<typeof InputSelect> = {
     ],
   },
   render(args) {
+    const [value, onChange] = useState<any>("")
+
     return (
       <>
         <Label>Label</Label>
-        <InputSelect {...args} />
+        <InputSelect {...{ value, onChange }} {...args} />
         <Label>Label</Label>
-        <InputSelect {...args} />
+        <InputSelect {...{ value, onChange }} {...args} />
       </>
     )
   },
@@ -237,10 +243,12 @@ export const MultiSelect: StoryObj<typeof InputSelect> = {
     ],
   },
   render(args) {
+    const [value, onChange] = useState<any>("")
+
     return (
       <>
         <Label>Label</Label>
-        <InputSelect {...args} />
+        <InputSelect {...{ value, onChange }} {...args} />
       </>
     )
   },
@@ -273,10 +281,12 @@ export const MultiCreatableSelect: StoryObj<typeof InputSelect> = {
     ],
   },
   render(args) {
+    const [value, onChange] = useState<any>("")
+
     return (
       <>
         <Label>Label</Label>
-        <InputSelect {...args} />
+        <InputSelect {...{ value, onChange }} {...args} />
       </>
     )
   },
@@ -305,12 +315,14 @@ export const MultiAsyncSelect: StoryObj<typeof InputSelect> = {
     },
   },
   render(args) {
+    const [value, onChange] = useState<any>("")
+
     return (
       <>
         <Label>Label</Label>
-        <InputSelect {...args} />
+        <InputSelect {...{ value, onChange }} {...args} />
         <Label>Label</Label>
-        <InputSelect {...args} />
+        <InputSelect {...{ value, onChange }} {...args} />
       </>
     )
   },

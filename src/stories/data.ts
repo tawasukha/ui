@@ -1,3 +1,4 @@
+export const today = new Date()
 export const data = [
   {
     "id": 1,

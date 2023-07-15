@@ -322,32 +322,35 @@ export const InputSelect = forwardRef(function InputSelect<T>(
                   {loadOptions ? "Type for search ..." : "- Not Found -"}
                 </MenuItem>
               ) : (
-                items.map((item, index) => (
-                  <MenuItem
-                    key={
-                      // @ts-expect-error
-                      `${item[keyValue]}${index}`
-                    }
-                    hover={highlightedIndex === index}
-                    active={selected === item}
-                    {...getItemProps({ item, index })}
-                  >
-                    {renderItem ? (
-                      renderItem(item)
-                    ) : (
-                      // @ts-expect-error
-                      <span className="flex flex-1">{item[keyLabel]}</span>
-                    )}
-                    {
-                      // @ts-expect-error
-                      item.__new__ && (
-                        <Chip mode="error" size="sm" className="self-center">
-                          New
-                        </Chip>
-                      )
-                    }
-                  </MenuItem>
-                ))
+                items
+                  // @ts-expect-error
+                  .filter((item) => (items.length === 1 ? true : !item.__new__))
+                  .map((item, index) => (
+                    <MenuItem
+                      key={
+                        // @ts-expect-error
+                        `${item[keyValue]}${index}`
+                      }
+                      hover={highlightedIndex === index}
+                      active={selected === item}
+                      {...getItemProps({ item, index })}
+                    >
+                      {renderItem ? (
+                        renderItem(item)
+                      ) : (
+                        // @ts-expect-error
+                        <span className="flex flex-1">{item[keyLabel]}</span>
+                      )}
+                      {
+                        // @ts-expect-error
+                        item.__new__ && (
+                          <Chip mode="error" size="sm" className="self-center">
+                            New
+                          </Chip>
+                        )
+                      }
+                    </MenuItem>
+                  ))
               )}
             </Menu>
           )}
