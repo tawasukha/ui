@@ -274,6 +274,7 @@ export const InputSelect = forwardRef(function InputSelect<T>(
         >
           {multiple ? displayValue : isOpen ? <span></span> : displayValue}
           <input
+            disabled={disabled}
             placeholder="Select ..."
             className={cx(
               "place-base-3 bg-[transparent!important] focus:outline-none text-md",

@@ -40,21 +40,23 @@ const _input = cva(
 
 export interface InputPasswordProps extends Omit<InputProps, "type">, VariantProps<typeof _input> {}
 
-export const InputPassword = forwardRef<HTMLInputElement,InputPasswordProps>(function InputPassword({ mode = "base", className, ...props },ref) {
-  const { value, toggle, eye } = useEye(mode)
+export const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(
+  function InputPassword({ mode = "base", className, ...props }, ref) {
+    const { value, toggle, eye } = useEye(mode)
 
-  return (
-    <div className="relative flex items-center">
-      <button onClick={toggle} className="absolute right-3 focus:outline-none">
-        {eye}
-      </button>
+    return (
+      <div className="relative flex items-center">
+        <button type="button" onClick={toggle} className="absolute right-3 focus:outline-none">
+          {eye}
+        </button>
 
-      <input
-        ref={ref}
-        type={value ? "text" : "password"}
-        {...props}
-        className={_input({ mode, className })}
-      />
-    </div>
-  )
-})
+        <input
+          ref={ref}
+          type={value ? "text" : "password"}
+          {...props}
+          className={_input({ mode, className })}
+        />
+      </div>
+    )
+  },
+)

@@ -4,6 +4,7 @@ import { ProgressBar } from "./ProgressBar"
 import { useDropzone, type Accept } from "react-dropzone"
 import { useCallback, useState } from "react"
 import { uploadFile } from "./util"
+import { cx } from "src/helpers"
 
 export type UploaderProps = {
   responseKey?: string
@@ -54,8 +55,10 @@ export function Uploader({
   return (
     <div
       {...getRootProps({
-        className:
-          "relative flex flex-col p-4 w-40 items-center justify-center border rounded-lg border-base-2 h-28 cursor-pointer border-dashed",
+        className: cx(
+          "relative flex flex-col p-4 items-center justify-center rounded-lg",
+          disabled ? "" : "w-40 border border-base-2 h-28 cursor-pointer border-dashed",
+        ),
       })}
     >
       {progress === 0 ? (

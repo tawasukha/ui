@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { InputText } from "./inputText"
 import { RawTextArea } from "./inputTextArea"
 import { create } from "./modal-promise"
@@ -38,9 +38,15 @@ function useDialogInput({
 
   const Input = React.useMemo(() => {
     return !option ? null : option === "input" ? (
-      <InputText placeholder={placeholder} className="mt-2" ref={refInput} onKeyDown={onKeyDown} />
+      <InputText
+        autoFocus
+        placeholder={placeholder}
+        className="mt-2"
+        ref={refInput}
+        onKeyDown={onKeyDown}
+      />
     ) : (
-      <RawTextArea placeholder={placeholder} className="mt-2 h-28" ref={refInput} />
+      <RawTextArea autoFocus placeholder={placeholder} className="mt-2 h-28" ref={refInput} />
     )
   }, [])
 
