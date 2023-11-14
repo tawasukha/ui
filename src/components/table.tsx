@@ -79,12 +79,9 @@ export const Table = forwardRef<HTMLDivElement, TableProps>(function Table(
   return (
     <div
       ref={ref}
-      className={cx(
-        "shadow shadow-offset inline-block min-w-full overflow-x-auto rounded-lg",
-        className,
-      )}
+      className={cx("shadow shadow-offset inline-block min-w-full overflow-x-auto", className)}
     >
-      <div className={"table table-fixed w-full border-collapse"} {...props} />
+      <div className={"table w-full border-collapse"} {...props} />
     </div>
   )
 })

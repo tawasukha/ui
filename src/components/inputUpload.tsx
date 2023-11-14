@@ -4,6 +4,7 @@ import { Item } from "./upload/Item"
 import { Uploader, type UploaderProps } from "./upload/Uploader"
 import { useCallback, useEffect, useState } from "react"
 import { AnimatePresence } from "framer-motion"
+import { useIsFirstRender } from "../helpers/useIsFirstRender"
 
 const _input = cva(["flex flex-wrap gap-2 w-full bg-base rounded-lg border p-2 border-dashed"], {
   variants: {
@@ -41,6 +42,7 @@ export function InputUpload({
   maxSize = 20 * 1024 * 1024,
   disabled,
 }: InputUploadProps) {
+  const isFirstRender = useIsFirstRender()
   const [files, setFiles] = useState<string[]>(value ? (Array.isArray(value) ? value : []) : [])
 
   const onRemove = useCallback(
@@ -57,6 +59,13 @@ export function InputUpload({
   )
 
   useEffect(() => {
+    const _values = value ? (Array.isArray(value) ? value : []) : []
+    if (files.length == 0 && _values.length !== 0) {
+      setFiles(_values)
+    }
+  }, [files, value, setFiles])
+
+  useEffect(() => {
     if (onChange) onChange(files)
   }, [files])
 
@@ -65,7 +74,8 @@ export function InputUpload({
       <Uploader {...{ url, accept, maxSize, setFiles, responseKey, disabled }} />
       <AnimatePresence>
         {files.map((file) => {
-          const name = (file || "").split("/").pop() || "Untitled"
+          const url = new URL(file)
+          const name = url.searchParams.get("name") || (file || "").split("/").pop() || "Untitled"
           return (
             <Item
               disabled={disabled}

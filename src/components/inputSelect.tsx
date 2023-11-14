@@ -13,7 +13,7 @@ import { Chip, XChip } from "./chip"
 import { AnimatePresence } from "framer-motion"
 import { debouncePromise } from "../helpers/debouncePromise"
 import { ChevronDownIcon } from "@heroicons/react/24/solid"
-import { useIsFirstRender } from "src/helpers/useIsFirstRender"
+import { useIsFirstRender } from "../helpers/useIsFirstRender"
 
 const _input = cva(
   [

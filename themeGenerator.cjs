@@ -54,7 +54,7 @@ function themeGenerator() {
   }
   const mode = {
     base: "slate",
-    primary: "sky",
+    primary: "blue",
     secondary: "cyan",
     success: "emerald",
     warning: "amber",

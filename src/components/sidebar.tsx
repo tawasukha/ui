@@ -71,9 +71,7 @@ export function SidebarMenu({
         className={cx(
           "flex flex-row py-3 px-4 border-base-2 border-b transition-colors",
           "duration-300 transform cursor-pointer items-center",
-          isOpen && !!children
-            ? "text-base bg-primary-3 hover:opacity-90"
-            : "text-primary-3 bg-primary-1 hover:text-primary-5",
+          "text-primary-4 bg-primary-2 bg-opacity-40 hover:bg-primary-1",
           className,
         )}
         onClick={onClick}
