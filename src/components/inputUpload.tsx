@@ -2,9 +2,8 @@ import { cva, type VariantProps } from "../helpers/cva"
 import { type DivProps } from "react-html-props"
 import { Item } from "./upload/Item"
 import { Uploader, type UploaderProps } from "./upload/Uploader"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState, useMemo } from "react"
 import { AnimatePresence } from "framer-motion"
-import { useIsFirstRender } from "../helpers/useIsFirstRender"
 
 const _input = cva(["flex flex-wrap gap-2 w-full bg-base rounded-lg border p-2 border-dashed"], {
   variants: {
@@ -42,8 +41,9 @@ export function InputUpload({
   maxSize = 20 * 1024 * 1024,
   disabled,
 }: InputUploadProps) {
-  const isFirstRender = useIsFirstRender()
   const [files, setFiles] = useState<string[]>(value ? (Array.isArray(value) ? value : []) : [])
+
+  const display = useMemo(() => (value ? (Array.isArray(value) ? value : []) : []), [value])
 
   const onRemove = useCallback(
     async (file: string) => {
@@ -59,13 +59,6 @@ export function InputUpload({
   )
 
   useEffect(() => {
-    const _values = value ? (Array.isArray(value) ? value : []) : []
-    if (files.length == 0 && _values.length !== 0) {
-      setFiles(_values)
-    }
-  }, [files, value, setFiles])
-
-  useEffect(() => {
     if (onChange) onChange(files)
   }, [files])
 
@@ -73,7 +66,7 @@ export function InputUpload({
     <div style={style} className={_input({ mode, className })}>
       <Uploader {...{ url, accept, maxSize, setFiles, responseKey, disabled }} />
       <AnimatePresence>
-        {files.map((file) => {
+        {display.map((file: string) => {
           const url = new URL(file)
           const name = url.searchParams.get("name") || (file || "").split("/").pop() || "Untitled"
           return (
