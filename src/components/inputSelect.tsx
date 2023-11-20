@@ -267,7 +267,7 @@ export const InputSelect = forwardRef(function InputSelect<T>(
   }, [mode, isOpen, className, disabled])
 
   return (
-    <div ref={ref} className="relative" onClick={inputFocus}>
+    <div ref={ref} className="w-full relative" onClick={inputFocus}>
       <div className={_input({ mode, className: _className })}>
         <div
           className={cx("w-full overflow-hidden flex flex-row gap-1", multiple ? "flex-wrap" : "")}
