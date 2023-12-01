@@ -12,12 +12,12 @@ import { StyledIcon } from "./icon"
 import { Chip, XChip } from "./chip"
 import { AnimatePresence } from "framer-motion"
 import { debouncePromise } from "../helpers/debouncePromise"
-import { ChevronDownIcon } from "@heroicons/react/24/solid"
+import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/solid"
 import { useIsFirstRender } from "../helpers/useIsFirstRender"
 
 const _input = cva(
   [
-    "w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr-8 pt-3 py-2",
+    "w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr-12 pt-3 py-2",
     "focus:outline-none flex flex-row focus:shadow-md",
   ],
   {
@@ -36,6 +36,7 @@ export interface InputSelectProps<T>
   creatable?: boolean
   options?: T[]
   loadOptions?: (inputValue?: string) => Promise<T[]>
+  clearable?: boolean
   milis?: number
   multiple?: boolean
   keyLabel?: string
@@ -48,6 +49,7 @@ export interface InputSelectProps<T>
 export const InputSelect = forwardRef(function InputSelect<T>(
   {
     creatable = false,
+    clearable = true,
     multiple = false,
     keyLabel = "label",
     keyValue = "value",
@@ -266,6 +268,21 @@ export const InputSelect = forwardRef(function InputSelect<T>(
     )
   }, [mode, isOpen, className, disabled])
 
+  const renderButtonClear = useMemo(() => {
+    return (
+      clearable &&
+      !!value && (
+        <button
+          type="button"
+          onClick={() => onChange(null)}
+          className={"absolute right-10 transition ease-out bg-base h-6 w-6"}
+        >
+          <StyledIcon mode={mode} name={XMarkIcon} />
+        </button>
+      )
+    )
+  }, [clearable, value])
+
   return (
     <div ref={ref} className="w-full relative" onClick={inputFocus}>
       <div className={_input({ mode, className: _className })}>
@@ -296,16 +313,18 @@ export const InputSelect = forwardRef(function InputSelect<T>(
             })}
           />
         </div>
-
         {!disabled && (
-          <StyledIcon
-            mode={mode}
-            name={ChevronDownIcon}
-            className={cx(
-              "absolute right-4 transition ease-out bg-base h-6 w-6",
-              isOpen ? "rotate-180" : "",
-            )}
-          />
+          <>
+            {renderButtonClear}
+            <StyledIcon
+              mode={mode}
+              name={ChevronDownIcon}
+              className={cx(
+                "absolute right-4 transition ease-out bg-base h-6 w-6",
+                isOpen ? "rotate-180" : "",
+              )}
+            />
+          </>
         )}
       </div>
       <div {...getMenuProps()} className="absolute w-full z-20">
