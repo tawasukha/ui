@@ -64,7 +64,7 @@ export function InputUpload({
 
   return (
     <div style={style} className={_input({ mode, className })}>
-      <Uploader {...{ url, accept, maxSize, setFiles, responseKey, disabled }} />
+      {!disabled && <Uploader {...{ url, accept, maxSize, setFiles, responseKey, disabled }} />}
       <AnimatePresence>
         {display.map((file: string) => {
           const url = new URL(file)
