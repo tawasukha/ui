@@ -34,9 +34,6 @@ export function Uploader({
         const file = files[i]
         setInfo(`${i + 1}/${files.length}`)
         if (url) {
-          if (!responseKey) {
-            throw new Error("Response Key not found")
-          }
           const resp = await uploadFile(url, file, setProgress)
           const storedFile = responseParser ? responseParser(resp) : resp[responseKey]
           setFiles((files) => [...files, storedFile])

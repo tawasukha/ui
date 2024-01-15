@@ -38,21 +38,18 @@ export function InputUpload({
   style,
   accept,
   responseKey,
+  responseParser,
   maxSize = 20 * 1024 * 1024,
   disabled,
 }: InputUploadProps) {
   const [files, setFiles] = useState<string[]>(value ? (Array.isArray(value) ? value : []) : [])
-
   const display = useMemo(() => (value ? (Array.isArray(value) ? value : []) : []), [value])
-
   const onRemove = useCallback(
     async (file: string) => {
       if (onDelete) {
         await onDelete(file)
       }
-
       const updated = files.filter((v) => !v.includes(file))
-
       setFiles(updated)
     },
     [files, setFiles],
@@ -64,7 +61,9 @@ export function InputUpload({
 
   return (
     <div style={style} className={_input({ mode, className })}>
-      {!disabled && <Uploader {...{ url, accept, maxSize, setFiles, responseKey, disabled }} />}
+      {!disabled && (
+        <Uploader {...{ url, accept, maxSize, setFiles, responseKey, responseParser, disabled }} />
+      )}
       <AnimatePresence>
         {display.map((file: string) => {
           const url = new URL(file)
