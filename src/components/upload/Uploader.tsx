@@ -8,6 +8,7 @@ import { cx } from "src/helpers"
 
 export type UploaderProps = {
   responseKey?: string
+  responseParser?: Function
   accept?: Accept
   maxSize: number
   url?: string
@@ -20,6 +21,7 @@ export function Uploader({
   accept,
   maxSize,
   url,
+  responseParser,
   responseKey = "name",
   setFiles,
 }: UploaderProps) {
@@ -36,7 +38,8 @@ export function Uploader({
             throw new Error("Response Key not found")
           }
           const resp = await uploadFile(url, file, setProgress)
-          setFiles((files) => [...files, resp[responseKey]])
+          const storedFile = responseParser ? responseParser(resp) : resp[responseKey]
+          setFiles((files) => [...files, storedFile])
           setProgress(0)
         } else {
           setFiles((files) => [...files, file.name])
