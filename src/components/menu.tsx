@@ -46,4 +46,4 @@ const _Menu = forwardRef<HTMLUListElement, ULProps>(function Menu({ className, .
   )
 })
 
-export const Menu = motion(_Menu)
+export const Menu = motion.create(_Menu)
