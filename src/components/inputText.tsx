@@ -4,7 +4,7 @@ import { forwardRef } from "react"
 
 const _input = cva(
   [
-    "focus:ring-0 block w-full placeholder-base-3 bg-base rounded-lg border px-4 pt-3 py-2 focus:outline-none focus:shadow-md disabled:bg-opacity-40",
+    "focus:ring-0 block w-full placeholder-base-3 bg-base rounded-lg border px-2 pt-2 py-1 focus:outline-none focus:shadow-md disabled:bg-opacity-40",
   ],
   {
     variants: {
@@ -22,6 +22,9 @@ const _input = cva(
 
 export interface InputTextProps extends Omit<InputProps, "type">, VariantProps<typeof _input> {}
 
-export const InputText = forwardRef<HTMLInputElement,InputTextProps>(function InputText({ mode = "base", className, ...props },ref) {
+export const InputText = forwardRef<HTMLInputElement, InputTextProps>(function InputText(
+  { mode = "base", className, ...props },
+  ref,
+) {
   return <input ref={ref} type="text" {...props} className={_input({ mode, className })} />
 })

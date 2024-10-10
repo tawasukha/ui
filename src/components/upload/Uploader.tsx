@@ -1,7 +1,7 @@
 import { Icon } from "../icon"
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline"
 import { ProgressBar } from "./ProgressBar"
-import { useDropzone, type Accept } from "react-dropzone"
+import { useDropzone, type Accept } from "react-dropzone-esm"
 import { useCallback, useState } from "react"
 import { uploadFile } from "./util"
 import { cx } from "src/helpers"
@@ -69,7 +69,7 @@ export function Uploader({
             <input {...getInputProps()} />
             <Icon
               name={CloudArrowUpIcon}
-              className="h-20 w-20 fill-primary-2 text-base-4 stroke-1"
+              className="h-10 w-10 fill-primary-2 text-base-4 stroke-1"
             />
             <span className="text-center text-base-3">Drag and drop</span>
           </>

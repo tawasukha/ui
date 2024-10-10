@@ -138,7 +138,7 @@ export function Modal({
               <div className="flex justify-center -mt-16 md:justify-end">
                 <StyledIcon
                   name={iconName}
-                  className="w-20 h-20 rounded-full ring ring-base-1 bg-base"
+                  className="w-10 h-10 rounded-full ring ring-base-1 bg-base"
                   mode={mode}
                 />
               </div>

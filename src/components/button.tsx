@@ -51,7 +51,7 @@ type ModeProps = Required<{ mode: NonNullable<Props["mode"]> }>
 type SizeProps = Required<{ size: NonNullable<Props["size"]> }>
 
 export interface ButtonProps extends HtmlButtonProps, ModeProps, SizeProps {
-  icon?: React.FC<any>
+  icon?: any
   iconClassName?: string
 }
 

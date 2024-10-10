@@ -1,6 +1,6 @@
 {
   "name": "@tawasukha/ui",
-  "version": "0.0.70",
+  "version": "0.0.70-esm",
   "type": "module",
   "types": "dist/index.d.ts",
   "exports": {
@@ -101,7 +101,7 @@
     "date-fns": "^2.30.0",
     "downshift": "^7.6.1",
     "framer-motion": "^10.12.21",
-    "react-dropzone": "^14.2.3",
+    "react-dropzone-esm": "^15.0.1",
     "react-error-boundary": "^4.0.10",
     "react-number-format": "^5.2.2",
     "react-textarea-autosize": "^8.5.2",

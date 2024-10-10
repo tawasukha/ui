@@ -17,7 +17,7 @@ import {
 
 const _input = cva(
   [
-    "w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr-8 pt-3 py-2",
+    "w-full placeholder-base-3 bg-base rounded-lg border pl-3 pr-6 pt-2 py-1",
     "flex flex-row gap-1 overflow-hidden flex-wrap focus:outline-none focus:shadow-md",
   ],
   {
@@ -37,12 +37,20 @@ export interface InputDateProps
   onChange: (date: Date | null) => void
 }
 
-export const InputDate = forwardRef<HTMLInputElement,InputDateProps>(function InputDate({ mode = "base", className, value, onChange, disabled },ref) {
+export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function InputDate(
+  { mode = "base", className, value, onChange, disabled },
+  ref,
+) {
   const { value: isOpen, setTrue, setFalse } = useBoolean()
   const refDropdown = useRef(null)
-  const onDatesChange = useCallback((dates:Date[])=>{ onChange(dates?dates[0]:null); },[onChange])
-  const selectedDates = useMemo(()=>value ? [value] : undefined,[value])
-  
+  const onDatesChange = useCallback(
+    (dates: Date[]) => {
+      onChange(dates ? dates[0] : null)
+    },
+    [onChange],
+  )
+  const selectedDates = useMemo(() => (value ? [value] : undefined), [value])
+
   useOnClickOutside(refDropdown, setFalse)
 
   const {
@@ -87,7 +95,7 @@ export const InputDate = forwardRef<HTMLInputElement,InputDateProps>(function In
         onClick={disabled ? undefined : setTrue}
       >
         <input
-        ref={ref}
+          ref={ref}
           className="outline-none focus:ring-0 bg-transparent"
           type="text"
           value={selectedDate}
@@ -97,11 +105,11 @@ export const InputDate = forwardRef<HTMLInputElement,InputDateProps>(function In
           <StyledIcon
             mode={mode}
             name={CalendarDaysIcon}
-            className={"absolute right-4 h-6 w-6 opacity-50"}
+            className={"absolute right-2 mt-0.5 h-4 w-4 opacity-50"}
           />
         )}
       </div>
-      <div ref={refDropdown} className="absolute z-20 w-72">
+      <div ref={refDropdown} className="absolute z-20 w-56">
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -111,7 +119,7 @@ export const InputDate = forwardRef<HTMLInputElement,InputDateProps>(function In
               exit={{ opacity: 0 }}
               className="flex flex-col flex-1 bg-base shadow-md shadow-offset mt-2 rounded-lg"
             >
-              <div className="flex flex-row justify-between gap gap-x-2 bg-base-2 rounded-t-lg text-md font-semibold text-base-4">
+              <div className="flex flex-row justify-between gap gap-x-2 bg-base-2 rounded-t-lg text-xs font-semibold text-base-4">
                 <div className="flex flex-1">
                   <button type="button" className="p-2" {...previousMonthButton()}>
                     <Icon name={ChevronLeftIcon} className="h-4 w-4" />
@@ -131,12 +139,12 @@ export const InputDate = forwardRef<HTMLInputElement,InputDateProps>(function In
                   </button>
                 </div>
               </div>
-              <ul className="grid grid-cols-7 gap-y-2 items-center h-8 p-2 pt-1 pb-3 bg-base-2">
+              <ul className="grid grid-cols-7 gap-y-2 items-center h-6 p-1 pt-1 pb-2 bg-base-2">
                 {weekDays.map((day, i) => {
                   return (
                     <li
                       className={cx(
-                        "text-md font-semibold text-center",
+                        "text-xs font-semibold text-center",
                         i === 0 ? "text-error-4" : "text-base-4",
                       )}
                       key={`${month}-${day}`}
@@ -146,18 +154,18 @@ export const InputDate = forwardRef<HTMLInputElement,InputDateProps>(function In
                   )
                 })}
               </ul>
-              <ul className="grid grid-cols-7 gap-y-2 items-center p-2">
+              <ul className="grid grid-cols-7 gap-y-1 items-center p-1">
                 {days.map((day, i) => {
                   const sun = [0, 7, 14, 21, 28, 35]
                   return (
                     <li
                       className={cx(
-                        "flex justify-center items-center hover:bg-base-2 rounded text-md",
+                        "flex justify-center items-center hover:bg-base-2 rounded text-xs",
                         sun.includes(i) ? "text-error-4" : "text-base-4",
                       )}
                       key={`${month}-${day.inCurrentMonth}-${day.day}`}
                     >
-                      <button type="button" className="h-8 w-8" {...dayButton(day)}>
+                      <button type="button" className="h-6 w-6" {...dayButton(day)}>
                         {day.day}
                       </button>
                     </li>

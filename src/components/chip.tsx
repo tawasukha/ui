@@ -30,10 +30,10 @@ const _chip = cva(
 const _icon = cva([], {
   variants: {
     size: {
-      sm: ["-ml-1 mr-1 h-5 w-5 text-sm"],
-      md: ["-ml-1 mr-2 h-6 w-6 text-md"],
-      lg: ["-ml-2 mr-2 h-7 w-7 text-lg"],
-      xl: ["-ml-2 mr-2 h-7 w-7 text-lg"],
+      sm: ["-ml-1 mr-1 h-3 w-3 text-xs"],
+      md: ["-ml-1 mr-2 h-4 w-4 text-sm"],
+      lg: ["-ml-2 mr-2 h-5 w-5 text-md"],
+      xl: ["-ml-2 mr-2 h-5 w-5 text-md"],
     },
   },
 })

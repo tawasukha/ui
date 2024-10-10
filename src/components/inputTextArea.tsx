@@ -5,7 +5,7 @@ import { dynamic } from "../helpers/dynamic"
 const TextArea = dynamic(async () => await import("react-textarea-autosize"))
 const _input = cva(
   [
-    "focus:ring-0 block w-full placeholder-base-3 bg-base rounded-lg border px-4 pt-3 py-2 focus:outline-none focus:shadow-md disabled:bg-opacity-40",
+    "focus:ring-0 block w-full placeholder-base-3 bg-base rounded-lg border px-2 pt-2 py-1 focus:outline-none focus:shadow-md disabled:bg-opacity-40",
   ],
   {
     variants: {
@@ -25,10 +25,14 @@ export interface InputTextAreaProps
   extends React.ComponentProps<typeof TextArea>,
     VariantProps<typeof _input> {}
 
-export const InputTextArea = forwardRef<HTMLTextAreaElement,InputTextAreaProps>(function InputTextArea({ mode = "base", className, ...props },ref) {
-  return <TextArea ref={ref} {...props} className={_input({ mode, className })} />
-})
+export const InputTextArea = forwardRef<HTMLTextAreaElement, InputTextAreaProps>(
+  function InputTextArea({ mode = "base", className, ...props }, ref) {
+    return <TextArea ref={ref} {...props} className={_input({ mode, className })} />
+  },
+)
 
-export const RawTextArea = forwardRef<HTMLTextAreaElement,InputTextAreaProps>(function InputTextArea({ mode = "base", className, ...props },ref) {
-  return <textarea ref={ref} {...props} className={_input({ mode, className })} />
-})
+export const RawTextArea = forwardRef<HTMLTextAreaElement, InputTextAreaProps>(
+  function InputTextArea({ mode = "base", className, ...props }, ref) {
+    return <textarea ref={ref} {...props} className={_input({ mode, className })} />
+  },
+)

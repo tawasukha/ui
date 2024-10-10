@@ -39,6 +39,7 @@ function ErrorDialog({ error, resetErrorBoundary }: ErrorDialogProps) {
 
 export function ErrorHandler({ children }: ChildrenProps) {
   return (
+    //@ts-ignore
     <ErrorBoundary onError={logError} FallbackComponent={ErrorDialog}>
       {children}
     </ErrorBoundary>

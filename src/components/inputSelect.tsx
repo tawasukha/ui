@@ -17,7 +17,7 @@ import { useIsFirstRender } from "../helpers/useIsFirstRender"
 
 const _input = cva(
   [
-    "w-full placeholder-base-3 bg-base rounded-lg border pl-4 pr-12 pt-3 py-2",
+    "w-full placeholder-base-3 bg-base rounded-lg border pl-3 pr-10 pt-2 py-1",
     "focus:outline-none flex flex-row focus:shadow-md",
   ],
   {
@@ -49,7 +49,7 @@ export interface InputSelectProps<T>
 export const InputSelect = forwardRef(function InputSelect<T>(
   {
     creatable = false,
-    clearable = true,
+    clearable = false,
     multiple = false,
     keyLabel = "label",
     keyValue = "value",
@@ -275,7 +275,7 @@ export const InputSelect = forwardRef(function InputSelect<T>(
         <button
           type="button"
           onClick={() => onChange(null)}
-          className={"absolute right-10 transition ease-out bg-base h-6 w-6"}
+          className={"absolute right-6 transition ease-out bg-base mt-0.5 h-4 w-4"}
         >
           <StyledIcon mode={mode} name={XMarkIcon} />
         </button>
@@ -320,7 +320,7 @@ export const InputSelect = forwardRef(function InputSelect<T>(
               mode={mode}
               name={ChevronDownIcon}
               className={cx(
-                "absolute right-4 transition ease-out bg-base h-6 w-6",
+                "absolute right-2 transition ease-out bg-base mt-0.5 h-4 w-4",
                 isOpen ? "rotate-180" : "",
               )}
             />

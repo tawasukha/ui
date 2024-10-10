@@ -25,7 +25,7 @@ export function Navbar({ left, right, className }: NavbarProps) {
 export interface NavbarMenuProps extends AProps {
   label?: string
   last?: boolean
-  icon?: React.FC<any>
+  icon?: any
   iconOnly?: boolean
 }
 

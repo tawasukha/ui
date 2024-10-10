@@ -63,7 +63,7 @@ export interface AvatarProps
     Required<{ size: NonNullable<VariantProps<typeof _box>["size"]> }>,
     Omit<VariantProps<typeof _status>, "size"> {
   image?: string
-  icon?: React.FC<any>
+  icon?: any
 }
 
 export function Avatar({ mode, size = "md", image, icon, children, ...props }: AvatarProps) {

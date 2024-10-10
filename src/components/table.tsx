@@ -9,7 +9,11 @@ export const TableCell = forwardRef<HTMLDivElement, TableCellProps>(function Tab
   ref,
 ) {
   return (
-    <div ref={ref} className={cx("table-cell py-3.5 px-4 break-words", className)} {...props} />
+    <div
+      ref={ref}
+      className={cx("table-cell align-middle py-2 px-4 break-words", className)}
+      {...props}
+    />
   )
 })
 
@@ -46,7 +50,7 @@ export const TableBody = forwardRef<HTMLDivElement, TableBodyProps>(function Tab
     <div
       ref={ref}
       className={cx(
-        "table-row-group divide-y divide-base-2 text-base-5 text-md",
+        "table-row-group divide-y divide-base-2 text-base-5 text-sm",
         dark ? "bg-base-1" : "bg-base",
         className,
       )}
@@ -64,7 +68,10 @@ export const TableHead = forwardRef<HTMLDivElement, TableHeadProps>(function Tab
   return (
     <div
       ref={ref}
-      className={cx("table-header-group bg-primary-2 text-primary-4 text-md text-left", className)}
+      className={cx(
+        "table-header-group align-middle bg-primary-2 text-primary-4 text-sm text-left",
+        className,
+      )}
       {...props}
     />
   )

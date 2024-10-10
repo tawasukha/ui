@@ -4,9 +4,9 @@ import { AnimatePresence, motion } from "framer-motion"
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 import { Icon } from "./icon"
 import { CheckIcon } from "@heroicons/react/24/outline"
-import { MinusSmallIcon } from "@heroicons/react/24/solid"
+import { MinusIcon } from "@heroicons/react/24/solid"
 
-const _input = cva(["flex flex-col w-[18px] h-[18px] ring-1 rounded"], {
+const _input = cva(["flex flex-col w-[14px] h-[14px] ring-1 rounded"], {
   variants: {
     mode: {
       base: ["bg-base-1 text-base-5 ring-base-3"],
@@ -60,7 +60,7 @@ export const InputCheckbox = forwardRef<
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
             >
-              <Icon name={CheckIcon} className="w-[18px] h-[18px] stroke-[3px]" />
+              <Icon name={CheckIcon} className=" w-[14px] h-[14px] stroke-[3px]" />
             </motion.i>
           )}
         </AnimatePresence>
@@ -71,7 +71,7 @@ export const InputCheckbox = forwardRef<
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
             >
-              <Icon name={MinusSmallIcon} className="w-[18px] h-[18px] stroke-[3px]" />
+              <Icon name={MinusIcon} className="w-[14px] h-[14px] stroke-[3px]" />
             </motion.i>
           )}
         </AnimatePresence>

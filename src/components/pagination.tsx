@@ -64,9 +64,9 @@ export const usePagination = ({
 }
 
 const pageClassName =
-  "px-3 py-2 text-md text-base-3 bg-base-1 hover:bg-primary-2 hover:bg-opacity-40 rounded-md"
+  "px-2 py-1 text-md text-base-3 bg-base-1 hover:bg-primary-2 hover:bg-opacity-40 rounded-md"
 const buttonClassName =
-  "flex items-center px-4 py-2 text-md text-base-3 bg-base-1 hover:bg-primary-2 hover:bg-opacity-40 transition-colors duration-200 rounded-md gap-x-2"
+  "flex items-center px-2 py-1 text-md text-base-3 bg-base-1 hover:bg-primary-2 hover:bg-opacity-40 transition-colors duration-200 rounded-md gap-x-2"
 
 export type PaginationProps = {
   onPageChange: (page: number) => void
@@ -112,7 +112,7 @@ export function Pagination({
   }, [currentPage, pageSize, totalCount])
 
   return (
-    <div className="flex items-center justify-between py-4 text-base-3 text-md">
+    <div className="flex items-center justify-between py-2 text-base-3 text-md">
       <div className="flex">
         <span className="hidden md:block">Show : {display}</span>
         <div className="flex flex-col gap-x-2 sm:flex-row md:hidden">

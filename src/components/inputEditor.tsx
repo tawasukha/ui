@@ -33,13 +33,10 @@ export interface InputEditorProps extends VariantProps<typeof _input> {
   disabled?: boolean
 }
 
-export const InputEditor = forwardRef<PureEditorContent,InputEditorProps>(function InputEditor({
-  mode = "base",
-  className,
-  onChange,
-  content,
-  disabled = false,
-},ref) {
+export const InputEditor = forwardRef<PureEditorContent, InputEditorProps>(function InputEditor(
+  { mode = "base", className, onChange, content, disabled = false },
+  ref,
+) {
   const refTimeout = useRef<NodeJS.Timeout>()
   const [hasContent, renderContent] = useState(content === undefined)
   const editor = useEditor({
@@ -95,6 +92,7 @@ export const InputEditor = forwardRef<PureEditorContent,InputEditorProps>(functi
       <div className="min-h-[200px] overflow-auto">
         {editor && <TableMenu editor={editor} />}
         <div className="px-4 pt-3 py-2 text-base-5">
+          {/**@ts-ignore*/}
           <EditorContent ref={ref} editor={editor} disabled={disabled} />
         </div>
       </div>

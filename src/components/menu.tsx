@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { Icon } from "../components/icon"
 
 export type MenuItemProps = LIProps & {
-  icon?: React.FC<any>
+  icon?: any
   disabled?: boolean
   hover?: boolean
   active?: boolean

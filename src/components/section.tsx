@@ -21,7 +21,7 @@ export function Section({
     <section className={cx("rounded-lg shadow", className)}>
       <div
         className={cx(
-          "flex w-full flex-row bg-primary-2 text-primary-4 text-md py-3.5 px-4 bg-opacity-40 rounded-t-lg sticky top-0 z-10 backdrop-blur-md",
+          "flex w-full flex-row bg-primary-2 text-primary-4 text-md py-2 px-4 bg-opacity-40 rounded-t-lg sticky top-0 z-10 backdrop-blur-md",
           titleClassName,
         )}
       >
