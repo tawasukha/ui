@@ -14,7 +14,7 @@ const TableMenu = dynamic(async () => await import("./editor/tablemenu"))
 
 const _input = cva(
   [
-    "focus:ring-0 block w-full placeholder-base-3 bg-base rounded-lg border focus:outline-none focus:shadow-md",
+    "focus:ring-0 block w-full placeholder-base-3 bg-base rounded-md border focus:outline-none focus:shadow-md",
   ],
   {
     variants: {

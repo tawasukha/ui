@@ -17,7 +17,7 @@ import {
 
 const _input = cva(
   [
-    "w-full placeholder-base-3 bg-base rounded-lg border pl-3 pr-6 pt-2 py-1",
+    "w-full placeholder-base-3 bg-base rounded-md border pl-2 pr-4 pt-2 py-1",
     "flex flex-row gap-1 overflow-hidden flex-wrap focus:outline-none focus:shadow-md",
   ],
   {
@@ -81,8 +81,8 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function I
         error: disabled
           ? "bg-opacity-40 bg-error-2"
           : isOpen
-          ? "border-error-3 shadow-error-1"
-          : "",
+            ? "border-error-3 shadow-error-1"
+            : "",
       }[mode],
       className,
     )
@@ -117,7 +117,7 @@ export const InputDate = forwardRef<HTMLInputElement, InputDateProps>(function I
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex flex-col flex-1 bg-base shadow-md shadow-offset mt-2 rounded-lg"
+              className="flex flex-col flex-1 bg-base shadow-md shadow-offset mt-2 rounded-md"
             >
               <div className="flex flex-row justify-between gap gap-x-2 bg-base-2 rounded-t-lg text-xs font-semibold text-base-4">
                 <div className="flex flex-1">

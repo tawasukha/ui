@@ -17,7 +17,7 @@ import { useIsFirstRender } from "../helpers/useIsFirstRender"
 
 const _input = cva(
   [
-    "w-full placeholder-base-3 bg-base rounded-lg border pl-3 pr-10 pt-2 py-1",
+    "w-full placeholder-base-3 bg-base rounded-md border pl-2 pr-10 pt-2 py-1",
     "focus:outline-none flex flex-row focus:shadow-md",
   ],
   {
@@ -261,8 +261,8 @@ export const InputSelect = forwardRef(function InputSelect<T>(
         error: disabled
           ? "bg-opacity-40 bg-error-2"
           : isOpen
-          ? "border-error-3 shadow-error-1"
-          : "",
+            ? "border-error-3 shadow-error-1"
+            : "",
       }[mode],
       className,
     )

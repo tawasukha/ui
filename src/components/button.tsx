@@ -4,7 +4,7 @@ import { Icon } from "./icon"
 
 const _button = cva(
   [
-    "transition ease-in-out flex items-center tracking-wide capitalize rounded-lg focus:outline-none focus:ring ring-offset-2 ring-offset-base hover:-translate-y-0.5 hover:shadow-md hover:shadow-offset",
+    "transition ease-in-out flex items-center tracking-wide capitalize rounded-md focus:outline-none focus:ring ring-offset-2 ring-offset-base hover:-translate-y-0.5 hover:shadow-md hover:shadow-offset",
   ],
   {
     variants: {

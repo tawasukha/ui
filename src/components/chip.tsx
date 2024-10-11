@@ -5,7 +5,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid"
 
 const _chip = cva(
   [
-    "inline-flex items-center tracking-wide capitalize rounded-lg hover:shadow-md hover:shadow-offset",
+    "inline-flex items-center tracking-wide capitalize rounded-md hover:shadow-md hover:shadow-offset",
   ],
   {
     variants: {

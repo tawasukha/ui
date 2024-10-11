@@ -18,17 +18,17 @@ export function Section({
   className,
 }: SectionProps) {
   return (
-    <section className={cx("rounded-lg shadow", className)}>
+    <section className={cx("rounded-md shadow", className)}>
       <div
         className={cx(
-          "flex w-full flex-row bg-primary-2 text-primary-4 text-md py-2 px-4 bg-opacity-40 rounded-t-lg sticky top-0 z-10 backdrop-blur-md",
+          "flex w-full flex-row bg-primary-2 text-primary-4 text-md py-1 px-4 bg-opacity-40 rounded-t-lg sticky top-0 z-10 backdrop-blur-md",
           titleClassName,
         )}
       >
         <h3 className="flex flex-grow">{title}</h3>
         {right}
       </div>
-      <div className={cx("px-4 space-y-2 pb-4", bodyClassName)}>{children}</div>
+      <div className={cx("px-2 space-y-1 pb-2", bodyClassName)}>{children}</div>
     </section>
   )
 }

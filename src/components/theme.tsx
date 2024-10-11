@@ -32,7 +32,7 @@ export function ThemeToggle() {
   ) : (
     <button
       onClick={toggleTheme}
-      className={cx("self-center -mt-1 p-4 w-8 h-8 rounded-lg flex items-center justify-center")}
+      className={cx("self-center -mt-1 p-4 w-8 h-8 rounded-md flex items-center justify-center")}
     >
       <AnimatePresence>
         {theme === "light" && (

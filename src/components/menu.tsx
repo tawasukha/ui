@@ -38,7 +38,7 @@ const _Menu = forwardRef<HTMLUListElement, ULProps>(function Menu({ className, .
     <ul
       ref={ref}
       className={cx(
-        "relative mt-1 flex flex-col overflow-x-hidden w-full bg-base rounded-lg shadow-offset shadow-md",
+        "relative mt-1 flex flex-col overflow-x-hidden w-full bg-base rounded-md shadow-offset shadow-md",
         className,
       )}
       {...props}

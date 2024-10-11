@@ -2,8 +2,8 @@ type ProgressBarProps = {
   percent: number
 }
 
-const squareSize = 96
-const strokeWidth = 8
+const squareSize = 48
+const strokeWidth = 4
 const viewBox = `0 0 ${squareSize} ${squareSize}`
 const radius = (squareSize - strokeWidth) / 2
 const coord = squareSize / 2
@@ -13,7 +13,7 @@ export function ProgressBar({ percent }: ProgressBarProps) {
   const dashOffset = dashArray - (dashArray * percent) / 100
 
   return (
-    <div className="absolute">
+    <div className="absolute top-2 left-2">
       <svg width={squareSize} height={squareSize} viewBox={viewBox}>
         <circle
           className="text-base-2"
@@ -37,7 +37,7 @@ export function ProgressBar({ percent }: ProgressBarProps) {
           cx={coord}
           cy={coord}
         />
-        <text className="text-xl fill-primary-5" x="50%" y="50%" dy=".3em" textAnchor="middle">
+        <text className="text-sm fill-primary-5" x="50%" y="50%" dy=".3em" textAnchor="middle">
           {percent} %
         </text>
       </svg>

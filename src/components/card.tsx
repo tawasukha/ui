@@ -9,7 +9,7 @@ export type CardProps = {
 const _box = cva(
   [
     "bg-base",
-    "rounded-lg",
+    "rounded-md",
     "shadow-lg",
     "hover:ring-1",
     "overflow-hidden",

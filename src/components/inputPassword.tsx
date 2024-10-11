@@ -22,7 +22,7 @@ function useEye(mode: "base" | "error") {
 
 const _input = cva(
   [
-    "focus:ring-0 block w-full placeholder-base-3 bg-base rounded-lg border pl-3 pr-8 px-2 pt-2 py-1 focus:outline-none focus:shadow-md disabled:bg-opacity-40",
+    "focus:ring-0 block w-full placeholder-base-3 bg-base rounded-md border  pr-8 px-2 pt-2 py-1 focus:outline-none focus:shadow-md disabled:bg-opacity-40",
   ],
   {
     variants: {

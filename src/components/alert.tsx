@@ -60,7 +60,7 @@ const iconName: Record<string, React.FC<any>> = {
 
 export function Alert({ mode = "base", title, children, onDismiss, ...props }: AlertProps) {
   return (
-    <div className="flex max-w-sm bg-base rounded-lg shadow-md shadow-offset" {...props}>
+    <div className="flex max-w-sm bg-base rounded-md shadow-md shadow-offset" {...props}>
       {mode !== "base" && (
         <div className={_boxicon({ mode })}>
           <StyledIcon mode={mode} name={iconName[mode]} className="h-10 w-10" />

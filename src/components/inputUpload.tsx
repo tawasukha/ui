@@ -5,7 +5,7 @@ import { Uploader, type UploaderProps } from "./upload/Uploader"
 import { useCallback, useEffect, useState, useMemo } from "react"
 import { AnimatePresence } from "framer-motion"
 
-const _input = cva(["flex flex-wrap gap-2 w-full bg-base rounded-lg border p-2 border-dashed"], {
+const _input = cva(["flex flex-wrap gap-1 w-full bg-base rounded-md border p-2 border-dashed"], {
   variants: {
     mode: {
       base: [
@@ -44,6 +44,7 @@ export function InputUpload({
 }: InputUploadProps) {
   const [files, setFiles] = useState<string[]>(value ? (Array.isArray(value) ? value : []) : [])
   const display = useMemo(() => (value ? (Array.isArray(value) ? value : []) : []), [value])
+
   const onRemove = useCallback(
     async (file: string) => {
       if (onDelete) {

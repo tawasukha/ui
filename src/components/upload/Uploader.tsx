@@ -56,8 +56,8 @@ export function Uploader({
     <div
       {...getRootProps({
         className: cx(
-          "relative flex flex-col p-4 items-center justify-center rounded-lg",
-          disabled ? "" : "w-40 border border-base-2 h-28 cursor-pointer border-dashed",
+          "relative flex flex-col p-2 items-center justify-center rounded-md",
+          disabled ? "" : "w-16 border border-base-2 h-16 cursor-pointer border-dashed",
         ),
       })}
     >
@@ -67,17 +67,13 @@ export function Uploader({
         ) : (
           <>
             <input {...getInputProps()} />
-            <Icon
-              name={CloudArrowUpIcon}
-              className="h-10 w-10 fill-primary-2 text-base-4 stroke-1"
-            />
-            <span className="text-center text-base-3">Drag and drop</span>
+            <Icon name={CloudArrowUpIcon} className="h-8 w-8 fill-primary-2 text-base-4 stroke-1" />
           </>
         )
       ) : (
         <>
           <ProgressBar percent={progress} />
-          <span className="absolute text-sm right-1 bottom-0.5">{info}</span>
+          <span className="absolute text-xs right-1 bottom-0.5">{info}</span>
         </>
       )}
     </div>

@@ -47,12 +47,12 @@ export function ModalFooter({
   )
 
   return (
-    <div className="flex justify-end mt-4 gap-x-2">
+    <div className="flex justify-end mt-2 gap-x-2">
       <Button
         onClick={onClickOK}
         mode={"primary"}
-        size={"md"}
-        className="min-w-[80px] justify-center"
+        size={"sm"}
+        className="min-w-[60px] justify-center"
       >
         {textOK}
       </Button>
@@ -60,8 +60,8 @@ export function ModalFooter({
         <Button
           onClick={onClickCancel}
           mode={"transparent"}
-          size={"md"}
-          className="min-w-[80px] justify-center"
+          size={"sm"}
+          className="min-w-[60px] justify-center"
         >
           {textCancel}
         </Button>
@@ -77,7 +77,7 @@ type BackDropProps = {
 function BackDrop({ onClickBackDrop }: BackDropProps) {
   return (
     <motion.div
-      className="absolute left-0 top-0 w-full h-full backdrop-blur z-30"
+      className="absolute left-0 top-0 w-full h-full bg-slate-800/80 backdrop-blur z-30"
       onClick={onClickBackDrop}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -129,13 +129,17 @@ export function Modal({
             transition={{ delay: 0.15 }}
             initial={{ opacity: 0, translateY: "300%", translateX: "-50%" }}
             animate={{ opacity: 1, translateY: "0%", translateX: "-50%" }}
-            exit={{ opacity: 0, translateY: "300%", translateX: "-50%" }}
+            exit={{
+              opacity: 0,
+              translateY: "300%",
+              translateX: "-50%",
+            }}
             className={
-              "fixed flex left-1/2 top-10 flex-col w-full max-w-md lg:max-w-xl px-8 py-4 mt-16 bg-base rounded-lg shadow-lg shadow-offset z-40"
+              "fixed flex left-1/2 top-10 flex-col w-full max-w-md lg:max-w-lg px-8 py-4 mt-10 bg-base rounded-md shadow shadow-offset z-40"
             }
           >
             {iconName && (
-              <div className="flex justify-center -mt-16 md:justify-end">
+              <div className="flex justify-center -mt-8 md:justify-end">
                 <StyledIcon
                   name={iconName}
                   className="w-10 h-10 rounded-full ring ring-base-1 bg-base"
@@ -144,9 +148,9 @@ export function Modal({
               </div>
             )}
 
-            <h2 className="mt-2 text-xl font-semibold text-base-5">{title}</h2>
+            <h2 className="text-lg font-semibold text-base-5">{title}</h2>
             <p
-              className="mt-4 text-sm text-base-5 max-h-60 overflow-y-auto pr-1"
+              className="mt-2 text-sm text-base-5 max-h-40 overflow-y-auto pr-1"
               dangerouslySetInnerHTML={{ __html: description }}
             />
             {children || (
